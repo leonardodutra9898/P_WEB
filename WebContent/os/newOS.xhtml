@@ -8,28 +8,26 @@
 
 <ui:define name="conteudo">
 <h:form>
+
+<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+		
 		<p:outputLabel value="Cliente: " for="cli" />
 		<p:selectOneMenu id="cli">
 			<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
 			<f:selectItems value="#{osBean.listClientes}" var="iCli" itemValue="#{iCli.id}" itemLabel="#{iCli.nome}"/>
 		</p:selectOneMenu>
 
-		<p:separator />
-
 		<p:outputLabel value="Descrição: " for="desc" />		
 		<p:inputText id="desc" value="#{osBean.os.descricao}" 
-			required="true" requiredMessage="Descreva o problema..." 
-			>
-		</p:inputText> <br />
-		
-		<p:separator />
+			required="true" requiredMessage="Descreva o problema...">
+		</p:inputText>
 		
 		<p:outputLabel value="Prioridade: " for="prio" /> 
 		<p:inputText id="prio" required="true" value="#{osBean.os.prioridade}" validatorMessage="Apenas numero" /> 
 		
 		<p:commandButton value="Adicionar" action="#{osBean.novoOS}"/>
 		
-		<br />
+		</h:panelGrid>
 	</h:form>
 </ui:define>	
 

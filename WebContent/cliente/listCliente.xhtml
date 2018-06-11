@@ -8,25 +8,25 @@
 
 <ui:define name="conteudo">
 
-<p:dataTable var="os" value="#{cliBean.listClientes}">
+<p:dataTable var="cli" value="#{cliBean.listClientes}">
     <p:column headerText="ID">
-        <h:outputText value="#{cliBean.id}" />
+        <h:outputText value="#{cli.id}" />
     </p:column>
  
 	 <p:column headerText="Nome">
-        <h:outputText value="#{cliBean.nome}" />
+        <h:outputText value="#{cli.nome}" />
     </p:column>
  
     <p:column headerText="E-mail">
-        <h:outputText value="#{cliBean.email}" />
+        <h:outputText value="#{cli.email}" />
     </p:column>
 
 	 <p:column headerText="CPF">
-        <h:outputText value="#{cliBean.cpf}" />
+        <h:outputText value="#{cli.cpf}" />
     </p:column>
  
  	<p:column headerText="Endereço">
-        <h:outputText value="#{cliBean.endereco}" />
+        <h:outputText value="#{cli.endereco}" />
     </p:column>
 
 </p:dataTable>

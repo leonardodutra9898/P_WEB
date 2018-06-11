@@ -8,28 +8,26 @@
 
 <ui:define name="conteudo">
 <h:form>
-		<p:outputLabel value="Cliente: " for="cli" />
-		<p:selectOneMenu id="cli">
-			<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
-			<f:selectItems value="#{osBean.listClientes}" var="iCli" itemValue="#{iCli.id}" itemLabel="#{iCli.nome}"/>
-		</p:selectOneMenu>
 
-		<p:separator />
+	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
-		<p:outputLabel value="Descrição: " for="desc" />		
-		<p:inputText id="desc" value="#{osBean.os.descricao}" 
-			required="true" requiredMessage="Descreva o problema..." 
-			>
-		</p:inputText> <br />
+		<p:outputLabel value="Nome do Cliente: " for="nom" />		
+		<p:inputText id="nom" value="#{cliBean.cliServ.cliente.nome}" 
+			required="true" requiredMessage="Nome é necessário"	>
+		</p:inputText>
 		
-		<p:separator />
+		<p:outputLabel value="E-mail " for="mail" /> 
+		<p:inputText id="mail" required="true" value="#{cliBean.cliServ.cliente.email}" validatorMessage="E-mail inválido" /> 
+
+		<p:outputLabel value="CPF" for="cpf" /> 
+		<p:inputText id="cpf" required="true" value="#{cliBean.cliServ.cliente.cpf}" validatorMessage="CPF inválido" /> 
+
+		<p:outputLabel value="Endereço" for="end" /> 
+		<p:inputText id="end" required="true" value="#{cliBean.cliServ.cliente.endereco}" /> 
 		
-		<p:outputLabel value="Prioridade: " for="prio" /> 
-		<p:inputText id="prio" required="true" value="#{osBean.os.prioridade}" validatorMessage="Apenas numero" /> 
+		<p:commandButton value="Adicionar" action="#{cliBean.novoCliente}"/>
 		
-		<p:commandButton value="Adicionar" action="#{osBean.novoOS}"/>
-		
-		<br />
+		</h:panelGrid>
 	</h:form>
 </ui:define>	
 

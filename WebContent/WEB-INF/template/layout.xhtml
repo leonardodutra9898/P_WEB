@@ -30,7 +30,7 @@
  
           
         <f:facet name="right">
-            <p:commandButton type="button" value="Novo Cliente" icon="ui-icon-document" />
+            <p:button type="button" value="Novo Cliente" icon="ui-icon-document" outcome="/cliente/newCliente.xhtml"/>
         </f:facet>
         
         
@@ -41,7 +41,7 @@
         
          <f:facet name="right">
 			<p:menuButton value="Opções">
-                <p:menuitem value="Listar Clientes" update="messages" icon="ui-icon-disk" />
+                <p:menuitem value="Listar Clientes" update="messages" icon="ui-icon-disk" outcome="/cliente/listCliente.xhtml" />
                 <p:menuitem value="Listar Funcionários" update="messages" icon="ui-icon-disk" />
                 
             </p:menuButton>
