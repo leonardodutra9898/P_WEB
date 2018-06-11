@@ -6,14 +6,16 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import br.ufc.crateus.os.enums.Status;
 import br.ufc.crateus.os.model.OS;
 
 @ManagedBean(name="osBean")
-@ViewScoped
+@ApplicationScoped
 public class OSBean implements Serializable {
 
 	/**
@@ -27,7 +29,8 @@ public class OSBean implements Serializable {
 	
 	
 	public OSBean() {
-
+		os = new OS();
+		listOS = new ArrayList<OS>();
 	}
 	
 	@PostConstruct
@@ -67,8 +70,7 @@ public class OSBean implements Serializable {
 //		listOS.add(os3);
 //		listOS.add(os4);
 		
-		os = new OS();
-		listOS = new ArrayList<OS>();
+
 		
 	}
 
@@ -95,7 +97,7 @@ public class OSBean implements Serializable {
 		
 		
 		listOS.add(os);
-		list();
+		//list();
 		
 		System.out.println("Tamanho da lista: " + listOS.size());
 	}
