@@ -8,16 +8,22 @@
 
 <ui:define name="conteudo">
 <h:form>
-		<h:outputLabel value="Descrição: " for="desc" /> <br />		
-		<h:inputText id="desc" value="#{osBean.os.descricao}" 
+		<p:outputLabel value="Cliente: " for="cli" /> <br />
+		<p:selectOneMenu id="cli">
+			<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
+			<f:selectItems value="#{osBean.listClientes}" var="iCli" itemValue="#{iCli.id}" itemLabel="#{iCli.nome}"/>
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Descrição: " for="desc" /> <br />		
+		<p:inputText id="desc" value="#{osBean.os.descricao}" 
 			required="true" requiredMessage="Descreva o problema..." 
 			>
-		</h:inputText> <br />
+		</p:inputText> <br />
 		
-		<h:outputLabel value="Prioridade: " for="prio" /> <br />
-		<h:inputText id="prio" required="true" value="#{osBean.os.prioridade}" validatorMessage="Apenas numero" /> <br />
+		<p:outputLabel value="Prioridade: " for="prio" /> <br />
+		<p:inputText id="prio" required="true" value="#{osBean.os.prioridade}" validatorMessage="Apenas numero" /> <br />
 		
-		<h:commandButton value="Adicionar" action="#{osBean.novoOS}"/> <br />
+		<p:commandButton value="Adicionar" action="#{osBean.novoOS}"/> <br />
 		<!-- <h:button value="Adicionar" action="#{osBean.novoOS}" outcome="/os/listOS.xhtml"/> --> 
 		
 		<br />

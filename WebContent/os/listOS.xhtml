@@ -13,9 +13,9 @@
         <h:outputText value="#{os.id}" />
     </p:column>
  
-<!--     <p:column headerText="Cliente">
-        <h:outputText value="10101" />
-    </p:column> -->
+	 <p:column headerText="Cliente">
+        <h:outputText value="#{os.idCliente.nome}" />
+    </p:column>
  
     <p:column headerText="Data (Abertura)">
         <h:outputText value="#{os.dataAbertura}" />

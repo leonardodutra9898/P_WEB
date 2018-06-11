@@ -12,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import br.ufc.crateus.os.enums.Status;
+import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.OS;
 
 @ManagedBean(name="osBean")
@@ -26,11 +27,40 @@ public class OSBean implements Serializable {
 	private List<OS> listOS;
 	private OS os;
 	int count = 0;
+	private List<Cliente> listClientes;
 	
 	
 	public OSBean() {
 		os = new OS();
 		listOS = new ArrayList<OS>();
+		listClientes = new ArrayList<Cliente>();
+		
+		Cliente	cli1 = new Cliente();
+		Cliente	cli2 = new Cliente();
+		Cliente	cli3 = new Cliente();
+		
+		cli1.setNome("Maria");
+		cli1.setEmail("maria@gmail.com");
+		cli1.setCpf("5055050505");
+		cli1.setEndereco("Rua A");
+		cli1.setId(1);
+		
+		cli2.setNome("João");
+		cli2.setEmail("joao@gmail.com");
+		cli2.setCpf("111155411");
+		cli2.setEndereco("Rua B");
+		cli2.setId(2);		
+		
+		cli3.setNome("José");
+		cli3.setEmail("jose@gmail.com");
+		cli3.setCpf("69600000");
+		cli3.setEndereco("Rua C");
+		cli3.setId(3);
+		
+		listClientes.add(cli1);
+		listClientes.add(cli2);
+		listClientes.add(cli3);
+		
 	}
 	
 	@PostConstruct
@@ -93,7 +123,7 @@ public class OSBean implements Serializable {
 		os.setDataAbertura(Calendar.getInstance().getTime());
 		os.setId(++count);
 		os.setStatus(Status.ABERTO);
-		
+		os.setIdCliente(os.getIdCliente());
 		
 		listOS.add(os);
 
@@ -102,6 +132,7 @@ public class OSBean implements Serializable {
 		//list();
 		
 		System.out.println("Tamanho da lista: " + listOS.size());
+		System.out.println("Cliente => " + os.getIdCliente());
 	}
 	
 	public void list() {
@@ -111,5 +142,15 @@ public class OSBean implements Serializable {
 			System.out.println(o.getId() + " -- " + o.getDescricao() + " -- " + o.getStatus());
 		}
 	}
+
+	public List<Cliente> getListClientes() {
+		return listClientes;
+	}
+
+	public void setListClientes(List<Cliente> listClientes) {
+		this.listClientes = listClientes;
+	}
+	
+	
 	
 }
