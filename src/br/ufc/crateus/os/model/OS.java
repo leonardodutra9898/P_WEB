@@ -1,14 +1,20 @@
 package br.ufc.crateus.os.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 
 import br.ufc.crateus.os.enums.Status;
 
-public class OS {
+public class OS implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private Cliente idCliente;
-	private Calendar dataAbertura;
+	private Date dataAbertura;
 	private Calendar dataFechamento;
 	private Status status;
 	private String descricao;
@@ -31,11 +37,11 @@ public class OS {
 	public void setIdCliente(Cliente idCliente) {
 		this.idCliente = idCliente;
 	}
-	public Calendar getDataAbertura() {
+	public Date getDataAbertura() {
 		return dataAbertura;
 	}
-	public void setDataAbertura(Calendar dataAbertura) {
-		this.dataAbertura = dataAbertura;
+	public void setDataAbertura(Date calendar) {
+		this.dataAbertura = calendar;
 	}
 	public Calendar getDataFechamento() {
 		return dataFechamento;

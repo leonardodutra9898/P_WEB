@@ -21,11 +21,11 @@
  
     <p:toolbar>
         <f:facet name="left">
-            <p:commandButton type="button" value="Novo OS" icon="ui-icon-document" />
+            <p:button type="button" value="Novo OS" icon="ui-icon-document" outcome="/os/newOS.xhtml"/>
         </f:facet>
         
 		<f:facet name="left">
-            <p:commandButton type="button" value="Listar OS" icon="ui-icon-document" />
+            <p:button type="button" value="Listar OS" icon="ui-icon-document" outcome="/os/listOS.xhtml"/>
         </f:facet>
  
           
@@ -58,7 +58,11 @@
 
  
     <p:layoutUnit position="center">
-        //page code
+        
+		<ui:insert name="conteudo">
+			Conteuúdo inicial...
+		</ui:insert>
+
     </p:layoutUnit>
  
 </p:layout>	

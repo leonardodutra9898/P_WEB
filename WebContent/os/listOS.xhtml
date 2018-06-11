@@ -1,1 +1,39 @@
-<h1>Ordem de Servi�o</h1>
+<ui:composition template="/WEB-INF/template/layout.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+>
+
+<ui:define name="conteudo">
+
+<p:dataTable var="os" value="#{osBean.listOS}">
+    <p:column headerText="Nº OS">
+        <h:outputText value="#{os.id}" />
+    </p:column>
+ 
+<!--     <p:column headerText="Cliente">
+        <h:outputText value="10101" />
+    </p:column> -->
+ 
+    <p:column headerText="Data (Abertura)">
+        <h:outputText value="#{os.dataAbertura}" />
+    </p:column>
+ 
+ 	<p:column headerText="Descrição">
+        <h:outputText value="#{os.descricao}" />
+    </p:column>
+    
+    <p:column headerText="Prioridade">
+        <h:outputText value="#{os.prioridade}" />
+    </p:column>
+ 
+    <p:column headerText="Status">
+        <h:outputText value="#{os.status}" />
+    </p:column>
+</p:dataTable>
+
+</ui:define>
+
+</ui:composition>
