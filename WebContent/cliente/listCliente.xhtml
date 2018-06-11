@@ -1,0 +1,36 @@
+<ui:composition template="/WEB-INF/template/layout.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+>
+
+<ui:define name="conteudo">
+
+<p:dataTable var="os" value="#{cliBean.listClientes}">
+    <p:column headerText="ID">
+        <h:outputText value="#{cliBean.id}" />
+    </p:column>
+ 
+	 <p:column headerText="Nome">
+        <h:outputText value="#{cliBean.nome}" />
+    </p:column>
+ 
+    <p:column headerText="E-mail">
+        <h:outputText value="#{cliBean.email}" />
+    </p:column>
+
+	 <p:column headerText="CPF">
+        <h:outputText value="#{cliBean.cpf}" />
+    </p:column>
+ 
+ 	<p:column headerText="Endereço">
+        <h:outputText value="#{cliBean.endereco}" />
+    </p:column>
+
+</p:dataTable>
+
+</ui:define>
+
+</ui:composition>

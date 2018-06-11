@@ -28,16 +28,19 @@ public class OSBean implements Serializable {
 	private OS os;
 	int count = 0;
 	private List<Cliente> listClientes;
-	
+	private Cliente	cli1;
+	private Cliente	cli2;
+	private Cliente	cli3;
+	private Cliente cliente;
 	
 	public OSBean() {
 		os = new OS();
 		listOS = new ArrayList<OS>();
 		listClientes = new ArrayList<Cliente>();
 		
-		Cliente	cli1 = new Cliente();
-		Cliente	cli2 = new Cliente();
-		Cliente	cli3 = new Cliente();
+		cli1 = new Cliente();
+		cli2 = new Cliente();
+		cli3 = new Cliente();
 		
 		cli1.setNome("Maria");
 		cli1.setEmail("maria@gmail.com");
@@ -123,13 +126,14 @@ public class OSBean implements Serializable {
 		os.setDataAbertura(Calendar.getInstance().getTime());
 		os.setId(++count);
 		os.setStatus(Status.ABERTO);
-		os.setIdCliente(os.getIdCliente());
+		
+//		cliente.setId(id);
+		os.setIdCliente(cliente);
 		
 		listOS.add(os);
 
 		os = new OS();
-		
-		//list();
+		cliente = new Cliente();
 		
 		System.out.println("Tamanho da lista: " + listOS.size());
 		System.out.println("Cliente => " + os.getIdCliente());
