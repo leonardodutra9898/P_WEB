@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	>
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>OS</title>
+</h:head>
+
+<h:body>
+<p:layout fullPage="true">
+ 
+    <p:layoutUnit position="north" size="100" header="Sistema de Ordem de Serviços" resizable="true" closable="false" collapsible="false">
+        
+<h:form>     
+    <p:growl id="messages" showDetail="true" />
+ 
+    <p:toolbar>
+        <f:facet name="left">
+            <p:button type="button" value="Novo OS" icon="ui-icon-document" outcome="/os/newOS.xhtml"/>
+        </f:facet>
+        
+		<f:facet name="left">
+            <p:button type="button" value="Listar OS" icon="ui-icon-document" outcome="/os/listOS.xhtml"/>
+        </f:facet>
+ 
+          
+        <f:facet name="right">
+            <p:commandButton type="button" value="Novo Cliente" icon="ui-icon-document" />
+        </f:facet>
+        
+        
+        
+        <f:facet name="right">
+            <p:commandButton type="button" value="Novo Funcionário" icon="ui-icon-document" />
+        </f:facet> 
+        
+         <f:facet name="right">
+			<p:menuButton value="Opções">
+                <p:menuitem value="Listar Clientes" update="messages" icon="ui-icon-disk" />
+                <p:menuitem value="Listar Funcionários" update="messages" icon="ui-icon-disk" />
+                
+            </p:menuButton>
+ 		</f:facet>
+ 		
+    </p:toolbar>
+</h:form>
+
+    </p:layoutUnit>
+ 
+    <p:layoutUnit position="south" size="100" header="Colaboradores (Leonardo e Luan)" resizable="false" closable="true" collapsible="false">
+        <!-- <h:outputText value="South unit content." /> -->
+    </p:layoutUnit>
+
+ 
+    <p:layoutUnit position="center">
+        
+		<ui:insert name="conteudo">
+			Conteuúdo inicial...
+		</ui:insert>
+
+    </p:layoutUnit>
+ 
+</p:layout>	
+	
+	
+</h:body>
+
+</html>
