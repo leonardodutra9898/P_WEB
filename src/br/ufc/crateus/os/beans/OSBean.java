@@ -89,7 +89,6 @@ public class OSBean implements Serializable {
 	}
 	
 	public void novoOS() {
-
 		
 		os.setDataAbertura(Calendar.getInstance().getTime());
 		os.setId(++count);
@@ -97,6 +96,9 @@ public class OSBean implements Serializable {
 		
 		
 		listOS.add(os);
+
+		os = new OS();
+		
 		//list();
 		
 		System.out.println("Tamanho da lista: " + listOS.size());
