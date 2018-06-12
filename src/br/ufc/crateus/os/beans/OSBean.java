@@ -32,6 +32,12 @@ public class OSBean implements Serializable {
 	private ClienteService cliServ;
 	
 	private Cliente cliente;
+
+	@PostConstruct
+	public void init() {
+
+		
+	}
 	
 	public OSBean() {
 		os = new OS();
@@ -55,9 +61,9 @@ public class OSBean implements Serializable {
 	
 	public void novoOS() {
 		
-		os.setDataAbertura(Calendar.getInstance().getTime());
-		os.setId(++count);
-		os.setStatus(Status.ABERTO);
+//		os.setDataAbertura(Calendar.getInstance().getTime());
+//		os.setId(++count);
+//		os.setStatus(Status.ABERTO);
 		
 //		cliente.setId(id);
 		os.setIdCliente(cliente);
@@ -65,7 +71,9 @@ public class OSBean implements Serializable {
 		listOS.add(os);
 
 		os = new OS();
-		cliente = new Cliente();
+//		cliente = new Cliente();
+		
+		System.out.println("####");
 		
 		System.out.println("Tamanho da lista: " + listOS.size());
 		System.out.println("Cliente => " + os.getIdCliente());

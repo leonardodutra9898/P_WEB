@@ -14,7 +14,7 @@
 		<p:outputLabel value="Cliente: " for="cli" />
 		<p:selectOneMenu id="cli">
 			<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
-			<f:selectItems value="#{osBean.cliServ.listClientes}" var="iCli" itemValue="#{iCli.id}" itemLabel="#{iCli.nome}"/>
+			<f:selectItems value="#{cliBean.cliServ.listClientes}" var="iCli" itemValue="#{iCli}" itemLabel="#{iCli.nome}"/>
 		</p:selectOneMenu>
 
 		<p:outputLabel value="Descrição: " for="desc" />		
