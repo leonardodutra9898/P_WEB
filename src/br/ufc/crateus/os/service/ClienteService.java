@@ -1,46 +1,32 @@
 package br.ufc.crateus.os.service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.ufc.crateus.os.model.Cliente;
 
-public class ClienteService {
+public class ClienteService implements Serializable{
 
-	private Cliente cliente;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	int count = 0;
 	private List<Cliente> listClientes;
 	
-	
 	public ClienteService() {
-		
 		listClientes = new ArrayList<Cliente>();
-		cliente = new Cliente();
-		
 	}
 	
 	public void salvar(Cliente cliente) {
 		cliente.setId(++count);
-		listClientes.add(cliente);		
-//		cliente = new Cliente();
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+		listClientes.add(cliente);
+		System.out.println("Total de itens da lista clis na própria classe. => " + getListClientes().size());
 	}
 
 	public List<Cliente> getListClientes() {
 		return listClientes;
 	}
-
-	public void setListClientes(List<Cliente> listClientes) {
-		this.listClientes = listClientes;
-	}
-	
-	
-	
 }

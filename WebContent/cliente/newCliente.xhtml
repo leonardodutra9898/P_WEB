@@ -12,18 +12,18 @@
 	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
 		<p:outputLabel value="Nome do Cliente: " for="nom" />		
-		<p:inputText id="nom" value="#{cliBean.cliServ.cliente.nome}" 
+		<p:inputText id="nom" value="#{cliBean.cliente.nome}" 
 			required="true" requiredMessage="Nome é necessário"	>
 		</p:inputText>
 		
 		<p:outputLabel value="E-mail " for="mail" /> 
-		<p:inputText id="mail" required="true" value="#{cliBean.cliServ.cliente.email}" validatorMessage="E-mail inválido" /> 
+		<p:inputText id="mail" required="true" value="#{cliBean.cliente.email}" validatorMessage="E-mail inválido" /> 
 
 		<p:outputLabel value="CPF" for="cpf" /> 
-		<p:inputText id="cpf" required="true" value="#{cliBean.cliServ.cliente.cpf}" validatorMessage="CPF inválido" /> 
+		<p:inputText id="cpf" required="true" value="#{cliBean.cliente.cpf}" validatorMessage="CPF inválido" /> 
 
 		<p:outputLabel value="Endereço" for="end" /> 
-		<p:inputText id="end" required="true" value="#{cliBean.cliServ.cliente.endereco}" /> 
+		<p:inputText id="end" required="true" value="#{cliBean.cliente.endereco}" /> 
 		
 		<p:commandButton value="Adicionar" action="#{cliBean.novoCliente}"/>
 		

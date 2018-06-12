@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.inject.Inject;
 
 import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.service.ClienteService;
@@ -19,33 +20,25 @@ public class ClienteBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
 	private ClienteService cliServ;
+
 	private Cliente cliente;
 	
 	@PostConstruct
 	public void init() {
-
 		
+
 	}
 	
 	public void novoCliente() {
-
-		cliServ = new ClienteService();
-		cliente = new Cliente();
 		cliServ.salvar(cliente);
-
+		cliente = new Cliente();
 	}
 	
 	public ClienteBean() {
-		
-	}
-	
-	public void list() {
-		
-//		for(Cliente c : listClientes) {
-			
-//			System.out.println(c.getId() + " -- " + c.getDescricao() + " -- " + o.getStatus());
-//		}
+		cliServ = new ClienteService();
+		cliente = new Cliente();		
 	}
 
 	public ClienteService getCliServ() {
@@ -55,7 +48,13 @@ public class ClienteBean implements Serializable {
 	public void setCliServ(ClienteService cliServ) {
 		this.cliServ = cliServ;
 	}
-	
-	
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 	
 }

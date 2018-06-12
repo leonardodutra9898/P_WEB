@@ -63,6 +63,11 @@ public class Cliente implements Serializable{
 		this.listOS = listOS;
 	}
 	
+	public String toString() {
+		return "ID => " + getId() + "\nNome Cli => " + getNome() + "\nE-mail => " + getEmail() + "\nCPF => " + getCpf() + 
+					"\nEndereço => " + getEndereco();
+	}
+	
 	
 //	public void listarOS() {
 //		

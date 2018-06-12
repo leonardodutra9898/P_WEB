@@ -8,12 +8,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 
 import br.ufc.crateus.os.enums.Status;
 import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.OS;
+import br.ufc.crateus.os.service.ClienteService;
 
 @ManagedBean(name="osBean")
 @ApplicationScoped
@@ -27,22 +27,19 @@ public class OSBean implements Serializable {
 	private List<OS> listOS;
 	private OS os;
 	int count = 0;
-	private List<Cliente> listClientes;
+	
+	@Inject
+	private ClienteService cliServ;
+	
 	private Cliente cliente;
 	
 	public OSBean() {
 		os = new OS();
 		listOS = new ArrayList<OS>();
-//		listClientes = new ArrayList<Cliente>();
-	}
-	
-	@PostConstruct
-	public void init() {
+		cliServ = new ClienteService();
 		
-		
+		System.out.println("Total de itens da lista clis => " + cliServ.getListClientes().size());
 	}
-
-	
 	
 	public List<OS> getListOS() {
 		return listOS;
@@ -82,14 +79,11 @@ public class OSBean implements Serializable {
 		}
 	}
 
-	public List<Cliente> getListClientes() {
-		return listClientes;
+	public ClienteService getCliServ() {
+		return cliServ;
 	}
 
-	public void setListClientes(List<Cliente> listClientes) {
-		this.listClientes = listClientes;
+	public void setCliServ(ClienteService cliServ) {
+		this.cliServ = cliServ;
 	}
-	
-	
-	
 }
