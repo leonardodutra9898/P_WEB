@@ -28,7 +28,7 @@ public class OSBean implements Serializable {
 	private OS os;
 	int count = 0;
 	
-	@Inject
+//	@Inject
 	private ClienteService cliServ;
 	
 	private Cliente cliente;
@@ -59,11 +59,11 @@ public class OSBean implements Serializable {
 		this.os = os;
 	}
 	
-	public void novoOS() {
+	public void novoOS(Cliente cliente) {
 		
-//		os.setDataAbertura(Calendar.getInstance().getTime());
-//		os.setId(++count);
-//		os.setStatus(Status.ABERTO);
+		os.setDataAbertura(Calendar.getInstance().getTime());
+		os.setId(++count);
+		os.setStatus(Status.ABERTO);
 		
 //		cliente.setId(id);
 		os.setIdCliente(cliente);
