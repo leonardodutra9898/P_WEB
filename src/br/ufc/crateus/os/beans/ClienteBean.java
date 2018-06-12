@@ -8,8 +8,10 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 
+import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.service.ClienteService;
+import br.ufc.crateus.os.utils.MessagesUtils;
 
 @ManagedBean(name="cliBean")
 @ApplicationScoped
@@ -25,6 +27,8 @@ public class ClienteBean implements Serializable {
 
 	private Cliente cliente;
 	
+	MessagesUtils msgUtils;
+	
 	@PostConstruct
 	public void init() {
 		
@@ -34,6 +38,8 @@ public class ClienteBean implements Serializable {
 	public void novoCliente() {
 		cliServ.salvar(cliente);
 		cliente = new Cliente();
+		
+		msgUtils = new MessagesUtils("Registro Salvo", "Novo Cliente Registrado!", MessagesTypes.SUCCESS);
 	}
 	
 	public ClienteBean() {

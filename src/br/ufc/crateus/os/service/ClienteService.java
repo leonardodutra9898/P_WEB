@@ -23,7 +23,7 @@ public class ClienteService implements Serializable{
 	public void salvar(Cliente cliente) {
 		cliente.setId(++count);
 		listClientes.add(cliente);
-		System.out.println("Total de itens da lista clis na própria classe. => " + getListClientes().size());
+//		System.out.println("Total de itens da lista clis na própria classe. => " + getListClientes().size());
 	}
 
 	public List<Cliente> getListClientes() {

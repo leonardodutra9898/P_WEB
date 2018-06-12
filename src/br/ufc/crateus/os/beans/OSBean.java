@@ -10,10 +10,12 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 
+import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.enums.Status;
 import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.OS;
 import br.ufc.crateus.os.service.ClienteService;
+import br.ufc.crateus.os.utils.MessagesUtils;
 
 @ManagedBean(name="osBean")
 @ApplicationScoped
@@ -27,6 +29,8 @@ public class OSBean implements Serializable {
 	private List<OS> listOS;
 	private OS os;
 	int count = 0;
+	
+	MessagesUtils msgUtils;
 	
 //	@Inject
 	private ClienteService cliServ;
@@ -43,8 +47,11 @@ public class OSBean implements Serializable {
 		os = new OS();
 		listOS = new ArrayList<OS>();
 		cliServ = new ClienteService();
+		cliente = new Cliente();
 		
-		System.out.println("Total de itens da lista clis => " + cliServ.getListClientes().size());
+		System.out.println("Valores inicializados em osBean, como os, listOS, cliServ");
+		
+		//System.out.println("Total de itens da lista clis => " + cliServ.getListClientes().size());
 	}
 	
 	public List<OS> getListOS() {
@@ -59,24 +66,26 @@ public class OSBean implements Serializable {
 		this.os = os;
 	}
 	
-	public void novoOS(Cliente cliente) {
+	public void novoOS() {
 		
 		os.setDataAbertura(Calendar.getInstance().getTime());
 		os.setId(++count);
 		os.setStatus(Status.ABERTO);
 		
 //		cliente.setId(id);
-		os.setIdCliente(cliente);
+//		os.setIdCliente(cliente);
 		
 		listOS.add(os);
 
 		os = new OS();
 //		cliente = new Cliente();
 		
-		System.out.println("####");
+//		System.out.println("####");
+//		
+//		System.out.println("Tamanho da lista: " + listOS.size());
+//		System.out.println("Cliente => " + os.getIdCliente());
 		
-		System.out.println("Tamanho da lista: " + listOS.size());
-		System.out.println("Cliente => " + os.getIdCliente());
+		msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
 	}
 	
 	public void list() {
