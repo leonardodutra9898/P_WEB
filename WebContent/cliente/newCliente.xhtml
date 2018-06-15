@@ -1,0 +1,43 @@
+<ui:composition template="/WEB-INF/template/layout.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+>
+
+<ui:define name="conteudo">
+
+ <f:metadata>
+	<!-- <o:viewParam name="cliente" value="#{cliBean.clienteSelecionado}"/> -->
+	<f:event listener="#{cliBean.inicializar}" type="preRenderView"></f:event>
+</f:metadata>
+
+<h:form>
+<p:growl id="growl" life="2000" />
+	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+
+		<p:outputLabel value="Nome do Cliente: " for="nom" />		
+		<p:inputText id="nom" value="#{cliBean.clienteSelecionado.nome}" 
+			required="true" requiredMessage="Nome é necessário"	>
+		</p:inputText>
+		
+		<p:outputLabel value="E-mail " for="mail" /> 
+		<p:inputText id="mail" required="true" value="#{cliBean.clienteSelecionado.email}" validatorMessage="E-mail inválido" > 
+			<f:validator validatorId="emailValidator" />
+		</p:inputText>
+		
+		<p:outputLabel value="CPF" for="cpf" /> 
+		<p:inputMask mask="999.999.999-99" size="25" id="cpf" required="true" value="#{cliBean.clienteSelecionado.cpf}" validatorMessage="CPF inválido" /> 
+
+		<p:outputLabel value="Endereço" for="end" /> 
+		<p:inputText id="end" required="true" value="#{cliBean.clienteSelecionado.endereco}" /> 
+		
+		<p:commandButton value="Adicionar" actionListener="#{cliBean.novoCliente}" update="growl"/>
+		
+		</h:panelGrid>
+	</h:form>
+</ui:define>	
+
+</ui:composition>

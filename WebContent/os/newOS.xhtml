@@ -4,23 +4,37 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
 >
 
 <ui:define name="conteudo">
+
+ <f:metadata>
+	<!-- <o:viewParam name="os" value="#{osBean.os}" /> -->
+</f:metadata>
+
 <h:form>
-		<h:outputLabel value="Descrição: " for="desc" /> <br />		
-		<h:inputText id="desc" value="#{osBean.os.descricao}" 
-			required="true" requiredMessage="Descreva o problema..." 
-			>
-		</h:inputText> <br />
+<p:growl id="growl" life="2000" />
+
+<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 		
-		<h:outputLabel value="Prioridade: " for="prio" /> <br />
-		<h:inputText id="prio" required="true" value="#{osBean.os.prioridade}" validatorMessage="Apenas numero" /> <br />
+		<p:outputLabel value="Cliente: " for="cli" />
+		<p:selectOneMenu id="cli" value="#{cliBean.clienteSelecionado}" >
+					<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
+					<f:selectItems value="#{cliBean.clientes}" var="c" itemValue="#{c}" itemLabel="#{c.nome}"/>
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Descrição: " for="desc" />		
+		<p:inputText id="desc" value="#{osBean.os.descricao}" 
+			required="true" requiredMessage="Descreva o problema...">
+		</p:inputText>
 		
-		<h:commandButton value="Adicionar" action="#{osBean.novoOS}"/> <br />
-		<!-- <h:button value="Adicionar" action="#{osBean.novoOS}" outcome="/os/listOS.xhtml"/> --> 
+		<p:outputLabel value="Prioridade: " for="prio" /> 
+		<p:inputText id="prio" required="true" value="#{osBean.os.prioridade}" validatorMessage="Apenas numero" /> 
 		
-		<br />
+		<p:commandButton value="Adicionar" actionListener="#{osBean.novoOS}" id="actOS" update="growl"/>
+		
+		</h:panelGrid>
 	</h:form>
 </ui:define>	
 

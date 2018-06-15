@@ -7,18 +7,23 @@
 >
 
 <ui:define name="conteudo">
+<h:form id="formOS">  
 
-<p:dataTable var="os" value="#{osBean.listOS}">
+<p:growl id="growl" life="2000" />
+
+<p:dataTable var="os" value="#{osBean.listOS}" id="dTb">
     <p:column headerText="Nº OS">
         <h:outputText value="#{os.id}" />
     </p:column>
  
-<!--     <p:column headerText="Cliente">
-        <h:outputText value="10101" />
-    </p:column> -->
+	 <p:column headerText="Cliente">
+        <h:outputText value="#{osBean.cliB.clienteSelecionado.nome}" />
+    </p:column>
  
     <p:column headerText="Data (Abertura)">
-        <h:outputText value="#{os.dataAbertura}" />
+        <h:outputText value="#{os.dataAbertura}">
+        	<f:convertDateTime dateStyle="medium"/>
+        </h:outputText>
     </p:column>
  
  	<p:column headerText="Descrição">
@@ -32,7 +37,29 @@
     <p:column headerText="Status">
         <h:outputText value="#{os.status}" />
     </p:column>
+    
+    
+    
+        <p:column>
+		
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemOSModal.show();" process="@this" update=":formOS">
+        	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
+        </p:commandButton>
+
+		<p:button icon="fa fa-fw fa-edit" title="Editar" outcome="/os/newOS" style="text-align: center;">
+			<f:param name="os" value="#{os.id}"/>
+		</p:button>
+    </p:column>
+
 </p:dataTable>
+
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{osBean.excluirOS}" update=":formOS:dTb" actionListener="#{osBean.excluirOS}" process="@this" />
+        <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="return false;"/>
+    </p:confirmDialog>
+
+</h:form>
 
 </ui:define>
 

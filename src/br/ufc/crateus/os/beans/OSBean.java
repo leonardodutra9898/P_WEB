@@ -5,15 +5,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
+import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.enums.Status;
+import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.OS;
+import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
+@Named
 @ManagedBean(name="osBean")
 @ApplicationScoped
 public class OSBean implements Serializable {
@@ -23,58 +26,26 @@ public class OSBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private ClienteBean cliB = new ClienteBean();
+	
 	private List<OS> listOS;
 	private OS os;
 	int count = 0;
 	
+	MessagesUtils msgUtils;
 	
 	public OSBean() {
 		os = new OS();
 		listOS = new ArrayList<OS>();
 	}
 	
-	@PostConstruct
-	public void init() {
-		
-//		OS os1 = new OS();
-//		os1.setId(1);
-//		os1.setDescricao("Trêta com meu navegador");
-//		os1.setPrioridade(1);
-//		os1.setStatus(Status.ABERTO);
-//		os1.setDataAbertura(Calendar.getInstance().getTime());
-//
-//		OS os2 = new OS();
-//		os2.setId(2);
-//		os2.setDescricao("Sem internet");
-//		os2.setPrioridade(5);
-//		os2.setStatus(Status.ANDAMENTO);
-//		os2.setDataAbertura(Calendar.getInstance().getTime());
-//		
-//		OS os3 = new OS();
-//		os3.setId(3);
-//		os3.setDescricao("Mouse não funciona");
-//		os3.setPrioridade(2);
-//		os3.setStatus(Status.ANDAMENTO);
-//		os3.setDataAbertura(Calendar.getInstance().getTime());
-//		
-//		OS os4 = new OS();
-//		os4.setId(4);
-//		os4.setDescricao("Sem energia");
-//		os4.setPrioridade(10);
-//		os4.setStatus(Status.ABERTO);
-//		os4.setDataAbertura(Calendar.getInstance().getTime());
-		
-
-//		listOS.add(os1);
-//		listOS.add(os2);
-//		listOS.add(os3);
-//		listOS.add(os4);
-		
-
+	public void osEdit() {
 		
 	}
-
 	
+	public void osDelete() {
+		
+	}
 	
 	public List<OS> getListOS() {
 		return listOS;
@@ -93,23 +64,47 @@ public class OSBean implements Serializable {
 		os.setDataAbertura(Calendar.getInstance().getTime());
 		os.setId(++count);
 		os.setStatus(Status.ABERTO);
-		
-		
 		listOS.add(os);
-
 		os = new OS();
-		
-		//list();
-		
-		System.out.println("Tamanho da lista: " + listOS.size());
+		msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
+
+	}
+
+	public ClienteBean getCliB() {
+		return cliB;
+	}
+
+	public void setCliB(ClienteBean cliB) {
+		this.cliB = cliB;
 	}
 	
-	public void list() {
-		
-		for(OS o : listOS) {
-			
-			System.out.println(o.getId() + " -- " + o.getDescricao() + " -- " + o.getStatus());
+	public OS searchById(int idOS) {
+		if(listOS != null) {
+			for(OS os : listOS) {
+				
+					if(os.getId() == idOS) {
+						return os;
+					}
+				
+			}
 		}
+
+		return null;
 	}
+	
+	
+	public void excluirOS() {
+		
+		
+			listOS.remove(searchById(getOs().getId()));
+			System.out.println("excluido");
+		
+			msgUtils = new MessagesUtils("Excluído!", "OS", MessagesTypes.INFO);	
+		
+	}
+	
+//	public boolean isEdit() {
+//		return this.os.getId() != null;
+//	}
 	
 }
