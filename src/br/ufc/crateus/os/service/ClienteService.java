@@ -13,20 +13,34 @@ public class ClienteService implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	int count = 0;
-	private List<Cliente> listClientes;
+
+	
 	
 	public ClienteService() {
-		listClientes = new ArrayList<Cliente>();
+
 	}
 	
-	public void salvar(Cliente cliente) {
-		cliente.setId(++count);
-		listClientes.add(cliente);
+	public void salvar() {
+
 //		System.out.println("Total de itens da lista clis na própria classe. => " + getListClientes().size());
 	}
 
-	public List<Cliente> getListClientes() {
-		return listClientes;
-	}
+//	public List<Cliente> getListClientes() {
+//		return listClientes;
+//	}
+//
+//	public Cliente getClienteSelecionado() {
+//		return clienteSelecionado;
+//	}
+
+//	public void setClienteSelecionado(Cliente clienteAtual) {
+//		this.clienteSelecionado = clienteAtual;
+//	}
+//
+//	public void setListClientes(List<Cliente> listClientes) {
+//		this.listClientes = listClientes;
+//	}
+	
+
+	
 }

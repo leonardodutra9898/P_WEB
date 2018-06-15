@@ -7,6 +7,9 @@
 >
 
 <ui:define name="conteudo">
+<h:form id="formOS">  
+
+<p:growl id="growl" life="2000" />
 
 <p:dataTable var="os" value="#{osBean.listOS}">
     <p:column headerText="Nº OS">
@@ -18,7 +21,9 @@
     </p:column>
  
     <p:column headerText="Data (Abertura)">
-        <h:outputText value="#{os.dataAbertura}" />
+        <h:outputText value="#{os.dataAbertura}">
+        	<f:convertDateTime dateStyle="medium"/>
+        </h:outputText>
     </p:column>
  
  	<p:column headerText="Descrição">
@@ -32,7 +37,43 @@
     <p:column headerText="Status">
         <h:outputText value="#{os.status}" />
     </p:column>
+    
+    <p:column headerText="">
+<!--         <p:commandButton icon="fa fa-fw fa-remove" value="Excluir" action="#{osBean.osDelete}" >
+        	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
+        	<p:confirm header="Confirmação" message="Deseja realmente excluir?" icon="fa fa-exclamation-triangle" />
+        </p:commandButton> -->
+        
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="confirmacaoExclusao.show();"/>
+        	<!-- <f:setPropertyActionListener value="#{os}" target="#{osBean.os}" /> -->
+        <!-- </p:commandButton> -->
+
+		<p:button icon="fa fa-fw fa-edit" title="Editar" action="#{osBean.osEdit}" />
+			<!-- <f:setPropertyActionListener value="os" target="#{osBean.os}" /> -->
+		<!-- </p:button> -->
+    </p:column>
+    
+<!--     <p:column headerText="teste">
+    	<p:commandButton value="Teste1" action="#{osBean.teste1}" />
+    </p:column> -->
 </p:dataTable>
+
+ <p:confirmDialog id="excluirMensagemOSModal" width="500"
+        header="Confirmação de exclusão" severity="alert"
+        widgetVar="excluirMensagemOSDialog" closable="false" appendToBody="true">
+        <f:facet name="message">
+            <h:outputFormat value="Excluir este registro?" />
+        </f:facet>
+
+        <p:commandButton value="Sim"
+            oncomplete="excluirMensagemOSDialog.hide()"
+            action="#{osBean.delete()}"
+            update="formOS" />
+        <p:commandButton value="Não"
+            onclick="excluirMensagemOSDialogs.hide()" />
+    </p:confirmDialog>
+
+</h:form>
 
 </ui:define>
 

@@ -5,17 +5,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.inject.Inject;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.enums.Status;
-import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.OS;
-import br.ufc.crateus.os.service.ClienteService;
-import br.ufc.crateus.os.utils.MessagesUtils;
+import br.ufc.crateus.os.utils.messages.MessagesUtils;
+
 
 @ManagedBean(name="osBean")
 @ApplicationScoped
@@ -32,26 +29,17 @@ public class OSBean implements Serializable {
 	
 	MessagesUtils msgUtils;
 	
-//	@Inject
-	private ClienteService cliServ;
-	
-	private Cliente cliente;
-
-	@PostConstruct
-	public void init() {
-
-		
-	}
-	
 	public OSBean() {
 		os = new OS();
 		listOS = new ArrayList<OS>();
-		cliServ = new ClienteService();
-		cliente = new Cliente();
+	}
+	
+	public void osEdit() {
 		
-		System.out.println("Valores inicializados em osBean, como os, listOS, cliServ");
+	}
+	
+	public void osDelete() {
 		
-		//System.out.println("Total de itens da lista clis => " + cliServ.getListClientes().size());
 	}
 	
 	public List<OS> getListOS() {
@@ -77,7 +65,10 @@ public class OSBean implements Serializable {
 		
 		listOS.add(os);
 
-		os = new OS();
+//		os = new OS();
+		
+		
+		
 //		cliente = new Cliente();
 		
 //		System.out.println("####");
@@ -86,21 +77,28 @@ public class OSBean implements Serializable {
 //		System.out.println("Cliente => " + os.getIdCliente());
 		
 		msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
+		
+		list();
 	}
+	
+
 	
 	public void list() {
 		
 		for(OS o : listOS) {
 			
-			System.out.println(o.getId() + " -- " + o.getDescricao() + " -- " + o.getStatus());
+			System.out.println(o.getId() + " -- " + o.getDescricao() + " -- " + o.getStatus() + " -- Prio: " + o.getPrioridade()
+					+ " -- Data: " + o.getDataAbertura());
+//			System.out.println(" -- Cli => " + o.getIdCliente().getNome() + " obj=> " + o.getIdCliente());
+			System.out.println();
 		}
 	}
 
-	public ClienteService getCliServ() {
-		return cliServ;
-	}
-
-	public void setCliServ(ClienteService cliServ) {
-		this.cliServ = cliServ;
-	}
+//	public ClienteService getCliServ() {
+//		return cliServ;
+//	}
+//
+//	public void setCliServ(ClienteService cliServ) {
+//		this.cliServ = cliServ;
+//	}
 }

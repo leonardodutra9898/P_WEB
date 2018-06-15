@@ -7,15 +7,20 @@
 >
 
 <ui:define name="conteudo">
+
+<!-- <f:metadata>
+	<f:event listener="#{cliBean.inicializar}" type="preRenderView"></f:event>
+</f:metadata> -->
+
 <h:form>
 <p:growl id="growl" life="2000" />
 
 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 		
 		<p:outputLabel value="Cliente: " for="cli" />
-		<p:selectOneMenu id="cli">
-			<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
-				<f:selectItems value="#{cliBean.cliServ.listClientes}" var="iCli" itemValue="#{iCli}" itemLabel="#{iCli.nome}"/>
+		<p:selectOneMenu id="cli" value="#{cliBean.cliente}" converter="clienteConverter">
+					<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
+					<f:selectItems value="#{cliBean.listClientes}" var="iCli" itemValue="#{iCli}" itemLabel="#{iCli.nome}"/>
 		</p:selectOneMenu>
 
 		<p:outputLabel value="Descrição: " for="desc" />		

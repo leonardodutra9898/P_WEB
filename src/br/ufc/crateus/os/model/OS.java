@@ -73,6 +73,64 @@ public class OS implements Serializable{
 	public void setPrioridade(int prioridade) {
 		this.prioridade = prioridade;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dataAbertura == null) ? 0 : dataAbertura.hashCode());
+		result = prime * result + ((dataFechamento == null) ? 0 : dataFechamento.hashCode());
+		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((idCliente == null) ? 0 : idCliente.hashCode());
+		result = prime * result + ((idTecnico == null) ? 0 : idTecnico.hashCode());
+		result = prime * result + prioridade;
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OS other = (OS) obj;
+		if (dataAbertura == null) {
+			if (other.dataAbertura != null)
+				return false;
+		} else if (!dataAbertura.equals(other.dataAbertura))
+			return false;
+		if (dataFechamento == null) {
+			if (other.dataFechamento != null)
+				return false;
+		} else if (!dataFechamento.equals(other.dataFechamento))
+			return false;
+		if (descricao == null) {
+			if (other.descricao != null)
+				return false;
+		} else if (!descricao.equals(other.descricao))
+			return false;
+		if (id != other.id)
+			return false;
+		if (idCliente == null) {
+			if (other.idCliente != null)
+				return false;
+		} else if (!idCliente.equals(other.idCliente))
+			return false;
+		if (idTecnico == null) {
+			if (other.idTecnico != null)
+				return false;
+		} else if (!idTecnico.equals(other.idTecnico))
+			return false;
+		if (prioridade != other.prioridade)
+			return false;
+		if (status != other.status)
+			return false;
+		return true;
+	}
 	
 	
 	

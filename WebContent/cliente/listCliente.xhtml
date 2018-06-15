@@ -8,7 +8,7 @@
 
 <ui:define name="conteudo">
 
-<p:dataTable var="cli" value="#{cliBean.cliServ.listClientes}">
+<p:dataTable var="cli" value="#{cliBean.listClientes}">
     <p:column headerText="ID">
         <h:outputText value="#{cli.id}" />
     </p:column>
