@@ -4,12 +4,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
 >
 
 <ui:define name="conteudo">
 
  <f:metadata>
-	<f:viewParam name="dummy" />
+	<!-- <o:viewParam name="cliente" value="#{cliBean.clienteSelecionado}"/> -->
 	<f:event listener="#{cliBean.inicializar}" type="preRenderView"></f:event>
 </f:metadata>
 

@@ -11,13 +11,13 @@
 
 <p:growl id="growl" life="2000" />
 
-<p:dataTable var="os" value="#{osBean.listOS}">
+<p:dataTable var="os" value="#{osBean.listOS}" id="dTb">
     <p:column headerText="Nº OS">
         <h:outputText value="#{os.id}" />
     </p:column>
  
 	 <p:column headerText="Cliente">
-        <h:outputText value="#{os.idCliente.nome}" />
+        <h:outputText value="#{osBean.cliB.clienteSelecionado.nome}" />
     </p:column>
  
     <p:column headerText="Data (Abertura)">
@@ -38,39 +38,25 @@
         <h:outputText value="#{os.status}" />
     </p:column>
     
-    <p:column headerText="">
-<!--         <p:commandButton icon="fa fa-fw fa-remove" value="Excluir" action="#{osBean.osDelete}" >
-        	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
-        	<p:confirm header="Confirmação" message="Deseja realmente excluir?" icon="fa fa-exclamation-triangle" />
-        </p:commandButton> -->
-        
-        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="confirmacaoExclusao.show();"/>
-        	<!-- <f:setPropertyActionListener value="#{os}" target="#{osBean.os}" /> -->
-        <!-- </p:commandButton> -->
-
-		<p:button icon="fa fa-fw fa-edit" title="Editar" action="#{osBean.osEdit}" />
-			<!-- <f:setPropertyActionListener value="os" target="#{osBean.os}" /> -->
-		<!-- </p:button> -->
-    </p:column>
     
-<!--     <p:column headerText="teste">
-    	<p:commandButton value="Teste1" action="#{osBean.teste1}" />
-    </p:column> -->
+    
+        <p:column>
+		
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemOSModal.show();" process="@this" update=":formOS">
+        	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
+        </p:commandButton>
+
+		<p:button icon="fa fa-fw fa-edit" title="Editar" outcome="/os/newOS" style="text-align: center;">
+			<f:param name="os" value="#{os.id}"/>
+		</p:button>
+    </p:column>
+
 </p:dataTable>
 
- <p:confirmDialog id="excluirMensagemOSModal" width="500"
-        header="Confirmação de exclusão" severity="alert"
-        widgetVar="excluirMensagemOSDialog" closable="false" appendToBody="true">
-        <f:facet name="message">
-            <h:outputFormat value="Excluir este registro?" />
-        </f:facet>
-
-        <p:commandButton value="Sim"
-            oncomplete="excluirMensagemOSDialog.hide()"
-            action=""
-            update="formOS" />
-        <p:commandButton value="Não"
-            onclick="excluirMensagemOSDialogs.hide()" />
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{osBean.excluirOS}" update=":formOS:dTb" actionListener="#{osBean.excluirOS}" process="@this" />
+        <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="return false;"/>
     </p:confirmDialog>
 
 </h:form>

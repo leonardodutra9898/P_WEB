@@ -12,6 +12,7 @@ import javax.inject.Named;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.enums.Status;
+import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.OS;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
@@ -25,8 +26,7 @@ public class OSBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-//	@Inject	
-	private ClienteBean cliBean = new ClienteBean();
+	private ClienteBean cliB = new ClienteBean();
 	
 	private List<OS> listOS;
 	private OS os;
@@ -47,8 +47,6 @@ public class OSBean implements Serializable {
 		
 	}
 	
-
-	
 	public List<OS> getListOS() {
 		return listOS;
 	}
@@ -66,51 +64,47 @@ public class OSBean implements Serializable {
 		os.setDataAbertura(Calendar.getInstance().getTime());
 		os.setId(++count);
 		os.setStatus(Status.ABERTO);
-		
-//		cliente.setId(id);
-//		os.setIdCliente(cliente);
-		
 		listOS.add(os);
-
 		os = new OS();
-		
-		
-		
-//		cliente = new Cliente();
-		
-//		System.out.println("####");
-//		
-//		System.out.println("Tamanho da lista: " + listOS.size());
-//		System.out.println("Cliente => " + os.getIdCliente());
-		
 		msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
-		
-		list();
+
+	}
+
+	public ClienteBean getCliB() {
+		return cliB;
+	}
+
+	public void setCliB(ClienteBean cliB) {
+		this.cliB = cliB;
 	}
 	
-
-	
-	public void list() {
-		
-		for(OS o : listOS) {
-			
-			if(cliBean != null) {
-				System.out.println(o.getId() + " -- " + o.getDescricao() + " -- " + o.getStatus() + " -- Prio: " + o.getPrioridade()
-				+ " -- Data: " + o.getDataAbertura() + " -- Cliente => " + cliBean.getClienteSelecionado().getNome());
+	public OS searchById(int idOS) {
+		if(listOS != null) {
+			for(OS os : listOS) {
 				
-//		System.out.println(" -- Cli => " + o.getIdCliente().getNome() + " obj=> " + o.getIdCliente());
+					if(os.getId() == idOS) {
+						return os;
+					}
 				
 			}
-
-			System.out.println();
 		}
-	}
 
-//	public ClienteService getCliServ() {
-//		return cliServ;
+		return null;
+	}
+	
+	
+	public void excluirOS() {
+		
+		
+			listOS.remove(searchById(getOs().getId()));
+			System.out.println("excluido");
+		
+			msgUtils = new MessagesUtils("Excluído!", "OS", MessagesTypes.INFO);	
+		
+	}
+	
+//	public boolean isEdit() {
+//		return this.os.getId() != null;
 //	}
-//
-//	public void setCliServ(ClienteService cliServ) {
-//		this.cliServ = cliServ;
-//	}
+	
 }

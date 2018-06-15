@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import br.ufc.crateus.os.beans.ClienteBean;
 import br.ufc.crateus.os.model.Cliente;
 
-@FacesConverter(forClass = Cliente.class)
-public class ClienteConverter implements Converter {
+@FacesConverter(forClass = ClienteBean.class)
+public class ClienteBeanConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {

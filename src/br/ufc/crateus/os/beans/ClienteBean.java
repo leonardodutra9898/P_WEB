@@ -38,17 +38,11 @@ public class ClienteBean implements Serializable {
 		if(clientes == null) {
 			clientes = new ArrayList<Cliente>();
 		}
-		
-		if(clienteSelecionado == null) {
-			clienteSelecionado = new Cliente();
-		}
-		
+				
 		if(clienteSelecionado != null) {
 			clienteSelecionado.setId(++count);
 			clientes.add(clienteSelecionado);
 		}
-		
-			
 		
 		msgUtils = new MessagesUtils("Registro Salvo", "Novo Cliente Registrado!", MessagesTypes.SUCCESS);
 	}
@@ -57,7 +51,7 @@ public class ClienteBean implements Serializable {
 
 	}
 
-	@PostConstruct
+	
 	public void inicializar() {
 		clienteSelecionado = new Cliente();
 	}
