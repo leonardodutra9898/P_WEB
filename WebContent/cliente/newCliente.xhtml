@@ -18,20 +18,22 @@
 	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
 		<p:outputLabel value="Nome do Cliente: " for="nom" />		
-		<p:inputText id="nom" value="#{cliBean.cliente.nome}" 
+		<p:inputText id="nom" value="#{cliBean.clienteSelecionado.nome}" 
 			required="true" requiredMessage="Nome é necessário"	>
 		</p:inputText>
 		
 		<p:outputLabel value="E-mail " for="mail" /> 
-		<p:inputText id="mail" required="true" value="#{cliBean.cliente.email}" validatorMessage="E-mail inválido" /> 
-
+		<p:inputText id="mail" required="true" value="#{cliBean.clienteSelecionado.email}" validatorMessage="E-mail inválido" > 
+			<f:validator validatorId="emailValidator" />
+		</p:inputText>
+		
 		<p:outputLabel value="CPF" for="cpf" /> 
-		<p:inputText id="cpf" required="true" value="#{cliBean.cliente.cpf}" validatorMessage="CPF inválido" /> 
+		<p:inputMask mask="999.999.999-99" size="25" id="cpf" required="true" value="#{cliBean.clienteSelecionado.cpf}" validatorMessage="CPF inválido" /> 
 
 		<p:outputLabel value="Endereço" for="end" /> 
-		<p:inputText id="end" required="true" value="#{cliBean.cliente.endereco}" /> 
+		<p:inputText id="end" required="true" value="#{cliBean.clienteSelecionado.endereco}" /> 
 		
-		<p:commandButton value="Adicionar" action="#{cliBean.novoCliente}" update="growl"/>
+		<p:commandButton value="Adicionar" actionListener="#{cliBean.novoCliente}" action="#{cliBean.goListCli}" update="growl"/>
 		
 		</h:panelGrid>
 	</h:form>

@@ -18,9 +18,9 @@
 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 		
 		<p:outputLabel value="Cliente: " for="cli" />
-		<p:selectOneMenu id="cli" value="#{cliBean.cliente}" converter="clienteConverter">
+		<p:selectOneMenu id="cli" value="#{cliBean.clienteSelecionado}" converter="clienteConverter">
 					<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
-					<f:selectItems value="#{cliBean.listClientes}" var="iCli" itemValue="#{iCli}" itemLabel="#{iCli.nome}"/>
+					<f:selectItems value="#{cliBean.clientes}" var="c" itemValue="#{c}" itemLabel="#{c.nome}"/>
 		</p:selectOneMenu>
 
 		<p:outputLabel value="Descrição: " for="desc" />		

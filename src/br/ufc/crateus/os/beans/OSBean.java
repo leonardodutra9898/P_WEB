@@ -7,13 +7,15 @@ import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.enums.Status;
 import br.ufc.crateus.os.model.OS;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
-
+@Named
 @ManagedBean(name="osBean")
 @ApplicationScoped
 public class OSBean implements Serializable {
@@ -22,6 +24,9 @@ public class OSBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+//	@Inject	
+	private ClienteBean cliBean = new ClienteBean();
 	
 	private List<OS> listOS;
 	private OS os;
@@ -41,6 +46,8 @@ public class OSBean implements Serializable {
 	public void osDelete() {
 		
 	}
+	
+
 	
 	public List<OS> getListOS() {
 		return listOS;
@@ -65,7 +72,7 @@ public class OSBean implements Serializable {
 		
 		listOS.add(os);
 
-//		os = new OS();
+		os = new OS();
 		
 		
 		
@@ -87,9 +94,14 @@ public class OSBean implements Serializable {
 		
 		for(OS o : listOS) {
 			
-			System.out.println(o.getId() + " -- " + o.getDescricao() + " -- " + o.getStatus() + " -- Prio: " + o.getPrioridade()
-					+ " -- Data: " + o.getDataAbertura());
-//			System.out.println(" -- Cli => " + o.getIdCliente().getNome() + " obj=> " + o.getIdCliente());
+			if(cliBean != null) {
+				System.out.println(o.getId() + " -- " + o.getDescricao() + " -- " + o.getStatus() + " -- Prio: " + o.getPrioridade()
+				+ " -- Data: " + o.getDataAbertura() + " -- Cliente => " + cliBean.getClienteSelecionado().getNome());
+				
+//		System.out.println(" -- Cli => " + o.getIdCliente().getNome() + " obj=> " + o.getIdCliente());
+				
+			}
+
 			System.out.println();
 		}
 	}

@@ -4,16 +4,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
 import br.ufc.crateus.os.beans.ClienteBean;
 import br.ufc.crateus.os.model.Cliente;
-import br.ufc.crateus.os.utils.cdi.CDIServiceLocator;
 
 @FacesConverter(value="clienteConverter", forClass = Cliente.class, managed = true)
 public class ClienteConverter implements Converter {
 
 //	@Inject
-	private ClienteBean cliBean;
+
+//	@Inject
+	
 	
 //	@Inject
 //	private Cliente cli;
@@ -23,7 +25,7 @@ public class ClienteConverter implements Converter {
 	
 	public ClienteConverter() {
 //		System.out.println("Teste 3");
-		cliBean = CDIServiceLocator.getBean(ClienteBean.class);
+//		cliBean = CDIServiceLocator.getBean(ClienteBean.class);
 //		System.out.println("Teste 4");
 	}
 	
@@ -32,18 +34,25 @@ public class ClienteConverter implements Converter {
 		System.out.println("Teste 1");
 //		cli = new ClienteService();
 		
-		cliBean = new ClienteBean();
+		ClienteBean cliBean = new ClienteBean();
 		
-		Cliente cliReturno = null;
 		
-			if(value != null) {
-				Integer id = new Integer(value);
-				cliReturno = cliBean.searchById(id);
+			if(value != null && value.trim().length()>0) {
+//				Integer id = Integer.valueOf(value);
+				
+				
+				System.out.println("retorno cliente converter => " + cliBean.searchById(Integer.parseInt(value)));
+					
+				Cliente cliReturno = cliBean.searchById(Integer.parseInt(value));
+				
+				return cliReturno;
+			}else {
+				return null;
 			}
 //		System.out.println("retorno cliente converter => " + cliReturno.toString());
 //		System.out.println("retorno cliente converter => " + cliBean.getCliente());
 		
-		return cliReturno;
+		
 	}
 
 	@Override
@@ -52,11 +61,15 @@ public class ClienteConverter implements Converter {
 		System.out.println("Objeto passado é instância de Cliente? => " + value.getClass());
 //		System.out.println((Cliente)value);
 		
-		if(value != null) {
-			return ((Cliente) value).getId().toString();
-//			return String.valueOf(((Cliente) value).getId());
-		}
-			return null;
+		
+//			Cliente cliente = (Cliente) value;
+//			return cliente.getId().toString();
+			
+//			return ((Cliente) value).getId().toString();
+		
+			
+			return String.valueOf(((Cliente) value).getId());
+		
 	}
 
 }

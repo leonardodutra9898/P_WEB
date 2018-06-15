@@ -15,6 +15,7 @@ public class Cliente implements Serializable{
 	private Integer id;
 	private String nome;
 	private String endereco;
+	
 	private String cpf;
 	private String email;
 	private List<OS> listOS = new ArrayList<OS>();
@@ -130,7 +131,5 @@ public class Cliente implements Serializable{
 //		return "ID => " + getId() + "\nNome => " + getNome() + "\nE-mail => " + getEmail() + "\nEndereço => " + getEndereco()
 //			+ "\nCPF => " + getCpf() + "\nTotal de OS na lista por cliente => " + getListOS().size();
 //	}
-
-	
 
 }
