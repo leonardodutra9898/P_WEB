@@ -1,0 +1,66 @@
+<ui:composition template="/WEB-INF/template/layout.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+>
+
+<ui:define name="conteudo">
+<h:form id="formOS">  
+
+<p:growl id="growl" life="2000" />
+
+<p:dataTable var="os" value="#{osBean.listOS}" id="dTb">
+    <p:column headerText="Nº OS">
+        <h:outputText value="#{os.id}" />
+    </p:column>
+ 
+	 <p:column headerText="Cliente">
+        <h:outputText value="#{osBean.cliB.clienteSelecionado.nome}" />
+    </p:column>
+ 
+    <p:column headerText="Data (Abertura)">
+        <h:outputText value="#{os.dataAbertura}">
+        	<f:convertDateTime dateStyle="medium"/>
+        </h:outputText>
+    </p:column>
+ 
+ 	<p:column headerText="Descrição">
+        <h:outputText value="#{os.descricao}" />
+    </p:column>
+    
+    <p:column headerText="Prioridade">
+        <h:outputText value="#{os.prioridade}" />
+    </p:column>
+ 
+    <p:column headerText="Status">
+        <h:outputText value="#{os.status}" />
+    </p:column>
+    
+    
+    
+        <p:column>
+		
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemOSModal.show();" process="@this" update=":formOS">
+        	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
+        </p:commandButton>
+
+		<p:button icon="fa fa-fw fa-edit" title="Editar" outcome="/os/newOS" style="text-align: center;">
+			<f:param name="os" value="#{os.id}"/>
+		</p:button>
+    </p:column>
+
+</p:dataTable>
+
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{osBean.excluirOS}" update=":formOS:dTb" actionListener="#{osBean.excluirOS}" process="@this" />
+        <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="return false;"/>
+    </p:confirmDialog>
+
+</h:form>
+
+</ui:define>
+
+</ui:composition>
