@@ -36,13 +36,13 @@
         
         
         <f:facet name="right">
-            <p:commandButton type="button" value="Novo Funcionário" icon="fa fa-plus" />
+            <p:button type="button" value="Novo Funcionário" icon="fa fa-plus" outcome="/funcionario/newFuncionario.xhtml"/>
         </f:facet> 
         
          <f:facet name="right">
 			<p:menuButton value="Opções">
                 <p:menuitem value="Listar Clientes" update="messages" icon="fa fa-align-justify large" outcome="/cliente/listCliente.xhtml" />
-                <p:menuitem value="Listar Funcionários" update="messages" icon="fa fa-align-justify large" />
+                <p:menuitem value="Listar Funcionários" update="messages" icon="fa fa-align-justify large" outcome="/funcionario/listFuncionario.xhtml"/>
                 
             </p:menuButton>
  		</f:facet>

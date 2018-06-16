@@ -17,7 +17,7 @@
     </p:column>
  
 	 <p:column headerText="Cliente">
-        <h:outputText value="#{osBean.cliB.clienteSelecionado.nome}" />
+        <h:outputText value="#{os.nomeCliente}" />
     </p:column>
  
     <p:column headerText="Data (Abertura)">
@@ -47,15 +47,16 @@
          	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
         </p:commandButton>
 
-		<p:button icon="fa fa-fw fa-edit" title="Editar" outcome="/os/newOS" style="text-align: center;">
-			<f:param name="os" value="#{os.id}"/>
-		</p:button>
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/os/newOS" style="text-align: center;" action="#{osBean.searchEdit(os)}" >
+		<f:param name="os" value="#{os.id}"/>
+		</p:commandButton>
+			
     </p:column>
 
 </p:dataTable>
 
     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{osBean.excluirOS}" update=":formOS:dTb" actionListener="#{osBean.excluirOS}" process="@this" />
+        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{osBean.remove}" update=":formOS:dTb" actionListener="#{osBean.remove}" process="@this" />
         <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="return false;"/>
     </p:confirmDialog>
 

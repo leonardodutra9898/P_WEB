@@ -39,9 +39,10 @@
          	<f:setPropertyActionListener value="#{cli}" target="#{cliBean.clienteSelecionado}" />
         </p:commandButton>
 
-		<p:button icon="fa fa-fw fa-edit" title="Editar" outcome="/cliente/newCliente" style="text-align: center;">
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/cliente/newCliente" style="text-align: center;" 
+			action="#{cliBean.clientById(cli)}">
 			<f:param name="cliente" value="#{cli.id}"/>
-		</p:button>
+		</p:commandButton>
     </p:column>
 
 </p:dataTable>
