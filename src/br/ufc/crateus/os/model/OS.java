@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-import br.ufc.crateus.os.enums.GravidadeOS;
+import br.ufc.crateus.os.enums.FuncionarioFuncoes;
 import br.ufc.crateus.os.enums.Status;
 
 public class OS implements Serializable{
@@ -13,15 +13,15 @@ public class OS implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
-	private Cliente idCliente;
+	private Integer id;
+	private String nomeCliente;
 	private Date dataAbertura;
 	private Calendar dataFechamento;
 	private Status status;
 	private String descricao;
 	private Tecnico idTecnico;
 	private int prioridade;
-	private GravidadeOS gravidade;
+	private FuncionarioFuncoes gravidade;
 	
 	public OS() {
 		
@@ -29,30 +29,25 @@ public class OS implements Serializable{
 	
 	
 	
-	public GravidadeOS getGravidade() {
+	public FuncionarioFuncoes getGravidade() {
 		return gravidade;
 	}
 
 
 
-	public void setGravidade(GravidadeOS gravidade) {
+	public void setGravidade(FuncionarioFuncoes gravidade) {
 		this.gravidade = gravidade;
 	}
 
 
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Cliente getIdCliente() {
-		return idCliente;
-	}
-	public void setIdCliente(Cliente idCliente) {
-		this.idCliente = idCliente;
-	}
+
 	public Date getDataAbertura() {
 		return dataAbertura;
 	}
@@ -90,6 +85,20 @@ public class OS implements Serializable{
 		this.prioridade = prioridade;
 	}
 
+
+
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,12 +108,14 @@ public class OS implements Serializable{
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((gravidade == null) ? 0 : gravidade.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((idCliente == null) ? 0 : idCliente.hashCode());
 		result = prime * result + ((idTecnico == null) ? 0 : idTecnico.hashCode());
+		result = prime * result + ((nomeCliente == null) ? 0 : nomeCliente.hashCode());
 		result = prime * result + prioridade;
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -134,15 +145,15 @@ public class OS implements Serializable{
 			return false;
 		if (id != other.id)
 			return false;
-		if (idCliente == null) {
-			if (other.idCliente != null)
-				return false;
-		} else if (!idCliente.equals(other.idCliente))
-			return false;
 		if (idTecnico == null) {
 			if (other.idTecnico != null)
 				return false;
 		} else if (!idTecnico.equals(other.idTecnico))
+			return false;
+		if (nomeCliente == null) {
+			if (other.nomeCliente != null)
+				return false;
+		} else if (!nomeCliente.equals(other.nomeCliente))
 			return false;
 		if (prioridade != other.prioridade)
 			return false;

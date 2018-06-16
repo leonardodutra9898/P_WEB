@@ -40,6 +40,7 @@ public class ClienteBean implements Serializable {
 		}else {
 			clienteSelecionado.setId(++count);
 			clientes.add(clienteSelecionado);
+			
 			clienteSelecionado = new Cliente();
 		
 			msgUtils = new MessagesUtils("Registro Salvo", "Novo Cliente Registrado!", MessagesTypes.SUCCESS);
@@ -70,6 +71,33 @@ public class ClienteBean implements Serializable {
 			}
 
 		return null;
+	}
+
+	public String getNameClienteById(Integer i) {
+		
+		for(Cliente c : clientes) {
+			
+				if(c.getId() == i) {
+					System.out.println("resultado..." + c.getNome());
+					return c.getNome();
+				}
+		}
+		
+
+
+	return null;
+	}
+	
+	public Cliente getClienteById(Integer i) {
+		
+		for(Cliente c : clientes) {
+			
+				if(c.getId() == i) {
+					return c;
+				}
+		}
+
+	return null;
 	}
 
 	public List<Cliente> getClientes() {

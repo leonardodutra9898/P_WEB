@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
@@ -25,21 +24,24 @@ public class OSBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private ClienteBean cliB;
+
 	
 	private List<OS> listOS;
 	private OS os;
 	int count = 0;
 	private Cliente clienteViewOS;
+	private Cliente cliSetado;
+	
 	
 	MessagesUtils msgUtils;
 	
 	public OSBean() {
 		os = new OS();
 		clienteViewOS = new Cliente();
-		listOS = new ArrayList<OS>();
-		cliB = new ClienteBean();
+		listOS = new ArrayList<>();
+		
+		cliSetado = new Cliente();
+		System.out.println("Cliente inicializado... == " + cliSetado.getNome());
 	}
 	
 	public void osEdit() {
@@ -49,17 +51,6 @@ public class OSBean implements Serializable {
 	public void osDelete() {
 		
 	}
-	
-//	public String nomeClienteByOS(OS o) {
-//			
-//			for(OS oss : listOS) {
-//				if(oss.getId() == os.getId()) {
-//					clienteViewOS = oss;
-//				}
-//			}
-//
-//		return os.getIdCliente().getNome();
-//	}
 	
 	public List<OS> getListOS() {
 		return listOS;
@@ -73,27 +64,33 @@ public class OSBean implements Serializable {
 		this.os = os;
 	}
 	
+	public boolean isEdit() {
+		return (os.getId() != null);
+	}
+	
 	public void novoOS() {
+		
+		if(isEdit()) {
+			atualizarOS();
+		}else {
 		
 		os.setDataAbertura(Calendar.getInstance().getTime());
 		os.setId(++count);
 		os.setStatus(Status.ABERTO);
-		os.setIdCliente(clienteViewOS);
+		os.setNomeCliente(cliSetado.getNome());	
 		
-		
+		System.out.println("teste cli em OS === " + cliSetado.getId());
+				
 		listOS.add(os);
 		os = new OS();
 		msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
-
+		}
 	}
 
-	public ClienteBean getCliB() {
-		return cliB;
+	public void setClienteId(Cliente cli) {
+		cliSetado = cli;
 	}
 
-	public void setCliB(ClienteBean cliB) {
-		this.cliB = cliB;
-	}
 	
 	public OS searchById(int idOS) {
 		if(listOS != null) {
@@ -109,15 +106,28 @@ public class OSBean implements Serializable {
 		return null;
 	}
 	
+	public OS searchById() {
+		
+		for(OS c : listOS) {
+			
+			if(c.getId() == os.getId()) {
+				return c;
+			}
+		}
+		
+		return null;
+	}
 	
-	public void excluirOS() {
+	public String searchEdit(OS oo) {
+		for(OS o : listOS) {
+			
+			if(o.getId() == oo.getId()) {
+				os = o;
+
+			}
+		}
 		
-		
-			listOS.remove(searchById(getOs().getId()));
-			System.out.println("excluido");
-		
-			msgUtils = new MessagesUtils("Excluído!", "OS", MessagesTypes.INFO);	
-		
+		return "/os/newOS?faces-redirect=true";
 	}
 
 	public Cliente getClienteViewOS() {
@@ -127,5 +137,45 @@ public class OSBean implements Serializable {
 	public void setClienteViewOS(Cliente clienteViewOS) {
 		this.clienteViewOS = clienteViewOS;
 	}
+
+	public Cliente getCliSetado() {
+		return cliSetado;
+	}
+
+	public void setCliSetado(Cliente cliSetado) {
+		this.cliSetado = cliSetado;
+	}
+	
+public void atualizarOS() {
+		
+		OS osSearch = searchById();
+		
+		if(osSearch != null) {
+			osSearch.setNomeCliente(os.getNomeCliente());
+			osSearch.setDescricao(os.getDescricao());
+			osSearch.setDataAbertura(os.getDataAbertura());
+			osSearch.setGravidade(os.getGravidade());
+			osSearch.setDataFechamento(os.getDataFechamento());
+			osSearch.setStatus(os.getStatus());
+			
+			msgUtils = new MessagesUtils("Atualização realizada com sucesso em Ordem de Serviço...", "Atualização concluída", MessagesTypes.SUCCESS);
+		}
+		
+	}
+
+public void remove() {
+	
+	OS o = searchById();
+	
+	if(o != null) {
+		
+		listOS.remove(o);
+		
+		msgUtils = new MessagesUtils("Atualização realizada com sucesso em OS...", "Atualização concluída", MessagesTypes.SUCCESS);
+		System.out.println("Contato removido.");
+	}
+}
+
+
 	
 }

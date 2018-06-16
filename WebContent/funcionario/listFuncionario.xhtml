@@ -41,15 +41,15 @@
          	<f:setPropertyActionListener value="#{fun}" target="#{funcBean.funcionario}" />
         </p:commandButton>
 
-		<p:button icon="fa fa-fw fa-edit" title="Editar" outcome="/funcionario/newFuncionario" style="text-align: center;">
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/funcionario/newFuncionario" style="text-align: center;" action="#{funcBean.funcById(fun)}">
 			<f:param name="funcionario" value="#{fun.id}"/>
-		</p:button>
+		</p:commandButton>
     </p:column>
 
 </p:dataTable>
 
     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{funcBean.excluirFunc}" update=":formFunc:dTb" actionListener="#{funcBean.excluirFunc}" process="@this" />
+        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{funcBean.excluirFuncionario}" update=":formFunc:dTb" actionListener="#{funcBean.excluirFuncionario}" process="@this" />
         <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="return false;"/>
     </p:confirmDialog>
 

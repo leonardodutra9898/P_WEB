@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
+import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.Funcionario;
 import br.ufc.crateus.os.model.OS;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
@@ -26,7 +27,7 @@ public class FuncionarioBean implements Serializable {
 	private Funcionario funcionario;
 	int count = 0;
 	private List<Funcionario> funcionarios;
-	private final String FUNCAO = "supervisor";
+	private String FUNCAO;
 	
 	
 	MessagesUtils msgUtils;
@@ -38,11 +39,16 @@ public class FuncionarioBean implements Serializable {
 	
 	
 	public void novoFunc() {
-		funcionario.setId(++count);
-		funcionarios.add(funcionario);
-		funcionario = new Funcionario();
-		msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
-
+		
+		if(isEditar()) {
+			atualizarFuncionario();
+		}else {
+		
+			funcionario.setId(++count);
+			funcionarios.add(funcionario);
+			funcionario = new Funcionario();
+			msgUtils = new MessagesUtils("Registro Salvo", "Funcionário registrado!", MessagesTypes.SUCCESS);
+		}
 	}
 
 	public OS searchById(int idFunc) {
@@ -77,6 +83,74 @@ public class FuncionarioBean implements Serializable {
 	public String getFUNCAO() {
 		return FUNCAO;
 	}
+
+
+	public void setFUNCAO(String fUNCAO) {
+		FUNCAO = fUNCAO;
+	}
+
+	public String funcionarioById(Funcionario f) {
+		
+		for(Funcionario c : funcionarios) {
+			if(c.getId() == f.getId()) {
+				funcionario = c;
+			}
+		}
+		
+		return "/funcionario/newFuncionario?faces-redirect-true";
+	}	
 	
+	public void excluirFuncionario() {
+		
+		Funcionario fTemp = searchById();
+		
+		if(fTemp != null) {
+			funcionarios.remove(fTemp);
+			
+			msgUtils = new MessagesUtils("Funcionário excluído...", "Funcionário removido", MessagesTypes.SUCCESS);
+		}		
+	}
+	
+	public void atualizarFuncionario() {
+		
+		Funcionario fSearch = searchById();
+		
+		if(fSearch != null) {
+			fSearch.setNome(funcionario.getNome());
+			fSearch.setEmail(funcionario.getEmail());
+			fSearch.setFUNCAO(funcionario.getFUNCAO());
+			fSearch.setSalario(funcionario.getSalario());
+			
+			msgUtils = new MessagesUtils("Atualização realizada com sucesso em Funcionário...", "Atualização concluída", MessagesTypes.SUCCESS);
+		}
+		
+	}
+	
+	public boolean isEditar() {
+		return this.funcionario.getId() != null;
+	}
+	
+	public Funcionario searchById() {
+		
+		for(Funcionario f : funcionarios) {
+			
+				if(f.getId() == funcionario.getId()) {
+					return f;
+				}
+		}
+
+	return null;
+}
+	
+	public String funcById(Funcionario f) {
+		
+		for(Funcionario fa : funcionarios) {
+			if(fa.getId() == f.getId()) {
+				funcionario = fa;
+			}
+		}
+		
+		return "/funcionario/newFuncionario?faces-redirect-true";
+	}
 	
 }
