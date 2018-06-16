@@ -6,8 +6,20 @@ public class Funcionario {
 	private String nome;
 	private String email;
 	private float salario;
+	private String FUNCAO;
 	
 	
+	
+	public String getFUNCAO() {
+		return FUNCAO;
+	}
+
+
+	public void setFUNCAO(String fUNCAO) {
+		FUNCAO = fUNCAO;
+	}
+
+
 	public Funcionario() {
 		
 	}

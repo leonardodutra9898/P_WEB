@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
+import br.ufc.crateus.os.enums.GravidadeOS;
 import br.ufc.crateus.os.enums.Status;
 
 public class OS implements Serializable{
@@ -20,11 +21,26 @@ public class OS implements Serializable{
 	private String descricao;
 	private Tecnico idTecnico;
 	private int prioridade;
+	private GravidadeOS gravidade;
 	
 	public OS() {
 		
 	}
 	
+	
+	
+	public GravidadeOS getGravidade() {
+		return gravidade;
+	}
+
+
+
+	public void setGravidade(GravidadeOS gravidade) {
+		this.gravidade = gravidade;
+	}
+
+
+
 	public int getId() {
 		return id;
 	}
@@ -81,6 +97,7 @@ public class OS implements Serializable{
 		result = prime * result + ((dataAbertura == null) ? 0 : dataAbertura.hashCode());
 		result = prime * result + ((dataFechamento == null) ? 0 : dataFechamento.hashCode());
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((gravidade == null) ? 0 : gravidade.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((idCliente == null) ? 0 : idCliente.hashCode());
 		result = prime * result + ((idTecnico == null) ? 0 : idTecnico.hashCode());
@@ -112,6 +129,8 @@ public class OS implements Serializable{
 			if (other.descricao != null)
 				return false;
 		} else if (!descricao.equals(other.descricao))
+			return false;
+		if (gravidade != other.gravidade)
 			return false;
 		if (id != other.id)
 			return false;

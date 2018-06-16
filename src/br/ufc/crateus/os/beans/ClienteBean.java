@@ -26,7 +26,7 @@ public class ClienteBean implements Serializable {
 
 	int count = 0;
 
-	private List<SelectItem> listClientesSelectOneMenu;
+//	private List<SelectItem> listClientesSelectOneMenu;
 	
 	private Cliente clienteSelecionado;
 	private List<Cliente> clientes;
@@ -35,28 +35,22 @@ public class ClienteBean implements Serializable {
 	
 	public void novoCliente() {
 		
-		if(clientes == null) {
-			clientes = new ArrayList<Cliente>();
-		}
-				
-		if(clienteSelecionado != null) {
+		if(isEditar()) {
+			atualizarCliente();
+		}else {
 			clienteSelecionado.setId(++count);
 			clientes.add(clienteSelecionado);
-		}
+			clienteSelecionado = new Cliente();
 		
-		msgUtils = new MessagesUtils("Registro Salvo", "Novo Cliente Registrado!", MessagesTypes.SUCCESS);
+			msgUtils = new MessagesUtils("Registro Salvo", "Novo Cliente Registrado!", MessagesTypes.SUCCESS);
+		}
 	}
 	
 	public ClienteBean() {
 
-	}
-
-	
-	public void inicializar() {
+		clientes = new ArrayList<>();
 		clienteSelecionado = new Cliente();
 	}
-
-
 	
 	public Cliente getClienteSelecionado() {
 		return clienteSelecionado;
@@ -66,16 +60,14 @@ public class ClienteBean implements Serializable {
 		this.clienteSelecionado = clienteSelecionado;
 	}
 
-	public Cliente searchById(int idCliente) {
-		if(clientes != null) {
+	public Cliente searchById() {
+		
 			for(Cliente c : clientes) {
 				
-					if(c.getId() == idCliente) {
+					if(c.getId() == clienteSelecionado.getId()) {
 						return c;
 					}
-				
 			}
-		}
 
 		return null;
 	}
@@ -84,13 +76,54 @@ public class ClienteBean implements Serializable {
 		return clientes;
 	}
 
+	public String clientById(Cliente cliente) {
+		
+		for(Cliente c : clientes) {
+			if(c.getId() == cliente.getId()) {
+				clienteSelecionado = c;
+			}
+		}
+		
+		return "/cliente/newCliente?faces-redirect-true";
+	}
+	
+//	public Cliente getClientById(Cliente cliente) {
+//		Cliente temp = null;
+//		for(Cliente c : clientes) {
+//			if(c.getId() == cliente.getId()) {
+//				temp = c;
+//			}
+//		}
+//		return temp;
+//	}
+	
 	public void excluirCliente() {
 		
-		if(getClienteSelecionado().getId() != null && clientes != null) {
-			clientes.remove(searchById(getClienteSelecionado().getId()));
-			System.out.println("excluido");
-		}else {
-			msgUtils = new MessagesUtils("Não foi possível remover! Provavelmente objetos vazios...", "Cliente vazio", MessagesTypes.WARNING);	
+		Cliente cliTemp = searchById();
+		
+		if(cliTemp != null) {
+			clientes.remove(cliTemp);
+			
+			msgUtils = new MessagesUtils("Cliente excluído...", "Cliente removido", MessagesTypes.SUCCESS);
+		}		
+	}
+	
+	public void atualizarCliente() {
+		
+		Cliente cliSearch = searchById();
+		
+		if(cliSearch != null) {
+			cliSearch.setNome(clienteSelecionado.getNome());
+			cliSearch.setEmail(clienteSelecionado.getEmail());
+			cliSearch.setEndereco(clienteSelecionado.getEndereco());
+			cliSearch.setCpf(clienteSelecionado.getCpf());
+			
+			msgUtils = new MessagesUtils("Atualização realizada com sucesso em CLiente...", "Atualização concluída", MessagesTypes.SUCCESS);
 		}
+		
+	}
+	
+	public boolean isEditar() {
+		return this.clienteSelecionado.getId() != null;
 	}
 }

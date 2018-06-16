@@ -9,7 +9,7 @@ import br.ufc.crateus.os.beans.OSBean;
 import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.OS;
 
-@FacesConverter(forClass = OS.class)
+@FacesConverter(forClass = OS.class, value="osConverter")
 public class OSConverter implements Converter {
 
 	@Override

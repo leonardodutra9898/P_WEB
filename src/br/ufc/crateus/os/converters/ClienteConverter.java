@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import br.ufc.crateus.os.beans.ClienteBean;
 import br.ufc.crateus.os.model.Cliente;
 
-@FacesConverter(forClass = Cliente.class)
+@FacesConverter(forClass = Cliente.class, value="cliConverter")
 public class ClienteConverter implements Converter {
 
 	@Override
@@ -18,7 +18,7 @@ public class ClienteConverter implements Converter {
 		ClienteBean cliBean = new ClienteBean();
 
 			if(value != null && value.trim().length()>0) {
-				Cliente cliReturno = cliBean.searchById(Integer.parseInt(value));
+				Cliente cliReturno = cliBean.searchById();
 				return cliReturno;
 			}else {
 				return null;

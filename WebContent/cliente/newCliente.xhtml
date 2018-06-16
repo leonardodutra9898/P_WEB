@@ -9,12 +9,10 @@
 
 <ui:define name="conteudo">
 
- <f:metadata>
-	<!-- <o:viewParam name="cliente" value="#{cliBean.clienteSelecionado}"/> -->
-	<f:event listener="#{cliBean.inicializar}" type="preRenderView"></f:event>
-</f:metadata>
+<h2>Novo Cliente</h2>
 
 <h:form>
+
 <p:growl id="growl" life="2000" />
 	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
@@ -29,10 +27,11 @@
 		</p:inputText>
 		
 		<p:outputLabel value="CPF" for="cpf" /> 
-		<p:inputMask mask="999.999.999-99" size="25" id="cpf" required="true" value="#{cliBean.clienteSelecionado.cpf}" validatorMessage="CPF inválido" /> 
+		<p:inputMask mask="999.999.999-99" size="20" id="cpf" required="true" value="#{cliBean.clienteSelecionado.cpf}" validatorMessage="CPF inválido" /> 
 
 		<p:outputLabel value="Endereço" for="end" /> 
 		<p:inputText id="end" required="true" value="#{cliBean.clienteSelecionado.endereco}" /> 
+		
 		
 		<p:commandButton value="Adicionar" actionListener="#{cliBean.novoCliente}" update="growl"/>
 		

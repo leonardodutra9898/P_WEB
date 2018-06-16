@@ -26,17 +26,20 @@ public class OSBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private ClienteBean cliB = new ClienteBean();
+	private ClienteBean cliB;
 	
 	private List<OS> listOS;
 	private OS os;
 	int count = 0;
+	private Cliente clienteViewOS;
 	
 	MessagesUtils msgUtils;
 	
 	public OSBean() {
 		os = new OS();
+		clienteViewOS = new Cliente();
 		listOS = new ArrayList<OS>();
+		cliB = new ClienteBean();
 	}
 	
 	public void osEdit() {
@@ -46,6 +49,17 @@ public class OSBean implements Serializable {
 	public void osDelete() {
 		
 	}
+	
+//	public String nomeClienteByOS(OS o) {
+//			
+//			for(OS oss : listOS) {
+//				if(oss.getId() == os.getId()) {
+//					clienteViewOS = oss;
+//				}
+//			}
+//
+//		return os.getIdCliente().getNome();
+//	}
 	
 	public List<OS> getListOS() {
 		return listOS;
@@ -64,6 +78,9 @@ public class OSBean implements Serializable {
 		os.setDataAbertura(Calendar.getInstance().getTime());
 		os.setId(++count);
 		os.setStatus(Status.ABERTO);
+		os.setIdCliente(clienteViewOS);
+		
+		
 		listOS.add(os);
 		os = new OS();
 		msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
@@ -102,9 +119,13 @@ public class OSBean implements Serializable {
 			msgUtils = new MessagesUtils("Excluído!", "OS", MessagesTypes.INFO);	
 		
 	}
-	
-//	public boolean isEdit() {
-//		return this.os.getId() != null;
-//	}
+
+	public Cliente getClienteViewOS() {
+		return clienteViewOS;
+	}
+
+	public void setClienteViewOS(Cliente clienteViewOS) {
+		this.clienteViewOS = clienteViewOS;
+	}
 	
 }
