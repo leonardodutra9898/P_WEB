@@ -7,8 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import br.ufc.crateus.os.model.Cliente;
+import br.ufc.crateus.os.model.OS;
 
-public class ClienteRepository implements Serializable{
+public class OSRepository implements Serializable{
 
 	/**
 	 * 
@@ -17,23 +18,23 @@ public class ClienteRepository implements Serializable{
 	
 	private EntityManager manager;
 	
-	public ClienteRepository(EntityManager manager) {
+	public OSRepository(EntityManager manager) {
 		
 		this.manager = manager;
 	}
 	
-	public List<Cliente> listClientes(){
+	public List<OS> listOS(){
 		
-		TypedQuery<Cliente> query = manager.createQuery("from Cliente", Cliente.class);
+		TypedQuery<OS> query = manager.createQuery("from OS", OS.class);
 		return query.getResultList();
 	}
 	
-	public void addCliente(Cliente cliente) {
-		manager.merge(cliente);
+	public void addCliente(OS os) {
+		manager.merge(os);
 	}
 	
-	public Cliente clienteById(int id) {
-		return manager.find(Cliente.class, id);
+	public OS OsById(int id) {
+		return manager.find(OS.class, id);
 	}
 	
 	public void delete(Cliente cliente) {
