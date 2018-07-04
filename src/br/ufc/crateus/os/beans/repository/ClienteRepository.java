@@ -9,11 +9,11 @@ import javax.persistence.TypedQuery;
 import br.ufc.crateus.os.model.Cliente;
 
 public class ClienteRepository implements Serializable{
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	
 	private EntityManager manager;
 	
