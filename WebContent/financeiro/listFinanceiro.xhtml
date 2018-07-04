@@ -1,0 +1,67 @@
+<ui:composition template="/WEB-INF/template/layout.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+>
+
+<ui:define name="conteudo">
+
+<h:form id="finForm">
+<p:growl id="growl" life="2000" />
+
+<p:dataTable var="fin" value="#{finBean.financeiroList}" id="dTb">
+    <p:column headerText="ID">
+        <h:outputText value="#{fin.id}" />
+    </p:column>
+ 
+	 <p:column headerText="Cliente">
+        <h:outputText value="#{fin.nome}" />
+    </p:column>
+ 
+    <p:column headerText="Status">
+        <h:outputText value="#{fin.email}" />
+    </p:column>
+
+	 <p:column headerText="Técnico">
+        <h:outputText value="#{fin.cpf}" />
+    </p:column>
+ 
+ 	<p:column headerText="OS (ID)">
+        <h:outputText value="#{fin.endereco}" />
+    </p:column>
+
+ 	<p:column headerText="Valor Orçamento">
+        <h:outputText value="#{fin.endereco}" />
+    </p:column>
+    
+ 	<p:column headerText="Data Lançamento">
+        <h:outputText value="#{fin.endereco}" />
+    </p:column>    
+    
+    <p:column>
+		
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemCliModal.show();" process="@this" update=":finForm">
+        	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{fin}" target="#{finBean.financeiro}" />
+        </p:commandButton>
+
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/financeiro/newFinanceiro" style="text-align: center;" 
+			action="#{finBean.financeiroById(fin)}">
+			<f:param name="financeiro" value="#{fin.id}"/>
+		</p:commandButton>
+    </p:column>
+
+</p:dataTable>
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{finBean.excluirFinanceiro}" update=":finForm:dTb" actionListener="#{finBean.excluirFinanceiro}" process="@this" />
+        <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="return false;"/>
+    </p:confirmDialog>
+ 
+</h:form>
+
+
+</ui:define>
+
+</ui:composition>

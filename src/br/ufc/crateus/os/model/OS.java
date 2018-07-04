@@ -19,7 +19,7 @@ public class OS implements Serializable{
 	private Calendar dataFechamento;
 	private Status status;
 	private String descricao;
-	private Tecnico idTecnico;
+	private Funcionario tecnico;
 	private int prioridade;
 	private FuncionarioFuncoes gravidade;
 	
@@ -72,12 +72,20 @@ public class OS implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Tecnico getIdTecnico() {
-		return idTecnico;
+
+	
+	public Funcionario getTecnico() {
+		return tecnico;
 	}
-	public void setIdTecnico(Tecnico idTecnico) {
-		this.idTecnico = idTecnico;
+
+
+
+	public void setTecnico(Funcionario tecnico) {
+		this.tecnico = tecnico;
 	}
+
+
+
 	public int getPrioridade() {
 		return prioridade;
 	}
@@ -107,11 +115,11 @@ public class OS implements Serializable{
 		result = prime * result + ((dataFechamento == null) ? 0 : dataFechamento.hashCode());
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((gravidade == null) ? 0 : gravidade.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((idTecnico == null) ? 0 : idTecnico.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nomeCliente == null) ? 0 : nomeCliente.hashCode());
 		result = prime * result + prioridade;
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((tecnico == null) ? 0 : tecnico.hashCode());
 		return result;
 	}
 
@@ -143,12 +151,10 @@ public class OS implements Serializable{
 			return false;
 		if (gravidade != other.gravidade)
 			return false;
-		if (id != other.id)
-			return false;
-		if (idTecnico == null) {
-			if (other.idTecnico != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!idTecnico.equals(other.idTecnico))
+		} else if (!id.equals(other.id))
 			return false;
 		if (nomeCliente == null) {
 			if (other.nomeCliente != null)
@@ -159,8 +165,14 @@ public class OS implements Serializable{
 			return false;
 		if (status != other.status)
 			return false;
+		if (tecnico == null) {
+			if (other.tecnico != null)
+				return false;
+		} else if (!tecnico.equals(other.tecnico))
+			return false;
 		return true;
 	}
 
+	
 
 }
