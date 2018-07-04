@@ -1,4 +1,4 @@
-package br.ufc.crateus.os.beans.repository;
+package br.ufc.crateus.os.utils.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

@@ -4,7 +4,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import br.ufc.crateus.os.beans.repository.EntityManagerPersistence;
+import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 
 @WebListener
 public class AppListener implements ServletContextListener{
