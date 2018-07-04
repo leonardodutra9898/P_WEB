@@ -122,5 +122,19 @@ public class FinanceiroBean implements Serializable{
 //		return this.financeiro.getId() != null;
 		return false;
 	}
+
+	public Financeiro getFinanceiro() {
+		return financeiro;
+	}
+
+	public void setFinanceiro(Financeiro financeiro) {
+		this.financeiro = financeiro;
+	}
+
+	public List<Financeiro> getFinanceiroList() {
+		return financeiroList;
+	}
+	
+	
 	
 }

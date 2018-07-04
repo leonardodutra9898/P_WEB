@@ -29,6 +29,11 @@
         </f:facet>
  
           
+
+		<f:facet name="left">
+            <p:button type="button" value="Finanças (Lançamentos)" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml"/>
+        </f:facet>          
+          
         <f:facet name="right">
             <p:button type="button" value="Novo Cliente" icon="fa fa-plus" outcome="/cliente/newCliente.xhtml" />
         </f:facet>
@@ -43,7 +48,7 @@
 			<p:menuButton value="Opções">
                 <p:menuitem value="Listar Clientes" update="messages" icon="fa fa-align-justify large" outcome="/cliente/listCliente.xhtml" />
                 <p:menuitem value="Listar Funcionários" update="messages" icon="fa fa-align-justify large" outcome="/funcionario/listFuncionario.xhtml"/>
-                
+
             </p:menuButton>
  		</f:facet>
  		
