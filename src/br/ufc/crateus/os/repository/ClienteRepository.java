@@ -1,4 +1,4 @@
-package br.ufc.crateus.os.beans.repository;
+package br.ufc.crateus.os.repository;
 
 import java.io.Serializable;
 import java.util.List;
