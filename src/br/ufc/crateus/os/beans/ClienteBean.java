@@ -4,14 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.model.Cliente;
+import br.ufc.crateus.os.repository.ClienteRepository;
+import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
 @Named
@@ -38,19 +39,36 @@ public class ClienteBean implements Serializable {
 		if(isEditar()) {
 			atualizarCliente();
 		}else {
-			clienteSelecionado.setId(++count);
-			clientes.add(clienteSelecionado);
 			
-			clienteSelecionado = new Cliente();
-		
-			msgUtils = new MessagesUtils("Registro Salvo", "Novo Cliente Registrado!", MessagesTypes.SUCCESS);
+			EntityManager manager = EntityManagerPersistence.getEntityManager();
+			
+			try {
+				manager.getTransaction().begin();
+				ClienteRepository clienteRepo = new ClienteRepository(manager);
+				clienteRepo.addCliente(clienteSelecionado);
+				clientes = clienteRepo.listClientes();
+				clienteSelecionado = new Cliente();
+				msgUtils = new MessagesUtils("Registro Salvo", "Novo Cliente Registrado!", MessagesTypes.SUCCESS);
+				
+				manager.getTransaction().commit();
+				
+			}catch(Exception e) {
+				manager.getTransaction().rollback();
+				msgUtils = new MessagesUtils("Erro ao tentar salvar registro", ("Erro: " + e.toString()), 
+						MessagesTypes.ERROR);
+			} finally {
+				manager.close();
+			}
 		}
 	}
 	
 	public ClienteBean() {
 
-		clientes = new ArrayList<>();
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		ClienteRepository clienteRepo = new ClienteRepository(manager);
+		clientes = clienteRepo.listClientes();
 		clienteSelecionado = new Cliente();
+		manager.close();
 	}
 	
 	public Cliente getClienteSelecionado() {
