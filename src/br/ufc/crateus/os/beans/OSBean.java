@@ -33,6 +33,7 @@ public class OSBean implements Serializable {
 	private OS os;
 	private int idCliSetado;
 	private OS nOS;
+	
 
 	MessagesUtils msgUtils;
 
@@ -70,7 +71,12 @@ public class OSBean implements Serializable {
 			OSRepository osRepo = new OSRepository(manager);
 
 			nOS.setDataAbertura(Calendar.getInstance().getTime());
-//			nOS.setCliente(cliSetado);
+			nOS.setStatus(Status.ABERTO);
+			
+			ClienteRepository cliRepo = new ClienteRepository(manager);
+			Cliente clienteSelect = cliRepo.clienteById(idCliSetado);
+			
+			nOS.setCliente(clienteSelect);
 			
 			osRepo.addOS(nOS);
 			listOS = osRepo.listOS();
@@ -139,16 +145,6 @@ public class OSBean implements Serializable {
 		return "/os/newOS?faces-redirect=true";
 	}
 
-//	public Cliente getCliSetado() {
-//		return cliSetado;
-//	}
-//
-//	public void setCliSetado(Cliente cliSetado) {
-//		this.cliSetado = cliSetado;
-//	}
-
-	
-	
 	public void atualizarOS() {
 
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
