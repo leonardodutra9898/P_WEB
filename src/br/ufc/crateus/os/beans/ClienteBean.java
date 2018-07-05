@@ -130,7 +130,7 @@ public class ClienteBean implements Serializable {
 			}
 		}
 		
-		return "/cliente/newCliente?faces-redirect-true";
+		return "/cliente/editCliente?faces-redirect-true";
 	}
 	
 //	public Cliente getClientById(Cliente cliente) {
@@ -145,29 +145,78 @@ public class ClienteBean implements Serializable {
 	
 	public void excluirCliente() {
 		
-		Cliente cliTemp = searchById();
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
-		if(cliTemp != null) {
-			clientes.remove(cliTemp);
+		try {
 			
-			msgUtils = new MessagesUtils("Cliente excluído...", "Cliente removido", MessagesTypes.SUCCESS);
-		}		
+			manager.getTransaction().begin();
+			ClienteRepository clienteRepo = new ClienteRepository(manager);
+			clienteRepo.delete(clienteSelecionado);
+			clientes = clienteRepo.listClientes();
+			
+			clienteSelecionado = new Cliente();
+			
+			manager.getTransaction().commit();
+			msgUtils = new MessagesUtils("Cliente excluído...", "Cliente removido", 
+					MessagesTypes.SUCCESS);
+			
+		}catch(Exception e) {
+			manager.getTransaction().rollback();
+			msgUtils = new MessagesUtils("Cliente não pode ser excluido...", ("Cliente não removido... " + e.toString()), 
+					MessagesTypes.ERROR);
+		} finally {
+			manager.close();
+		}
+		
+//		Cliente cliTemp = searchById();
+//		
+//		if(cliTemp != null) {
+//			clientes.remove(cliTemp);
+//			
+//			msgUtils = new MessagesUtils("Cliente excluído...", "Cliente removido", MessagesTypes.SUCCESS);
+//		}
+		
 	}
 	
 	public void atualizarCliente() {
 		
-		Cliente cliSearch = searchById();
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
-		if(cliSearch != null) {
-			cliSearch.setNome(clienteSelecionado.getNome());
-			cliSearch.setEmail(clienteSelecionado.getEmail());
-			cliSearch.setEndereco(clienteSelecionado.getEndereco());
-			cliSearch.setCpf(clienteSelecionado.getCpf());
+		try {
 			
-			msgUtils = new MessagesUtils("Atualização realizada com sucesso em CLiente...", "Atualização concluída", MessagesTypes.SUCCESS);
+			manager.getTransaction().begin();
+			ClienteRepository clienteRepo = new ClienteRepository(manager);
+			clienteRepo.addCliente(clienteSelecionado);
+			clientes = clienteRepo.listClientes();
+			
+			clienteSelecionado = new Cliente();
+			msgUtils = new MessagesUtils("Atualização realizada com sucesso em CLiente...", "Atualização concluída", 
+					MessagesTypes.SUCCESS);
+			
+			manager.getTransaction().commit();
+						
+		}catch(Exception e) {
+			manager.getTransaction().rollback();
+			msgUtils = new MessagesUtils("Erro ao tentar atualizar Cliente...", ("Erro ao atualizar... " + e.toString()), 
+					MessagesTypes.ERROR);
+		} finally {
+			manager.close();
 		}
 		
+//		Cliente cliSearch = searchById();
+//		
+//		if(cliSearch != null) {
+//			cliSearch.setNome(clienteSelecionado.getNome());
+//			cliSearch.setEmail(clienteSelecionado.getEmail());
+//			cliSearch.setEndereco(clienteSelecionado.getEndereco());
+//			cliSearch.setCpf(clienteSelecionado.getCpf());
+//			
+//			msgUtils = new MessagesUtils("Atualização realizada com sucesso em CLiente...", "Atualização concluída", MessagesTypes.SUCCESS);
+//		}
+		
 	}
+	
+	
 	
 	public boolean isEditar() {
 		return this.clienteSelecionado.getId() != null;
