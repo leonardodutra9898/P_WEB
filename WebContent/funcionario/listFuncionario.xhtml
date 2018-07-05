@@ -36,20 +36,22 @@
     
         <p:column>
 		
-        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemFuncModal.show();" process="@this" update=":formFunc">
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{funcBean.excluirFuncionario}">
         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
          	<f:setPropertyActionListener value="#{fun}" target="#{funcBean.funcionario}" />
         </p:commandButton>
 
-		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/funcionario/newFuncionario" style="text-align: center;" action="#{funcBean.funcById(fun)}">
-			<f:param name="funcionario" value="#{fun.id}"/>
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/funcionario/editFuncionario" style="text-align: center;" action="#{funcBean.funcById(fun)}">
+			<!-- <f:param name="funcionario" value="#{fun.id}"/> -->
 		</p:commandButton>
     </p:column>
 
 </p:dataTable>
 
     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{funcBean.excluirFuncionario}" update=":formFunc:dTb" actionListener="#{funcBean.excluirFuncionario}" process="@this" />
+        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{funcBean.excluirFuncionario}" update="@form" process="@this">
+        	<f:setPropertyActionListener value="#{fun}" target="#{funcBean.funcionario}" />
+        </p:commandButton>
         <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="return false;"/>
     </p:confirmDialog>
 

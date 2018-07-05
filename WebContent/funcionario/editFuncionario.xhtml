@@ -9,31 +9,31 @@
 
 <ui:define name="conteudo">
 <h:form>
-<h2>Novo Funcionário</h2>
+<h2>Atualizando Funcionário</h2>
 <p:growl id="growl" life="2000" />
 
 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 		
 		<p:outputLabel value="Nome Funcionario: " for="desc" />		
-		<p:inputText id="desc" value="#{funcBean.nFuncionario.nome}" 
+		<p:inputText id="desc" value="#{funcBean.funcionarioEdit.nome}" 
 			required="true" requiredMessage="Nome do Funcionário!">
 		</p:inputText>
 		
 		<p:outputLabel value="E-mail Institucional" for="mail" /> 
-		<p:inputText id="mail" required="true" value="#{funcBean.nFuncionario.email}" validatorMessage="E-mail inválido" > 
+		<p:inputText id="mail" required="true" value="#{funcBean.funcionarioEdit.email}" validatorMessage="E-mail inválido" > 
 			<f:validator validatorId="emailValidator" />
 		</p:inputText>
 		
 		<p:outputLabel value="Salário: " for="sal" /> 
-		<p:inputText id="sal" required="true" value="#{funcBean.nFuncionario.salario}" validatorMessage="Valores em reais" />
+		<p:inputText id="sal" required="true" value="#{funcBean.funcionarioEdit.salario}" validatorMessage="Valores em reais" />
 		
 		<p:outputLabel value="Função: " for="fun" />
-		<p:selectOneMenu id="fun" value="#{funcBean.nFuncionario.FUNCAO}" >
+		<p:selectOneMenu id="fun" value="#{funcBean.funcionarioEdit.FUNCAO}" >
 					<f:selectItem itemLabel="Altere a Função do Funcionário" itemValue=""/>
 					<f:selectItems value="#{funcBean.funcoes}"/>
 		</p:selectOneMenu>
 		
-		<p:commandButton value="Adicionar" actionListener="#{funcBean.novoFunc}" id="actF" update="growl"/>
+		<p:commandButton value="Atualizar" actionListener="#{funcBean.atualizarFuncionario}" id="actF" update="growl"/>
 		
 		</h:panelGrid>
 	</h:form>
