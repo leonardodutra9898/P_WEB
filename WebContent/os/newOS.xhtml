@@ -18,21 +18,20 @@
 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 		
 		<p:outputLabel value="Cliente: " for="cli" />
-		<p:selectOneMenu id="cli" value="#{osBean.cliSetado.nome}">
+		<p:selectOneMenu id="cli" value="#{osBean.cliSetado}">
 					<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
-					<f:selectItems value="#{cliBean.clientes}" var="c" itemValue="#{c.nome}" itemLabel="#{c.nome}"/>
+					<f:selectItems value="#{cliBean.clientes}" var="c" itemValue="#{c}" itemLabel="#{c.nome}"/>
 		</p:selectOneMenu>
 
 		<p:outputLabel value="Descrição: " for="desc" />		
-		<p:inputText id="desc" value="#{osBean.os.descricao}" 
+		<p:inputText id="desc" value="#{osBean.nOS.descricao}" 
 			required="true" requiredMessage="Descreva o problema...">
 		</p:inputText>
 		
 		<p:outputLabel value="Prioridade: " for="prio" /> 
-		<p:inputText id="prio" required="true" value="#{osBean.os.prioridade}" validatorMessage="Apenas numero" /> 
+		<p:inputText id="prio" required="true" value="#{osBean.nOS.prioridade}" validatorMessage="Apenas numero" /> 
 		
-		<p:commandButton value="Adicionar" actionListener="#{osBean.novoOS}" id="actOS" update="growl" 
-			action="#{osBean.setClienteId(cliBean.clienteSelecionado)}"/>
+		<p:commandButton value="Adicionar" actionListener="#{osBean.novoOS}" id="actOS" update="growl" />
 		
 		</h:panelGrid>
 	</h:form>

@@ -70,7 +70,8 @@ public class OSBean implements Serializable {
 			OSRepository osRepo = new OSRepository(manager);
 
 			nOS.setDataAbertura(Calendar.getInstance().getTime());
-
+			nOS.setCliente(cliSetado);
+			
 			osRepo.addOS(nOS);
 			listOS = osRepo.listOS();
 			nOS = new OS();
