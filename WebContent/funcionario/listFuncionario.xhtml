@@ -36,7 +36,7 @@
     
         <p:column>
 		
-        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemFuncModal.show();" process="@this" update="@this" action="#{funcBean.excluirFuncionario}">
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemFuncModal.show();" process="@this" update="@form" action="#{funcBean.excluirFuncionario}">
         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
          	<f:setPropertyActionListener value="#{fun}" target="#{funcBean.funcionario}" />
         </p:commandButton>
@@ -49,7 +49,9 @@
 </p:dataTable>
 
     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{funcBean.excluirFuncionario}" update="@form" process="@this" />
+        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{funcBean.excluirFuncionario}" update="@form" process="@this">
+        	<f:setPropertyActionListener value="#{fun}" target="#{funcBean.funcionario}" />
+        </p:commandButton>
         <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="return false;"/>
     </p:confirmDialog>
 

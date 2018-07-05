@@ -1,21 +1,17 @@
 package br.ufc.crateus.os.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import br.ufc.crateus.os.enums.FuncionarioFuncoes;
 import br.ufc.crateus.os.enums.MessagesTypes;
-import br.ufc.crateus.os.enums.Status;
-import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.Funcionario;
-import br.ufc.crateus.os.model.OS;
-import br.ufc.crateus.os.repository.ClienteRepository;
 import br.ufc.crateus.os.repository.FuncionarioRepository;
 import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
@@ -61,7 +57,7 @@ public class FuncionarioBean implements Serializable {
 			funcionarioRepo.addFuncionario(nFuncionario);
 			funcionarios = funcionarioRepo.listFuncionarios();
 
-			nFuncionario = new Funcionario();
+//			nFuncionario = new Funcionario();
 			msgUtils = new MessagesUtils("Registro Salvo", "Funcionário registrado!", MessagesTypes.SUCCESS);
 
 			manager.getTransaction().commit();
@@ -131,11 +127,12 @@ public class FuncionarioBean implements Serializable {
 			funcionarioRepo.delete(funcionario);
 
 			manager.getTransaction().commit();
-
+			manager.flush();
+			
 			msgUtils = new MessagesUtils("Funcionário excluído...", "Funcionário removido", MessagesTypes.SUCCESS);
 
 			funcionarios = funcionarioRepo.listFuncionarios();
-			funcionario = new Funcionario();
+//			funcionario = new Funcionario();
 
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
@@ -157,7 +154,7 @@ public class FuncionarioBean implements Serializable {
 			funcionarioRepo.addFuncionario(funcionarioEdit);
 			funcionarios = funcionarioRepo.listFuncionarios();
 
-			funcionarioEdit = new Funcionario();
+//			funcionarioEdit = new Funcionario();
 			msgUtils = new MessagesUtils("Atualização realizada com sucesso em funcionário...", "Atualização concluída",
 					MessagesTypes.SUCCESS);
 
