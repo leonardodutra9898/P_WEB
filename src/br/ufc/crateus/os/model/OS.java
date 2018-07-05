@@ -28,8 +28,8 @@ public class OS implements Serializable{
 	@GeneratedValue
 	private Integer id;
 	
-	@Column(length = 100, nullable = false)
-	private String nomeCliente;
+//	@Column(length = 100, nullable = false)
+//	private String nomeCliente;
 	
 	@Temporal(TemporalType.DATE)
 	private Date dataAbertura;
@@ -118,15 +118,13 @@ public class OS implements Serializable{
 
 
 
-	public String getNomeCliente() {
-		return nomeCliente;
-	}
-
-
-
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
-	}
+//	public String getNomeCliente() {
+//		return nomeCliente;
+//	}
+//
+//	public void setNomeCliente(String nomeCliente) {
+//		this.nomeCliente = nomeCliente;
+//	}
 
 	@JoinColumn(name="cliente_id")
 	@ManyToOne

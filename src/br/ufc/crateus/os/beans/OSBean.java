@@ -8,15 +8,19 @@ import java.util.List;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.enums.Status;
 import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.OS;
+import br.ufc.crateus.os.repository.ClienteRepository;
+import br.ufc.crateus.os.repository.OSRepository;
+import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
 @Named
-@ManagedBean(name="osBean")
+@ManagedBean(name = "osBean")
 @ApplicationScoped
 public class OSBean implements Serializable {
 
@@ -25,33 +29,26 @@ public class OSBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
 	private List<OS> listOS;
 	private OS os;
-	int count = 0;
-	private Cliente clienteViewOS;
 	private Cliente cliSetado;
-	
-	
+	private OS nOS;
+
 	MessagesUtils msgUtils;
-	
+
 	public OSBean() {
+
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		OSRepository osRepo = new OSRepository(manager);
+
 		os = new OS();
-		clienteViewOS = new Cliente();
-		listOS = new ArrayList<>();
-		
+		listOS = osRepo.listOS();
+		nOS = new OS();
+		manager.close();
 		cliSetado = new Cliente();
-		System.out.println("Cliente inicializado... == " + cliSetado.getNome());
+
 	}
-	
-	public void osEdit() {
-		
-	}
-	
-	public void osDelete() {
-		
-	}
-	
+
 	public List<OS> getListOS() {
 		return listOS;
 	}
@@ -63,79 +60,68 @@ public class OSBean implements Serializable {
 	public void setOs(OS os) {
 		this.os = os;
 	}
-	
-	public boolean isEdit() {
-		return (os.getId() != null);
-	}
-	
+
 	public void novoOS() {
-		
-		if(isEdit()) {
-			atualizarOS();
-		}else {
-		
-		os.setDataAbertura(Calendar.getInstance().getTime());
-		os.setId(++count);
-		os.setStatus(Status.ABERTO);
-		os.setNomeCliente(cliSetado.getNome());	
-		
-		System.out.println("teste cli em OS === " + cliSetado.getId());
-				
-		listOS.add(os);
-		os = new OS();
-		msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
+
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+
+		try {
+			manager.getTransaction().begin();
+			OSRepository osRepo = new OSRepository(manager);
+
+			nOS.setDataAbertura(Calendar.getInstance().getTime());
+
+			osRepo.addOS(nOS);
+			listOS = osRepo.listOS();
+			nOS = new OS();
+
+			msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
+			manager.getTransaction().commit();
+
+		} catch (Exception e) {
+			manager.getTransaction().rollback();
+
+			msgUtils = new MessagesUtils("Registro não pode ser salvo",
+					("OS não pode ser registrada... " + e.toString()), MessagesTypes.ERROR);
+		} finally {
+			manager.close();
 		}
 	}
 
-	public void setClienteId(Cliente cli) {
-		cliSetado = cli;
-	}
-
-	
 	public OS searchById(int idOS) {
-		if(listOS != null) {
-			for(OS os : listOS) {
-				
-					if(os.getId() == idOS) {
-						return os;
-					}
-				
+		if (listOS != null) {
+			for (OS os : listOS) {
+
+				if (os.getId() == idOS) {
+					return os;
+				}
+
 			}
 		}
 
 		return null;
 	}
-	
+
 	public OS searchById() {
-		
-		for(OS c : listOS) {
-			
-			if(c.getId() == os.getId()) {
+
+		for (OS c : listOS) {
+
+			if (c.getId() == os.getId()) {
 				return c;
 			}
 		}
-		
+
 		return null;
 	}
-	
-	public String searchEdit(OS oo) {
-		for(OS o : listOS) {
-			
-			if(o.getId() == oo.getId()) {
-				os = o;
 
+	public String searchEdit(OS oo) {
+		for (OS o : listOS) {
+			if (o.getId() == oo.getId()) {
+				os = o;
 			}
 		}
-		
+
 		return "/os/newOS?faces-redirect=true";
-	}
-
-	public Cliente getClienteViewOS() {
-		return clienteViewOS;
-	}
-
-	public void setClienteViewOS(Cliente clienteViewOS) {
-		this.clienteViewOS = clienteViewOS;
 	}
 
 	public Cliente getCliSetado() {
@@ -145,37 +131,58 @@ public class OSBean implements Serializable {
 	public void setCliSetado(Cliente cliSetado) {
 		this.cliSetado = cliSetado;
 	}
-	
-public void atualizarOS() {
-		
-		OS osSearch = searchById();
-		
-		if(osSearch != null) {
-			osSearch.setNomeCliente(os.getNomeCliente());
-			osSearch.setDescricao(os.getDescricao());
-			osSearch.setDataAbertura(os.getDataAbertura());
-			osSearch.setGravidade(os.getGravidade());
-			osSearch.setDataFechamento(os.getDataFechamento());
-			osSearch.setStatus(os.getStatus());
-			
-			msgUtils = new MessagesUtils("Atualização realizada com sucesso em Ordem de Serviço...", "Atualização concluída", MessagesTypes.SUCCESS);
+
+	public void atualizarOS() {
+
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+
+		try {
+
+			manager.getTransaction().begin();
+			OSRepository osRepo = new OSRepository(manager);
+			osRepo.addOS(os);
+			listOS = osRepo.listOS();
+			os = new OS();
+
+			msgUtils = new MessagesUtils("Atualização realizada com sucesso em Ordem de Serviço...",
+					"Atualização concluída", MessagesTypes.SUCCESS);
+
+			manager.getTransaction().commit();
+
+		} catch (Exception e) {
+			manager.getTransaction().rollback();
+			msgUtils = new MessagesUtils("Erro ao tentar atualizar OS...",
+					("Erro ao atualizar... " + e.toString()), MessagesTypes.ERROR);
+		} finally {
+			manager.close();
 		}
-		
 	}
 
-public void remove() {
-	
-	OS o = searchById();
-	
-	if(o != null) {
-		
-		listOS.remove(o);
-		
-		msgUtils = new MessagesUtils("Atualização realizada com sucesso em OS...", "Atualização concluída", MessagesTypes.SUCCESS);
-		System.out.println("Contato removido.");
+	public void remove() {
+
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+
+		try {
+
+			manager.getTransaction().begin();
+			OSRepository osRepo = new OSRepository(manager);
+			osRepo.osById(os.getId());
+			osRepo.delete(os);
+
+			manager.getTransaction().commit();
+
+			msgUtils = new MessagesUtils("Exclusão de OS realizada...", "Exclusão concluída", MessagesTypes.SUCCESS);
+
+			listOS = osRepo.listOS();
+			os = new OS();
+		} catch (Exception e) {
+			manager.getTransaction().rollback();
+			msgUtils = new MessagesUtils("OS não pode ser excluida...", ("OS não removida... " + e.toString()),
+					MessagesTypes.ERROR);
+		} finally {
+			manager.close();
+		}
+
 	}
-}
 
-
-	
 }

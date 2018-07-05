@@ -25,7 +25,6 @@ public class ClienteBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	int count = 0;
 
 //	private List<SelectItem> listClientesSelectOneMenu;
 	
@@ -90,41 +89,11 @@ public class ClienteBean implements Serializable {
 		return null;
 	}
 
-	public String getNameClienteById(Integer i) {
-		
-		for(Cliente c : clientes) {
-			
-				if(c.getId() == i) {
-					System.out.println("resultado..." + c.getNome());
-					return c.getNome();
-				}
-		}
-		
-
-
-	return null;
-	}
-	
-	public Cliente getClienteById(Integer i) {
-		
-		for(Cliente c : clientes) {
-			
-				if(c.getId() == i) {
-					return c;
-				}
-		}
-
-	return null;
-	}
-
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
 
 	public String clientById(Cliente cliente) {
-		
-		
-		
 		for(Cliente c : clientes) {
 			if(c.getId() == cliente.getId()) {
 				clienteSelecionado = c;
@@ -133,16 +102,6 @@ public class ClienteBean implements Serializable {
 		
 		return "/cliente/editCliente?faces-redirect-true";
 	}
-	
-//	public Cliente getClientById(Cliente cliente) {
-//		Cliente temp = null;
-//		for(Cliente c : clientes) {
-//			if(c.getId() == cliente.getId()) {
-//				temp = c;
-//			}
-//		}
-//		return temp;
-//	}
 	
 	public void excluirCliente() {
 		
@@ -170,15 +129,6 @@ public class ClienteBean implements Serializable {
 		} finally {
 			manager.close();
 		}
-		
-//		Cliente cliTemp = searchById();
-//		
-//		if(cliTemp != null) {
-//			clientes.remove(cliTemp);
-//			
-//			msgUtils = new MessagesUtils("Cliente excluído...", "Cliente removido", MessagesTypes.SUCCESS);
-//		}
-		
 	}
 	
 	public void atualizarCliente() {

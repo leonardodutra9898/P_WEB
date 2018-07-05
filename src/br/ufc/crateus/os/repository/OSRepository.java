@@ -29,16 +29,16 @@ public class OSRepository implements Serializable{
 		return query.getResultList();
 	}
 	
-	public void addCliente(OS os) {
+	public void addOS(OS os) {
 		manager.merge(os);
 	}
 	
-	public OS OsById(int id) {
+	public OS osById(int id) {
 		return manager.find(OS.class, id);
 	}
 	
-	public void delete(Cliente cliente) {
-		manager.remove(manager.getReference(Cliente.class, cliente.getId()));
+	public void delete(OS os) {
+		manager.remove(manager.getReference(OS.class, os.getId()));
 	}
 	
 }
