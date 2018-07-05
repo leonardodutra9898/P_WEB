@@ -1,13 +1,13 @@
 package br.ufc.crateus.os.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.model.Cliente;
@@ -31,23 +31,22 @@ public class ClienteBean implements Serializable {
 	
 	private Cliente clienteSelecionado;
 	private List<Cliente> clientes;
+	private Cliente nCliente;
 	
 	MessagesUtils msgUtils;
 	
 	public void novoCliente() {
 		
-		if(isEditar()) {
-			atualizarCliente();
-		}else {
-			
 			EntityManager manager = EntityManagerPersistence.getEntityManager();
 			
 			try {
 				manager.getTransaction().begin();
 				ClienteRepository clienteRepo = new ClienteRepository(manager);
-				clienteRepo.addCliente(clienteSelecionado);
+//				clienteSelecionado = new Cliente();
+				
+				clienteRepo.addCliente(nCliente);
 				clientes = clienteRepo.listClientes();
-				clienteSelecionado = new Cliente();
+				nCliente = new Cliente();
 				msgUtils = new MessagesUtils("Registro Salvo", "Novo Cliente Registrado!", MessagesTypes.SUCCESS);
 				
 				manager.getTransaction().commit();
@@ -59,7 +58,6 @@ public class ClienteBean implements Serializable {
 			} finally {
 				manager.close();
 			}
-		}
 	}
 	
 	public ClienteBean() {
@@ -68,6 +66,7 @@ public class ClienteBean implements Serializable {
 		ClienteRepository clienteRepo = new ClienteRepository(manager);
 		clientes = clienteRepo.listClientes();
 		clienteSelecionado = new Cliente();
+		nCliente = new Cliente();
 		manager.close();
 	}
 	
@@ -124,6 +123,8 @@ public class ClienteBean implements Serializable {
 
 	public String clientById(Cliente cliente) {
 		
+		
+		
 		for(Cliente c : clientes) {
 			if(c.getId() == cliente.getId()) {
 				clienteSelecionado = c;
@@ -151,14 +152,16 @@ public class ClienteBean implements Serializable {
 			
 			manager.getTransaction().begin();
 			ClienteRepository clienteRepo = new ClienteRepository(manager);
+			clienteRepo.clienteById(clienteSelecionado.getId());
 			clienteRepo.delete(clienteSelecionado);
-			clientes = clienteRepo.listClientes();
-			
-			clienteSelecionado = new Cliente();
 			
 			manager.getTransaction().commit();
+
 			msgUtils = new MessagesUtils("Cliente excluído...", "Cliente removido", 
 					MessagesTypes.SUCCESS);
+					
+			clientes = clienteRepo.listClientes();
+			clienteSelecionado = new Cliente();
 			
 		}catch(Exception e) {
 			manager.getTransaction().rollback();
@@ -203,22 +206,16 @@ public class ClienteBean implements Serializable {
 			manager.close();
 		}
 		
-//		Cliente cliSearch = searchById();
-//		
-//		if(cliSearch != null) {
-//			cliSearch.setNome(clienteSelecionado.getNome());
-//			cliSearch.setEmail(clienteSelecionado.getEmail());
-//			cliSearch.setEndereco(clienteSelecionado.getEndereco());
-//			cliSearch.setCpf(clienteSelecionado.getCpf());
-//			
-//			msgUtils = new MessagesUtils("Atualização realizada com sucesso em CLiente...", "Atualização concluída", MessagesTypes.SUCCESS);
-//		}
-		
+	}
+
+	public Cliente getnCliente() {
+		return nCliente;
+	}
+
+	public void setnCliente(Cliente nCliente) {
+		this.nCliente = nCliente;
 	}
 	
 	
-	
-	public boolean isEditar() {
-		return this.clienteSelecionado.getId() != null;
-	}
+
 }
