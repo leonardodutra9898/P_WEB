@@ -15,11 +15,11 @@ public class ClienteRepository implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	
-	private EntityManager manager;
+	private static EntityManager manager;
 	
 	public ClienteRepository(EntityManager manager) {
 		
-		this.manager = manager;
+		ClienteRepository.manager = manager;
 	}
 	
 	public List<Cliente> listClientes(){
@@ -33,6 +33,10 @@ public class ClienteRepository implements Serializable{
 	}
 	
 	public Cliente clienteById(int id) {
+		return manager.find(Cliente.class, id);
+	}
+	
+	public static Cliente getClienteById(int id) {
 		return manager.find(Cliente.class, id);
 	}
 	

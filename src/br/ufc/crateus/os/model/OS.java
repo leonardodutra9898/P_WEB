@@ -4,41 +4,54 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-import br.ufc.crateus.os.enums.FuncionarioFuncoes;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import br.ufc.crateus.os.enums.Status;
 
+@Entity
 public class OS implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue
 	private Integer id;
-	private String nomeCliente;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataAbertura;
+	
+	@Temporal(TemporalType.DATE)
 	private Calendar dataFechamento;
+	
+	@Enumerated(EnumType.STRING)
 	private Status status;
+	
+	@Column(length = 255, nullable = false)
 	private String descricao;
-	private Funcionario tecnico;
+	
 	private int prioridade;
-	private FuncionarioFuncoes gravidade;
+	
+	@Lob
+	private Cliente cliente;
+
+	//	private Funcionario funcionario;
 	
 	public OS() {
 		
 	}
-	
-	
-	
-	public FuncionarioFuncoes getGravidade() {
-		return gravidade;
-	}
-
-
-
-	public void setGravidade(FuncionarioFuncoes gravidade) {
-		this.gravidade = gravidade;
-	}
-
 
 
 	public Integer getId() {
@@ -73,19 +86,6 @@ public class OS implements Serializable{
 		this.descricao = descricao;
 	}
 
-	
-	public Funcionario getTecnico() {
-		return tecnico;
-	}
-
-
-
-	public void setTecnico(Funcionario tecnico) {
-		this.tecnico = tecnico;
-	}
-
-
-
 	public int getPrioridade() {
 		return prioridade;
 	}
@@ -93,86 +93,14 @@ public class OS implements Serializable{
 		this.prioridade = prioridade;
 	}
 
-
-
-	public String getNomeCliente() {
-		return nomeCliente;
+	@JoinColumn(name="cliente_id")
+	@ManyToOne
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-
-
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
-
-
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((dataAbertura == null) ? 0 : dataAbertura.hashCode());
-		result = prime * result + ((dataFechamento == null) ? 0 : dataFechamento.hashCode());
-		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((gravidade == null) ? 0 : gravidade.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nomeCliente == null) ? 0 : nomeCliente.hashCode());
-		result = prime * result + prioridade;
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((tecnico == null) ? 0 : tecnico.hashCode());
-		return result;
-	}
-
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		OS other = (OS) obj;
-		if (dataAbertura == null) {
-			if (other.dataAbertura != null)
-				return false;
-		} else if (!dataAbertura.equals(other.dataAbertura))
-			return false;
-		if (dataFechamento == null) {
-			if (other.dataFechamento != null)
-				return false;
-		} else if (!dataFechamento.equals(other.dataFechamento))
-			return false;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (gravidade != other.gravidade)
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (nomeCliente == null) {
-			if (other.nomeCliente != null)
-				return false;
-		} else if (!nomeCliente.equals(other.nomeCliente))
-			return false;
-		if (prioridade != other.prioridade)
-			return false;
-		if (status != other.status)
-			return false;
-		if (tecnico == null) {
-			if (other.tecnico != null)
-				return false;
-		} else if (!tecnico.equals(other.tecnico))
-			return false;
-		return true;
-	}
-
 	
-
 }

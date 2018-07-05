@@ -17,7 +17,7 @@
     </p:column>
  
 	 <p:column headerText="Cliente">
-        <h:outputText value="#{os.nomeCliente}" />
+        <h:outputText value="#{os.cliente.nome}" />
     </p:column>
  
     <p:column headerText="Data (Abertura)">
@@ -42,13 +42,13 @@
     
         <p:column>
 		
-        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemOSModal.show();" process="@this" update=":formOS">
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemOSModal.show();" process="@this" update="@form" action="#{osBean.remove}">
         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
          	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
         </p:commandButton>
 
-		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/os/newOS" style="text-align: center;" action="#{osBean.searchEdit(os)}" >
-		<f:param name="os" value="#{os.id}"/>
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/os/editOS" style="text-align: center;" action="#{osBean.searchEdit(os)}" >
+		<!-- <f:param name="os" value="#{os.id}"/> -->
 		</p:commandButton>
 			
     </p:column>
@@ -56,7 +56,7 @@
 </p:dataTable>
 
     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{osBean.remove}" update=":formOS:dTb" actionListener="#{osBean.remove}" process="@this" />
+        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{osBean.remove}" update="@form" process="@this" />
         <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="return false;"/>
     </p:confirmDialog>
 

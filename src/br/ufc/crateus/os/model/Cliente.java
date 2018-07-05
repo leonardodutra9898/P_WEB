@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cliente implements Serializable{
@@ -23,7 +25,9 @@ public class Cliente implements Serializable{
 	
 	private String cpf;
 	private String email;
-//	private List<OS> listOS = new ArrayList<OS>();
+	
+	
+	private List<OS> listOS = new ArrayList<OS>();
 	
 	public Cliente() {
 		
@@ -71,19 +75,19 @@ public class Cliente implements Serializable{
 	}
 
 	
-	
-//	public List<OS> getListOS() {
-//		return listOS;
-//	}
-//	public void setListOS(List<OS> listOS) {
-//		this.listOS = listOS;
-//	}
+	@OneToMany
+	public List<OS> getListOS() {
+		return listOS;
+	}
+	public void setListOS(List<OS> listOS) {
+		this.listOS = listOS;
+	}
 
 
 	
 //	public String toString() {
 //		return "ID => " + getId() + "\nNome => " + getNome() + "\nE-mail => " + getEmail() + "\nEndereço => " + getEndereco()
-//			+ "\nCPF => " + getCpf() + "\nTotal de OS na lista por cliente => " + getListOS().size();
+//			+ "\nCPF => " + getCpf() + "\nTotal de OS na lista por cliente => ";
 //	}
 
 }

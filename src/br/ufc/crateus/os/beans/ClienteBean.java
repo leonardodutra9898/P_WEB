@@ -1,7 +1,9 @@
 package br.ufc.crateus.os.beans;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -11,7 +13,9 @@ import javax.persistence.PersistenceException;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.model.Cliente;
+import br.ufc.crateus.os.model.OS;
 import br.ufc.crateus.os.repository.ClienteRepository;
+import br.ufc.crateus.os.repository.OSRepository;
 import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
@@ -25,14 +29,14 @@ public class ClienteBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	int count = 0;
 
 //	private List<SelectItem> listClientesSelectOneMenu;
 	
 	private Cliente clienteSelecionado;
 	private List<Cliente> clientes;
 	private Cliente nCliente;
-	
+	private Cliente cliEdit;
+		
 	MessagesUtils msgUtils;
 	
 	public void novoCliente() {
@@ -67,6 +71,7 @@ public class ClienteBean implements Serializable {
 		clientes = clienteRepo.listClientes();
 		clienteSelecionado = new Cliente();
 		nCliente = new Cliente();
+		cliEdit = new Cliente();
 		manager.close();
 	}
 	
@@ -90,59 +95,35 @@ public class ClienteBean implements Serializable {
 		return null;
 	}
 
-	public String getNameClienteById(Integer i) {
-		
-		for(Cliente c : clientes) {
-			
-				if(c.getId() == i) {
-					System.out.println("resultado..." + c.getNome());
-					return c.getNome();
-				}
-		}
-		
-
-
-	return null;
-	}
-	
-	public Cliente getClienteById(Integer i) {
-		
-		for(Cliente c : clientes) {
-			
-				if(c.getId() == i) {
-					return c;
-				}
-		}
-
-	return null;
-	}
-
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
 
 	public String clientById(Cliente cliente) {
 		
+EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
+		try {
 		
-		for(Cliente c : clientes) {
-			if(c.getId() == cliente.getId()) {
-				clienteSelecionado = c;
-			}
-		}
+			ClienteRepository cliRepo = new ClienteRepository(manager);
+			manager.getTransaction().begin();
+			Cliente temp = cliRepo.clienteById(cliente.getId());
+			cliEdit = temp;
+			
+		}catch(Exception e) {
+			System.out.println("Erro ao tentar consultar cliente individual");
+		}finally {
+			manager.close();
+		}		
+		
+//		for(Cliente c : clientes) {
+//			if(c.getId() == cliente.getId()) {
+//				clienteSelecionado = c;
+//			}
+//		}
 		
 		return "/cliente/editCliente?faces-redirect-true";
 	}
-	
-//	public Cliente getClientById(Cliente cliente) {
-//		Cliente temp = null;
-//		for(Cliente c : clientes) {
-//			if(c.getId() == cliente.getId()) {
-//				temp = c;
-//			}
-//		}
-//		return temp;
-//	}
 	
 	public void excluirCliente() {
 		
@@ -170,15 +151,6 @@ public class ClienteBean implements Serializable {
 		} finally {
 			manager.close();
 		}
-		
-//		Cliente cliTemp = searchById();
-//		
-//		if(cliTemp != null) {
-//			clientes.remove(cliTemp);
-//			
-//			msgUtils = new MessagesUtils("Cliente excluído...", "Cliente removido", MessagesTypes.SUCCESS);
-//		}
-		
 	}
 	
 	public void atualizarCliente() {
@@ -189,10 +161,10 @@ public class ClienteBean implements Serializable {
 			
 			manager.getTransaction().begin();
 			ClienteRepository clienteRepo = new ClienteRepository(manager);
-			clienteRepo.addCliente(clienteSelecionado);
+			clienteRepo.addCliente(cliEdit);
 			clientes = clienteRepo.listClientes();
 			
-			clienteSelecionado = new Cliente();
+			cliEdit = new Cliente();
 			msgUtils = new MessagesUtils("Atualização realizada com sucesso em CLiente...", "Atualização concluída", 
 					MessagesTypes.SUCCESS);
 			
@@ -215,7 +187,14 @@ public class ClienteBean implements Serializable {
 	public void setnCliente(Cliente nCliente) {
 		this.nCliente = nCliente;
 	}
-	
-	
 
+	public Cliente getCliEdit() {
+		return cliEdit;
+	}
+
+	public void setCliEdit(Cliente cliEdit) {
+		this.cliEdit = cliEdit;
+	}
+
+	
 }
