@@ -47,8 +47,8 @@
          	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
         </p:commandButton>
 
-		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/os/newOS" style="text-align: center;" action="#{osBean.searchEdit(os)}" >
-		<f:param name="os" value="#{os.id}"/>
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/os/editOS" style="text-align: center;" action="#{osBean.searchEdit(os)}" >
+		<!-- <f:param name="os" value="#{os.id}"/> -->
 		</p:commandButton>
 			
     </p:column>

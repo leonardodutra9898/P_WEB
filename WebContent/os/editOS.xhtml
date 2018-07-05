@@ -9,31 +9,31 @@
 
 <ui:define name="conteudo">
 
-<h2>Atualizando Ordem de Serviço</h2>
-
 <h:form>
 
+<h2>Atualizando Ordem de Serviço</h2>
+
 <p:growl id="growl" life="2000" />
-	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
-		<p:outputLabel value="Nome do Cliente: " for="nom" />		
-		<p:inputText id="nom" value="#{cliBean.clienteSelecionado.nome}" 
-			required="true" requiredMessage="Nome é necessário"	>
+<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+		
+		<p:outputLabel value="Cliente: " for="cli" />
+		<p:selectOneMenu id="cli" value="#{osBean.os.cliente.id}" >
+					<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
+					<f:selectItems value="#{cliBean.clientes}" var="c" itemValue="#{c.id}" itemLabel="#{c.nome}"/>
+		</p:selectOneMenu>
+		
+		<!-- VER A POSSIBILIDADE DE COLOCAR AQUI LISTA DE STATUS PARA MUDAR O STATUS DO REGISTRO -->
+
+		<p:outputLabel value="Descrição: " for="desc" />		
+		<p:inputText id="desc" value="#{osBean.os.descricao}" 
+			required="true" requiredMessage="Descreva o problema...">
 		</p:inputText>
 		
-		<p:outputLabel value="E-mail " for="mail" /> 
-		<p:inputText id="mail" required="true" value="#{cliBean.clienteSelecionado.email}" validatorMessage="E-mail inválido" > 
-			<f:validator validatorId="emailValidator" />
-		</p:inputText>
+		<p:outputLabel value="Prioridade: " for="prio" /> 
+		<p:inputText id="prio" required="true" value="#{osBean.os.prioridade}" validatorMessage="Apenas numero" /> 
 		
-		<p:outputLabel value="CPF" for="cpf" /> 
-		<p:inputMask mask="999.999.999-99" size="20" id="cpf" required="true" value="#{cliBean.clienteSelecionado.cpf}" validatorMessage="CPF inválido" /> 
-
-		<p:outputLabel value="Endereço" for="end" /> 
-		<p:inputText id="end" required="true" value="#{cliBean.clienteSelecionado.endereco}" /> 
-		
-		
-		<p:commandButton value="Atualizar" actionListener="#{cliBean.atualizarCliente}" update="growl"/>
+		<p:commandButton value="Adicionar" actionListener="#{osBean.atualizarOS}" id="actOS" update="growl" />
 		
 		</h:panelGrid>
 	</h:form>

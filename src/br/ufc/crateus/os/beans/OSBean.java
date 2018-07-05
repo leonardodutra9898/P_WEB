@@ -142,7 +142,7 @@ public class OSBean implements Serializable {
 			}
 		}
 
-		return "/os/newOS?faces-redirect=true";
+		return "/os/editOS?faces-redirect=true";
 	}
 
 	public void atualizarOS() {
