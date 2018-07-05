@@ -17,37 +17,37 @@
     </p:column>
  
 	 <p:column headerText="Cliente">
-        <h:outputText value="#{fin.nome}" />
+        <h:outputText value="#{fin.cliente.nome}" />
     </p:column>
  
     <p:column headerText="Status">
-        <h:outputText value="#{fin.email}" />
+        <h:outputText value="#{fin.status}" />
     </p:column>
 
 	 <p:column headerText="Técnico">
-        <h:outputText value="#{fin.cpf}" />
+        <h:outputText value="#{fin.funcionario.nome}" />
     </p:column>
  
  	<p:column headerText="OS (ID)">
-        <h:outputText value="#{fin.endereco}" />
+        <h:outputText value="#{fin.os.id}" />
     </p:column>
 
  	<p:column headerText="Valor Orçamento">
-        <h:outputText value="#{fin.endereco}" />
+        <h:outputText value="#{fin.valorOrcamentoOS}" />
     </p:column>
     
  	<p:column headerText="Data Lançamento">
-        <h:outputText value="#{fin.endereco}" />
+        <h:outputText value="#{fin.data}" />
     </p:column>    
     
     <p:column>
 		
-        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemCliModal.show();" process="@this" update=":finForm">
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form">
         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
          	<f:setPropertyActionListener value="#{fin}" target="#{finBean.financeiro}" />
         </p:commandButton>
 
-		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/financeiro/newFinanceiro" style="text-align: center;" 
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/financeiro/editFinanceiro" style="text-align: center;" 
 			action="#{finBean.financeiroById(fin)}">
 			<f:param name="financeiro" value="#{fin.id}"/>
 		</p:commandButton>
@@ -55,7 +55,7 @@
 
 </p:dataTable>
     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{finBean.excluirFinanceiro}" update=":finForm:dTb" actionListener="#{finBean.excluirFinanceiro}" process="@this" />
+        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{finBean.excluirFinanceiro}" update="@form" process="@this" />
         <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="return false;"/>
     </p:confirmDialog>
  

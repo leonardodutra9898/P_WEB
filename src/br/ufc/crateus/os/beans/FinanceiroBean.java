@@ -1,16 +1,20 @@
 package br.ufc.crateus.os.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 
+import br.ufc.crateus.os.enums.FinanceiroEnum;
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.Financeiro;
+import br.ufc.crateus.os.model.OS;
+import br.ufc.crateus.os.repository.FinanceiroRepository;
+import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
 
@@ -23,36 +27,51 @@ public class FinanceiroBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	int count = 0;
-
-//	private List<SelectItem> listClientesSelectOneMenu;
 	
-	private Cliente cliente;
 	private List<Financeiro> financeiroList;
 	private Financeiro financeiro;
+	private Financeiro financeiroEdit;
+	private Financeiro nFinanceiro;
+	
+	private Cliente clienteSetado;
+	private OS osSetado;
 	
 	MessagesUtils msgUtils;
 	
 	public void novoLancamentoFinanceiro() {
+
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
-		if(isEditar()) {
-			atualizarFinanceiro();
-		}else {
-			financeiro.setId(++count);
-			financeiroList.add(financeiro);
+		try {
+			manager.getTransaction().begin();
+			FinanceiroRepository finRepo = new FinanceiroRepository(manager);
 			
-			financeiro = new Financeiro();
-		
-			msgUtils = new MessagesUtils("Registro Salvo", "Novo Cliente Registrado!", MessagesTypes.SUCCESS);
+			finRepo.addFinanceiro(nFinanceiro);
+			financeiroList = finRepo.listLancamentosFinanceiro();
+			nFinanceiro = new Financeiro();
+			msgUtils = new MessagesUtils("Registro Salvo", "Novo lançamento financeiro Registrado!", MessagesTypes.SUCCESS);
+			
+			manager.getTransaction().commit();
+			
+		}catch(Exception e) {
+			manager.getTransaction().rollback();
+			msgUtils = new MessagesUtils("Erro ao tentar salvar registro", ("Erro: " + e.toString()), 
+					MessagesTypes.ERROR);
+		} finally {
+			manager.close();
 		}
 	}
 	
 	public FinanceiroBean() {
+		
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		FinanceiroRepository finRepo = new FinanceiroRepository(manager);
+		financeiroList = finRepo.listLancamentosFinanceiro();
 
-		financeiroList = new ArrayList<>();
-		cliente = new Cliente();
 		financeiro = new Financeiro();
+		financeiroEdit = new Financeiro();
+		nFinanceiro = new Financeiro();
+		manager.close();
 	}
 	
 	public Financeiro searchById() {
@@ -68,59 +87,78 @@ public class FinanceiroBean implements Serializable{
 	}
 
 
-	
-	public Financeiro getLancamentoFinanceiroById(Integer i) {
-		
-		for(Financeiro f : financeiroList) {
-			
-				if(f.getId() == i) {
-					return f;
-				}
-		}
-
-	return null;
-	}
-
 	public String financeiroById(Financeiro financeiro) {
+
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
-		for(Financeiro f : financeiroList) {
-			if(f.getId() == financeiro.getId()) {
-				financeiro = f;
-			}
+		try {
+		
+			FinanceiroRepository finRepo = new FinanceiroRepository(manager);
+			manager.getTransaction().begin();
+			Financeiro temp = finRepo.financeiroById(financeiro.getId());
+			financeiroEdit = temp;
+			
+		}catch(Exception e) {
+			System.out.println("Erro ao tentar consultar financeiro individual");
+		}finally {
+			manager.close();
 		}
-		
-		return "/financeiro/newFinanceiro?faces-redirect-true";
+				
+		return "/financeiro/editFinanceiro?faces-redirect-true";
 	}
 
 	public void excluirLancamentoFinanceiro() {
+
+EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
-		Financeiro finTemp = searchById();
-		
-		if(finTemp != null) {
-			financeiroList.remove(finTemp);
+		try {
 			
-			msgUtils = new MessagesUtils("Lançamento financeiro excluido...", "Lançamento removido", MessagesTypes.SUCCESS);
-		}		
+			manager.getTransaction().begin();
+			FinanceiroRepository finRepo = new FinanceiroRepository(manager);
+			finRepo.financeiroById(financeiro.getId());
+			finRepo.delete(financeiro);
+			
+			manager.getTransaction().commit();
+
+			msgUtils = new MessagesUtils("Lançamento financeiro excluido...", "Lançamento removido", 
+					MessagesTypes.SUCCESS);
+					
+			financeiroList = finRepo.listLancamentosFinanceiro();
+			financeiro = new Financeiro();
+			
+		}catch(Exception e) {
+			manager.getTransaction().rollback();
+			msgUtils = new MessagesUtils("Lançamento não pode ser excluido...", ("Lançamento não removido... " + e.toString()), 
+					MessagesTypes.ERROR);
+		} finally {
+			manager.close();
+		}
 	}
 	
 	public void atualizarFinanceiro() {
 		
-		Financeiro finSearch = searchById();
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
-		if(finSearch != null) {
-//			finSearch.setNome(clienteSelecionado.getNome());
-//			finSearch.setEmail(clienteSelecionado.getEmail());
-//			finSearch.setEndereco(clienteSelecionado.getEndereco());
-//			finSearch.setCpf(clienteSelecionado.getCpf());
+		try {
 			
-			msgUtils = new MessagesUtils("Atualização realizada com sucesso em Finanças...", "Atualização concluída", MessagesTypes.SUCCESS);
+			manager.getTransaction().begin();
+			FinanceiroRepository finRepo = new FinanceiroRepository(manager);
+			finRepo.addFinanceiro(financeiroEdit);
+			financeiroList = finRepo.listLancamentosFinanceiro();
+			
+			financeiroEdit = new Financeiro();
+			msgUtils = new MessagesUtils("Atualização realizada com sucesso em Finanças...", "Atualização concluída", 
+					MessagesTypes.SUCCESS);
+			
+			manager.getTransaction().commit();
+						
+		}catch(Exception e) {
+			manager.getTransaction().rollback();
+			msgUtils = new MessagesUtils("Erro ao tentar atualizar lançamento financeiro...", ("Erro ao atualizar... " + e.toString()), 
+					MessagesTypes.ERROR);
+		} finally {
+			manager.close();
 		}
-		
-	}
-	
-	public boolean isEditar() {
-//		return this.financeiro.getId() != null;
-		return false;
 	}
 
 	public Financeiro getFinanceiro() {
@@ -134,7 +172,24 @@ public class FinanceiroBean implements Serializable{
 	public List<Financeiro> getFinanceiroList() {
 		return financeiroList;
 	}
+
+	public Financeiro getFinanceiroEdit() {
+		return financeiroEdit;
+	}
+
+	public void setFinanceiroEdit(Financeiro financeiroEdit) {
+		this.financeiroEdit = financeiroEdit;
+	}
+
+	public Financeiro getnFinanceiro() {
+		return nFinanceiro;
+	}
+
+	public void setnFinanceiro(Financeiro nFinanceiro) {
+		this.nFinanceiro = nFinanceiro;
+	}
 	
-	
-	
+	public FinanceiroEnum[] getStatus() {
+		return FinanceiroEnum.values();
+	}
 }
