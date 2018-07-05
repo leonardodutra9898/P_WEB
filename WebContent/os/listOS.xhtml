@@ -42,7 +42,7 @@
     
         <p:column>
 		
-        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemOSModal.show();" process="@this" update="@form" action="#{osBean.remove}">
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{osBean.remove}">
         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
          	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
         </p:commandButton>
