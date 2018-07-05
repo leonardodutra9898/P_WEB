@@ -13,7 +13,9 @@ import javax.persistence.PersistenceException;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.model.Cliente;
+import br.ufc.crateus.os.model.OS;
 import br.ufc.crateus.os.repository.ClienteRepository;
+import br.ufc.crateus.os.repository.OSRepository;
 import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
@@ -33,6 +35,7 @@ public class ClienteBean implements Serializable {
 	private Cliente clienteSelecionado;
 	private List<Cliente> clientes;
 	private Cliente nCliente;
+	private Cliente cliEdit;
 		
 	MessagesUtils msgUtils;
 	
@@ -68,6 +71,7 @@ public class ClienteBean implements Serializable {
 		clientes = clienteRepo.listClientes();
 		clienteSelecionado = new Cliente();
 		nCliente = new Cliente();
+		cliEdit = new Cliente();
 		manager.close();
 	}
 	
@@ -96,11 +100,27 @@ public class ClienteBean implements Serializable {
 	}
 
 	public String clientById(Cliente cliente) {
-		for(Cliente c : clientes) {
-			if(c.getId() == cliente.getId()) {
-				clienteSelecionado = c;
-			}
-		}
+		
+EntityManager manager = EntityManagerPersistence.getEntityManager();
+		
+		try {
+		
+			ClienteRepository cliRepo = new ClienteRepository(manager);
+			manager.getTransaction().begin();
+			Cliente temp = cliRepo.clienteById(cliente.getId());
+			cliEdit = temp;
+			
+		}catch(Exception e) {
+			System.out.println("Erro ao tentar consultar cliente individual");
+		}finally {
+			manager.close();
+		}		
+		
+//		for(Cliente c : clientes) {
+//			if(c.getId() == cliente.getId()) {
+//				clienteSelecionado = c;
+//			}
+//		}
 		
 		return "/cliente/editCliente?faces-redirect-true";
 	}
@@ -141,10 +161,10 @@ public class ClienteBean implements Serializable {
 			
 			manager.getTransaction().begin();
 			ClienteRepository clienteRepo = new ClienteRepository(manager);
-			clienteRepo.addCliente(clienteSelecionado);
+			clienteRepo.addCliente(cliEdit);
 			clientes = clienteRepo.listClientes();
 			
-			clienteSelecionado = new Cliente();
+			cliEdit = new Cliente();
 			msgUtils = new MessagesUtils("Atualização realizada com sucesso em CLiente...", "Atualização concluída", 
 					MessagesTypes.SUCCESS);
 			
@@ -168,4 +188,13 @@ public class ClienteBean implements Serializable {
 		this.nCliente = nCliente;
 	}
 
+	public Cliente getCliEdit() {
+		return cliEdit;
+	}
+
+	public void setCliEdit(Cliente cliEdit) {
+		this.cliEdit = cliEdit;
+	}
+
+	
 }

@@ -33,7 +33,7 @@ public class OSBean implements Serializable {
 	private OS os;
 	private int idCliSetado;
 	private OS nOS;
-	
+	private OS osEdit;
 
 	MessagesUtils msgUtils;
 
@@ -46,7 +46,7 @@ public class OSBean implements Serializable {
 		listOS = osRepo.listOS();
 		nOS = new OS();
 		manager.close();
-		
+		osEdit = new OS();
 
 	}
 
@@ -136,11 +136,40 @@ public class OSBean implements Serializable {
 	}
 
 	public String searchEdit(OS oo) {
-		for (OS o : listOS) {
-			if (o.getId() == oo.getId()) {
-				os = o;
-			}
+		
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		
+		try {
+		
+			OSRepository osRepo = new OSRepository(manager);
+			manager.getTransaction().begin();
+			OS temp = osRepo.osById(oo.getId());
+			osEdit = temp;
+//			idCliSetado = os.getCliente().getId();
+			
+//			ClienteRepository cliRepo = new ClienteRepository(manager);
+//			Cliente clienteTemp = cliRepo.clienteById(temp.getCliente().getId());
+			
+//			cliEdit = clienteTemp;
+			
+			System.out.println("Teste ====== >>> " + os.getCliente().getId());
+			
+			
+//			os.setCliente(clienteTemp);
+			
+		}catch(Exception e) {
+			System.out.println("Erro ao tentar consultar OS individual");
+		}finally {
+			manager.close();
 		}
+
+		
+		
+//		for (OS o : listOS) {
+//			if (o.getId() == oo.getId()) {
+//				os = o;
+//			}
+//		}
 
 		return "/os/editOS?faces-redirect=true";
 	}
@@ -218,4 +247,13 @@ public class OSBean implements Serializable {
 		   return Status.values();
 		 }
 
+	public OS getOsEdit() {
+		return osEdit;
+	}
+
+	public void setOsEdit(OS osEdit) {
+		this.osEdit = osEdit;
+	}
+
+	
 }

@@ -18,24 +18,24 @@
 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 		
 		<p:outputLabel value="Cliente: " for="cli" />
-		<p:selectOneMenu id="cli" value="#{osBean.os.cliente.id}" >
+		<p:selectOneMenu id="cli" value="#{osBean.osEdit.cliente.id}" >
 					<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
 					<f:selectItems value="#{cliBean.clientes}" var="c" itemValue="#{c.id}" itemLabel="#{c.nome}"/>
 		</p:selectOneMenu>
 				
 		<p:outputLabel value="Descrição: " for="desc" />		
-		<p:inputText id="desc" value="#{osBean.os.descricao}" 
+		<p:inputText id="desc" value="#{osBean.osEdit.descricao}" 
 			required="true" requiredMessage="Descreva o problema...">
 		</p:inputText>
 		
 		<p:outputLabel value="Status: " for="st" />
-		<p:selectOneMenu id="st" value="#{osBean.os.status}" >
+		<p:selectOneMenu id="st" value="#{osBean.osEdit.status}" >
 					<f:selectItem itemLabel="Altere o Status" itemValue=""/>
 					<f:selectItems value="#{osBean.statuses}"/>
 		</p:selectOneMenu>
 		
 		<p:outputLabel value="Prioridade: " for="prio" /> 
-		<p:inputText id="prio" required="true" value="#{osBean.os.prioridade}" validatorMessage="Apenas numero" /> 
+		<p:inputText id="prio" required="true" value="#{osBean.osEdit.prioridade}" validatorMessage="Apenas numero" /> 
 		
 		<p:commandButton value="Atualizar OS" actionListener="#{osBean.atualizarOS}" id="actOS" update="growl" />
 		
