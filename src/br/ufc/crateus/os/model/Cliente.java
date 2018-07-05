@@ -87,7 +87,7 @@ public class Cliente implements Serializable{
 	
 //	public String toString() {
 //		return "ID => " + getId() + "\nNome => " + getNome() + "\nE-mail => " + getEmail() + "\nEndereço => " + getEndereco()
-//			+ "\nCPF => " + getCpf() + "\nTotal de OS na lista por cliente => " + getListOS().size();
+//			+ "\nCPF => " + getCpf() + "\nTotal de OS na lista por cliente => ";
 //	}
 
 }

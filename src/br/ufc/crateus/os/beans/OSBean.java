@@ -31,7 +31,7 @@ public class OSBean implements Serializable {
 
 	private List<OS> listOS;
 	private OS os;
-	private Cliente cliSetado;
+	private int idCliSetado;
 	private OS nOS;
 
 	MessagesUtils msgUtils;
@@ -45,7 +45,7 @@ public class OSBean implements Serializable {
 		listOS = osRepo.listOS();
 		nOS = new OS();
 		manager.close();
-		cliSetado = new Cliente();
+		
 
 	}
 
@@ -70,7 +70,7 @@ public class OSBean implements Serializable {
 			OSRepository osRepo = new OSRepository(manager);
 
 			nOS.setDataAbertura(Calendar.getInstance().getTime());
-			nOS.setCliente(cliSetado);
+//			nOS.setCliente(cliSetado);
 			
 			osRepo.addOS(nOS);
 			listOS = osRepo.listOS();
@@ -90,14 +90,28 @@ public class OSBean implements Serializable {
 	}
 
 	public OS searchById(int idOS) {
-		if (listOS != null) {
-			for (OS os : listOS) {
-
-				if (os.getId() == idOS) {
-					return os;
-				}
-
-			}
+//		if (listOS != null) {
+//			for (OS os : listOS) {
+//
+//				if (os.getId() == idOS) {
+//					return os;
+//				}
+//
+//			}
+//		}
+		
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		
+		try {
+		
+			OSRepository osRepo = new OSRepository(manager);
+			manager.getTransaction().begin();
+			return osRepo.osById(idOS);
+		
+		}catch(Exception e) {
+			System.out.println("Erro ao tentar consultar OS individual");
+		}finally {
+			manager.close();
 		}
 
 		return null;
@@ -125,14 +139,16 @@ public class OSBean implements Serializable {
 		return "/os/newOS?faces-redirect=true";
 	}
 
-	public Cliente getCliSetado() {
-		return cliSetado;
-	}
+//	public Cliente getCliSetado() {
+//		return cliSetado;
+//	}
+//
+//	public void setCliSetado(Cliente cliSetado) {
+//		this.cliSetado = cliSetado;
+//	}
 
-	public void setCliSetado(Cliente cliSetado) {
-		this.cliSetado = cliSetado;
-	}
-
+	
+	
 	public void atualizarOS() {
 
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
@@ -157,6 +173,14 @@ public class OSBean implements Serializable {
 		} finally {
 			manager.close();
 		}
+	}
+
+	public int getIdCliSetado() {
+		return idCliSetado;
+	}
+
+	public void setIdCliSetado(int idCliSetado) {
+		this.idCliSetado = idCliSetado;
 	}
 
 	public void remove() {
@@ -185,5 +209,15 @@ public class OSBean implements Serializable {
 		}
 
 	}
+
+	public OS getnOS() {
+		return nOS;
+	}
+
+	public void setnOS(OS nOS) {
+		this.nOS = nOS;
+	}
+	
+	
 
 }

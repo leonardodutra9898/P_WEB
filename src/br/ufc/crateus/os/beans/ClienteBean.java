@@ -1,7 +1,9 @@
 package br.ufc.crateus.os.beans;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -31,7 +33,7 @@ public class ClienteBean implements Serializable {
 	private Cliente clienteSelecionado;
 	private List<Cliente> clientes;
 	private Cliente nCliente;
-	
+		
 	MessagesUtils msgUtils;
 	
 	public void novoCliente() {
@@ -165,7 +167,5 @@ public class ClienteBean implements Serializable {
 	public void setnCliente(Cliente nCliente) {
 		this.nCliente = nCliente;
 	}
-	
-	
 
 }
