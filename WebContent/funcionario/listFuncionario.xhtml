@@ -36,7 +36,7 @@
     
         <p:column>
 		
-        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemFuncModal.show();" process="@this" update="@form" action="#{funcBean.excluirFuncionario}">
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{funcBean.excluirFuncionario}">
         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
          	<f:setPropertyActionListener value="#{fun}" target="#{funcBean.funcionario}" />
         </p:commandButton>

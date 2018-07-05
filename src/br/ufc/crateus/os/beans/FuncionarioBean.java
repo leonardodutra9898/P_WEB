@@ -127,7 +127,7 @@ public class FuncionarioBean implements Serializable {
 			funcionarioRepo.delete(funcionario);
 
 			manager.getTransaction().commit();
-			manager.flush();
+//			manager.flush();
 			
 			msgUtils = new MessagesUtils("Funcionário excluído...", "Funcionário removido", MessagesTypes.SUCCESS);
 
