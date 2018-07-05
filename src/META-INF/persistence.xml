@@ -11,6 +11,7 @@
 		<!-- entidade mapeada -->
 		<class>br.ufc.crateus.os.model.Cliente</class>
 		<class>br.ufc.crateus.os.model.OS</class>
+		<class>br.ufc.crateus.os.model.Funcionario</class>
 
 		<properties>
 			<!-- dados da conexao -->

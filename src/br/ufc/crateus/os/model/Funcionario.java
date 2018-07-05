@@ -1,21 +1,35 @@
 package br.ufc.crateus.os.model;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import br.ufc.crateus.os.enums.FuncionarioFuncoes;
+
+@Entity
 public class Funcionario {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
 	private String nome;
 	private String email;
 	private float salario;
-	private String FUNCAO;
 	
+	@Enumerated(EnumType.STRING)
+	private FuncionarioFuncoes FUNCAO;
 	
-	
-	public String getFUNCAO() {
+
+
+
+	public FuncionarioFuncoes getFUNCAO() {
 		return FUNCAO;
 	}
 
 
-	public void setFUNCAO(String fUNCAO) {
+	public void setFUNCAO(FuncionarioFuncoes fUNCAO) {
 		FUNCAO = fUNCAO;
 	}
 

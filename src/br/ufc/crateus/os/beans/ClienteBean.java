@@ -28,9 +28,6 @@ public class ClienteBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-
-//	private List<SelectItem> listClientesSelectOneMenu;
 	
 	private Cliente clienteSelecionado;
 	private List<Cliente> clientes;
@@ -101,7 +98,7 @@ public class ClienteBean implements Serializable {
 
 	public String clientById(Cliente cliente) {
 		
-EntityManager manager = EntityManagerPersistence.getEntityManager();
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
 		try {
 		
@@ -115,13 +112,6 @@ EntityManager manager = EntityManagerPersistence.getEntityManager();
 		}finally {
 			manager.close();
 		}		
-		
-//		for(Cliente c : clientes) {
-//			if(c.getId() == cliente.getId()) {
-//				clienteSelecionado = c;
-//			}
-//		}
-		
 		return "/cliente/editCliente?faces-redirect-true";
 	}
 	
