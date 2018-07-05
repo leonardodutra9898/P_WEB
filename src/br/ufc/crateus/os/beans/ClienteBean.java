@@ -1,17 +1,18 @@
 package br.ufc.crateus.os.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.model.Cliente;
+import br.ufc.crateus.os.repository.ClienteRepository;
+import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
 @Named
@@ -30,27 +31,43 @@ public class ClienteBean implements Serializable {
 	
 	private Cliente clienteSelecionado;
 	private List<Cliente> clientes;
+	private Cliente nCliente;
 	
 	MessagesUtils msgUtils;
 	
 	public void novoCliente() {
 		
-		if(isEditar()) {
-			atualizarCliente();
-		}else {
-			clienteSelecionado.setId(++count);
-			clientes.add(clienteSelecionado);
+			EntityManager manager = EntityManagerPersistence.getEntityManager();
 			
-			clienteSelecionado = new Cliente();
-		
-			msgUtils = new MessagesUtils("Registro Salvo", "Novo Cliente Registrado!", MessagesTypes.SUCCESS);
-		}
+			try {
+				manager.getTransaction().begin();
+				ClienteRepository clienteRepo = new ClienteRepository(manager);
+//				clienteSelecionado = new Cliente();
+				
+				clienteRepo.addCliente(nCliente);
+				clientes = clienteRepo.listClientes();
+				nCliente = new Cliente();
+				msgUtils = new MessagesUtils("Registro Salvo", "Novo Cliente Registrado!", MessagesTypes.SUCCESS);
+				
+				manager.getTransaction().commit();
+				
+			}catch(Exception e) {
+				manager.getTransaction().rollback();
+				msgUtils = new MessagesUtils("Erro ao tentar salvar registro", ("Erro: " + e.toString()), 
+						MessagesTypes.ERROR);
+			} finally {
+				manager.close();
+			}
 	}
 	
 	public ClienteBean() {
 
-		clientes = new ArrayList<>();
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		ClienteRepository clienteRepo = new ClienteRepository(manager);
+		clientes = clienteRepo.listClientes();
 		clienteSelecionado = new Cliente();
+		nCliente = new Cliente();
+		manager.close();
 	}
 	
 	public Cliente getClienteSelecionado() {
@@ -106,13 +123,15 @@ public class ClienteBean implements Serializable {
 
 	public String clientById(Cliente cliente) {
 		
+		
+		
 		for(Cliente c : clientes) {
 			if(c.getId() == cliente.getId()) {
 				clienteSelecionado = c;
 			}
 		}
 		
-		return "/cliente/newCliente?faces-redirect-true";
+		return "/cliente/editCliente?faces-redirect-true";
 	}
 	
 //	public Cliente getClientById(Cliente cliente) {
@@ -127,31 +146,76 @@ public class ClienteBean implements Serializable {
 	
 	public void excluirCliente() {
 		
-		Cliente cliTemp = searchById();
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
-		if(cliTemp != null) {
-			clientes.remove(cliTemp);
+		try {
 			
-			msgUtils = new MessagesUtils("Cliente excluído...", "Cliente removido", MessagesTypes.SUCCESS);
-		}		
+			manager.getTransaction().begin();
+			ClienteRepository clienteRepo = new ClienteRepository(manager);
+			clienteRepo.clienteById(clienteSelecionado.getId());
+			clienteRepo.delete(clienteSelecionado);
+			
+			manager.getTransaction().commit();
+
+			msgUtils = new MessagesUtils("Cliente excluído...", "Cliente removido", 
+					MessagesTypes.SUCCESS);
+					
+			clientes = clienteRepo.listClientes();
+			clienteSelecionado = new Cliente();
+			
+		}catch(Exception e) {
+			manager.getTransaction().rollback();
+			msgUtils = new MessagesUtils("Cliente não pode ser excluido...", ("Cliente não removido... " + e.toString()), 
+					MessagesTypes.ERROR);
+		} finally {
+			manager.close();
+		}
+		
+//		Cliente cliTemp = searchById();
+//		
+//		if(cliTemp != null) {
+//			clientes.remove(cliTemp);
+//			
+//			msgUtils = new MessagesUtils("Cliente excluído...", "Cliente removido", MessagesTypes.SUCCESS);
+//		}
+		
 	}
 	
 	public void atualizarCliente() {
 		
-		Cliente cliSearch = searchById();
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
-		if(cliSearch != null) {
-			cliSearch.setNome(clienteSelecionado.getNome());
-			cliSearch.setEmail(clienteSelecionado.getEmail());
-			cliSearch.setEndereco(clienteSelecionado.getEndereco());
-			cliSearch.setCpf(clienteSelecionado.getCpf());
+		try {
 			
-			msgUtils = new MessagesUtils("Atualização realizada com sucesso em CLiente...", "Atualização concluída", MessagesTypes.SUCCESS);
+			manager.getTransaction().begin();
+			ClienteRepository clienteRepo = new ClienteRepository(manager);
+			clienteRepo.addCliente(clienteSelecionado);
+			clientes = clienteRepo.listClientes();
+			
+			clienteSelecionado = new Cliente();
+			msgUtils = new MessagesUtils("Atualização realizada com sucesso em CLiente...", "Atualização concluída", 
+					MessagesTypes.SUCCESS);
+			
+			manager.getTransaction().commit();
+						
+		}catch(Exception e) {
+			manager.getTransaction().rollback();
+			msgUtils = new MessagesUtils("Erro ao tentar atualizar Cliente...", ("Erro ao atualizar... " + e.toString()), 
+					MessagesTypes.ERROR);
+		} finally {
+			manager.close();
 		}
 		
 	}
-	
-	public boolean isEditar() {
-		return this.clienteSelecionado.getId() != null;
+
+	public Cliente getnCliente() {
+		return nCliente;
 	}
+
+	public void setnCliente(Cliente nCliente) {
+		this.nCliente = nCliente;
+	}
+	
+	
+
 }

@@ -9,7 +9,7 @@ public class EntityManagerPersistence {
 	private static EntityManagerFactory emf;
 	
 	public static void init() {
-		emf = Persistence.createEntityManagerFactory("SisOS");
+		emf = Persistence.createEntityManagerFactory("os");
 	}
 	
 	public static EntityManagerFactory getEmf() {

@@ -17,20 +17,20 @@
 	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
 		<p:outputLabel value="Nome do Cliente: " for="nom" />		
-		<p:inputText id="nom" value="#{cliBean.clienteSelecionado.nome}" 
+		<p:inputText id="nom" value="#{cliBean.nCliente.nome}" 
 			required="true" requiredMessage="Nome é necessário"	>
 		</p:inputText>
 		
 		<p:outputLabel value="E-mail " for="mail" /> 
-		<p:inputText id="mail" required="true" value="#{cliBean.clienteSelecionado.email}" validatorMessage="E-mail inválido" > 
+		<p:inputText id="mail" required="true" value="#{cliBean.nCliente.email}" validatorMessage="E-mail inválido" > 
 			<f:validator validatorId="emailValidator" />
 		</p:inputText>
 		
 		<p:outputLabel value="CPF" for="cpf" /> 
-		<p:inputMask mask="999.999.999-99" size="20" id="cpf" required="true" value="#{cliBean.clienteSelecionado.cpf}" validatorMessage="CPF inválido" /> 
+		<p:inputMask mask="999.999.999-99" size="20" id="cpf" required="true" value="#{cliBean.nCliente.cpf}" validatorMessage="CPF inválido" /> 
 
 		<p:outputLabel value="Endereço" for="end" /> 
-		<p:inputText id="end" required="true" value="#{cliBean.clienteSelecionado.endereco}" /> 
+		<p:inputText id="end" required="true" value="#{cliBean.nCliente.endereco}" /> 
 		
 		
 		<p:commandButton value="Adicionar" actionListener="#{cliBean.novoCliente}" update="growl"/>

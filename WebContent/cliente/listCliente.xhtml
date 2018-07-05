@@ -34,19 +34,19 @@
     
     <p:column>
 		
-        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemCliModal.show();" process="@this" update=":cliForm">
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" oncomplete="excluirMensagemCliModal.show();" action="#{cliBean.excluirCliente}" process="@this" update="@form">
         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
          	<f:setPropertyActionListener value="#{cli}" target="#{cliBean.clienteSelecionado}" />
         </p:commandButton>
 
-		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/cliente/newCliente" style="text-align: center;" 
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/cliente/editCliente" style="text-align: center;" 
 			action="#{cliBean.clientById(cli)}">
-			<f:param name="cliente" value="#{cli.id}"/>
+			<!-- <f:param name="cliente" value="#{cli.id}"/> -->
 		</p:commandButton>
     </p:column>
 
 </p:dataTable>
-    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
         <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{cliBean.excluirCliente}" update=":cliForm:dTb" actionListener="#{cliBean.excluirCliente}" process="@this" />
         <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="return false;"/>
     </p:confirmDialog>
