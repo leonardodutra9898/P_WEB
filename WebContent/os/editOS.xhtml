@@ -22,18 +22,22 @@
 					<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
 					<f:selectItems value="#{cliBean.clientes}" var="c" itemValue="#{c.id}" itemLabel="#{c.nome}"/>
 		</p:selectOneMenu>
-		
-		<!-- VER A POSSIBILIDADE DE COLOCAR AQUI LISTA DE STATUS PARA MUDAR O STATUS DO REGISTRO -->
-
+				
 		<p:outputLabel value="Descrição: " for="desc" />		
 		<p:inputText id="desc" value="#{osBean.os.descricao}" 
 			required="true" requiredMessage="Descreva o problema...">
 		</p:inputText>
 		
+		<p:outputLabel value="Status: " for="st" />
+		<p:selectOneMenu id="st" value="#{osBean.os.status}" >
+					<f:selectItem itemLabel="Altere o Status" itemValue=""/>
+					<f:selectItems value="#{osBean.statuses}"/>
+		</p:selectOneMenu>
+		
 		<p:outputLabel value="Prioridade: " for="prio" /> 
 		<p:inputText id="prio" required="true" value="#{osBean.os.prioridade}" validatorMessage="Apenas numero" /> 
 		
-		<p:commandButton value="Adicionar" actionListener="#{osBean.atualizarOS}" id="actOS" update="growl" />
+		<p:commandButton value="Atualizar OS" actionListener="#{osBean.atualizarOS}" id="actOS" update="growl" />
 		
 		</h:panelGrid>
 	</h:form>

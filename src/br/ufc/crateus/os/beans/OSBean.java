@@ -214,6 +214,8 @@ public class OSBean implements Serializable {
 		this.nOS = nOS;
 	}
 	
-	
+	public Status[] getStatuses(){
+		   return Status.values();
+		 }
 
 }
