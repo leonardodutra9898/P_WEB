@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -36,15 +35,6 @@ public class Cliente implements Serializable{
 		
 	}
 	
-//	public Cliente(Integer id, String nome, String endereco, String cpf, String email) {
-//		this.id = id;
-//		this.nome = nome;
-//		this.endereco = endereco;
-//		this.cpf = cpf;
-//		this.email = email;
-//	}
-	
-
 	public Integer getId() {
 		return id;
 	}
@@ -84,12 +74,4 @@ public class Cliente implements Serializable{
 	public void setListOS(List<OS> listOS) {
 		this.listOS = listOS;
 	}
-
-
-	
-//	public String toString() {
-//		return "ID => " + getId() + "\nNome => " + getNome() + "\nE-mail => " + getEmail() + "\nEndereço => " + getEndereco()
-//			+ "\nCPF => " + getCpf() + "\nTotal de OS na lista por cliente => ";
-//	}
-
 }

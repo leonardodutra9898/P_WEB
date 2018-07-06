@@ -1,7 +1,6 @@
 package br.ufc.crateus.os.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -102,15 +101,6 @@ public class OSBean implements Serializable {
 	}
 
 	public OS searchById(int idOS) {
-//		if (listOS != null) {
-//			for (OS os : listOS) {
-//
-//				if (os.getId() == idOS) {
-//					return os;
-//				}
-//
-//			}
-//		}
 		
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
@@ -151,32 +141,12 @@ public class OSBean implements Serializable {
 			manager.getTransaction().begin();
 			OS temp = osRepo.osById(oo.getId());
 			osEdit = temp;
-//			idCliSetado = os.getCliente().getId();
-			
-//			ClienteRepository cliRepo = new ClienteRepository(manager);
-//			Cliente clienteTemp = cliRepo.clienteById(temp.getCliente().getId());
-			
-//			cliEdit = clienteTemp;
-			
-			System.out.println("Teste ====== >>> " + os.getCliente().getId());
-			
-			
-//			os.setCliente(clienteTemp);
 			
 		}catch(Exception e) {
 			System.out.println("Erro ao tentar consultar OS individual");
 		}finally {
 			manager.close();
 		}
-
-		
-		
-//		for (OS o : listOS) {
-//			if (o.getId() == oo.getId()) {
-//				os = o;
-//			}
-//		}
-
 		return "/os/editOS?faces-redirect=true";
 	}
 
@@ -268,6 +238,4 @@ public class OSBean implements Serializable {
 	public void setIdFuncionarioSetado(int idFuncionarioSetado) {
 		this.idFuncionarioSetado = idFuncionarioSetado;
 	}
-
-	
 }

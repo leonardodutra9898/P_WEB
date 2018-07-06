@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
@@ -128,10 +127,7 @@ public class FuncionarioBean implements Serializable {
 			FuncionarioRepository funcionarioRepo = new FuncionarioRepository(manager);
 			funcionarioRepo.funcionarioById(funcionario.getId());
 			funcionarioRepo.delete(funcionario);
-
 			manager.getTransaction().commit();
-//			manager.flush();
-			
 			msgUtils = new MessagesUtils("Funcionário excluído...", "Funcionário removido", MessagesTypes.SUCCESS);
 
 			funcionarios = funcionarioRepo.listFuncionarios();
@@ -156,11 +152,9 @@ public class FuncionarioBean implements Serializable {
 			FuncionarioRepository funcionarioRepo = new FuncionarioRepository(manager);
 			funcionarioRepo.addFuncionario(funcionarioEdit);
 			funcionarios = funcionarioRepo.listFuncionarios();
-
 			funcionarioEdit = new Funcionario();
 			msgUtils = new MessagesUtils("Atualização realizada com sucesso em funcionário...", "Atualização concluída",
 					MessagesTypes.SUCCESS);
-
 			manager.getTransaction().commit();
 
 		} catch (Exception e) {
@@ -224,7 +218,4 @@ public class FuncionarioBean implements Serializable {
 	public List<Funcionario> getTecnicos() {
 		return tecnicos;
 	}
-	
-	
-
 }

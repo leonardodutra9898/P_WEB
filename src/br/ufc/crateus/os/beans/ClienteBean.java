@@ -1,24 +1,16 @@
 package br.ufc.crateus.os.beans;
 
 import java.io.Serializable;
-import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-
-import org.hibernate.exception.ConstraintViolationException;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.model.Cliente;
-import br.ufc.crateus.os.model.OS;
 import br.ufc.crateus.os.repository.ClienteRepository;
-import br.ufc.crateus.os.repository.OSRepository;
 import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
@@ -46,8 +38,6 @@ public class ClienteBean implements Serializable {
 			try {
 				manager.getTransaction().begin();
 				ClienteRepository clienteRepo = new ClienteRepository(manager);
-//				clienteSelecionado = new Cliente();
-				
 				clienteRepo.addCliente(nCliente);
 				clientes = clienteRepo.listClientes();
 				nCliente = new Cliente();
@@ -84,14 +74,11 @@ public class ClienteBean implements Serializable {
 	}
 
 	public Cliente searchById() {
-		
 			for(Cliente c : clientes) {
-				
 					if(c.getId() == clienteSelecionado.getId()) {
 						return c;
 					}
 			}
-
 		return null;
 	}
 
@@ -190,6 +177,4 @@ public class ClienteBean implements Serializable {
 	public void setCliEdit(Cliente cliEdit) {
 		this.cliEdit = cliEdit;
 	}
-
-	
 }
