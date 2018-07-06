@@ -165,6 +165,22 @@ public class FinanceiroBean implements Serializable{
 			
 			manager.getTransaction().begin();
 			FinanceiroRepository finRepo = new FinanceiroRepository(manager);
+			
+			
+			OSRepository osRepo = new OSRepository(manager);
+			ClienteRepository cliRepo = new ClienteRepository(manager);
+			FuncionarioRepository funRepo = new FuncionarioRepository(manager);
+			
+			
+			osSetado = osRepo.osById(idOSSelecionado);
+			clienteSetado = cliRepo.clienteById(osSetado.getCliente().getId());
+			funcionarioSetado = funRepo.funcionarioById(osSetado.getFuncionario().getId());
+			
+			financeiroEdit.setOs(osSetado);
+			financeiroEdit.setCliente(clienteSetado);
+			financeiroEdit.setFuncionario(funcionarioSetado);
+			
+			
 			finRepo.addFinanceiro(financeiroEdit);
 			financeiroList = finRepo.listLancamentosFinanceiro();
 			
