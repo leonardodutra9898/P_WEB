@@ -192,4 +192,22 @@ EntityManager manager = EntityManagerPersistence.getEntityManager();
 	public FinanceiroEnum[] getStatus() {
 		return FinanceiroEnum.values();
 	}
+
+	public Cliente getClienteSetado() {
+		return clienteSetado;
+	}
+
+	public void setClienteSetado(Cliente clienteSetado) {
+		this.clienteSetado = clienteSetado;
+	}
+
+	public OS getOsSetado() {
+		return osSetado;
+	}
+
+	public void setOsSetado(OS osSetado) {
+		this.osSetado = osSetado;
+	}
+	
+	
 }
