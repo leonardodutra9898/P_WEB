@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
@@ -50,6 +51,18 @@ public class OSBean implements Serializable {
 		manager.close();
 		osEdit = new OS();
 
+	}
+	
+//	@PostConstruct
+	public void init() {
+
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		OSRepository osRepo = new OSRepository(manager);
+		
+		listOS = osRepo.listOS();
+		
+		manager.close();
+		
 	}
 
 	public List<OS> getListOS() {

@@ -90,6 +90,14 @@ public class FinanceiroBean implements Serializable{
 		}
 	}
 	
+	public void init() {
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		FinanceiroRepository financeiroRepo = new FinanceiroRepository(manager);
+		
+		financeiroList = financeiroRepo.listLancamentosFinanceiro();
+		manager.close();
+	}
+	
 	public FinanceiroBean() {
 		
 		EntityManager manager = EntityManagerPersistence.getEntityManager();

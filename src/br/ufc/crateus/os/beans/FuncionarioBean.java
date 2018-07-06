@@ -12,6 +12,7 @@ import br.ufc.crateus.os.enums.FuncionarioFuncoes;
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.model.Funcionario;
 import br.ufc.crateus.os.repository.FuncionarioRepository;
+import br.ufc.crateus.os.repository.OSRepository;
 import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
@@ -45,6 +46,16 @@ public class FuncionarioBean implements Serializable {
 		nFuncionario = new Funcionario();
 		funcionarioEdit = new Funcionario();
 
+		manager.close();
+	}
+	
+	public void init() {
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		FuncionarioRepository funcionarioRepo = new FuncionarioRepository(manager);
+		
+		funcionarios = funcionarioRepo.listFuncionarios();
+		tecnicos = funcionarioRepo.listTecnicos();
+		
 		manager.close();
 	}
 
