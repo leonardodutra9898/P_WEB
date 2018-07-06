@@ -3,6 +3,7 @@ package br.ufc.crateus.os.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,16 +30,16 @@ public class Financeiro implements Serializable{
 	private int id;
 	
 	@Lob
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Cliente cliente;
 	
 	@Enumerated(EnumType.STRING)
 	private FinanceiroEnum status;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Funcionario funcionario;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	private OS os;
 	
 	private double valorOrcamentoOS;

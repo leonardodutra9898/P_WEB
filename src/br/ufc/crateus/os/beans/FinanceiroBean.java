@@ -161,7 +161,7 @@ public class FinanceiroBean implements Serializable{
 			
 		}catch(Exception e) {
 			manager.getTransaction().rollback();
-			msgUtils = new MessagesUtils("Lançamento não pode ser excluido...", ("Lançamento não removido... " + e.toString()), 
+			msgUtils = new MessagesUtils("Pode haver dependência desse registro em outra entidade...", ("Lançamento não removido... " + e.toString()), 
 					MessagesTypes.ERROR);
 		} finally {
 			manager.close();

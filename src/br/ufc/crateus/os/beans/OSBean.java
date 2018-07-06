@@ -233,7 +233,7 @@ public class OSBean implements Serializable {
 			os = new OS();
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
-			msgUtils = new MessagesUtils("OS não pode ser excluida...", ("OS não removida... " + e.toString()),
+			msgUtils = new MessagesUtils("Pode haver dependência desse registro em outra entidade...", ("OS não removida... " + e.toString()),
 					MessagesTypes.ERROR);
 		} finally {
 			manager.close();
