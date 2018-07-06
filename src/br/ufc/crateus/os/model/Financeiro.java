@@ -46,8 +46,6 @@ public class Financeiro implements Serializable{
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private OS os;
 	
-	private double valorOrcamentoOS;
-	
 	@Temporal(TemporalType.DATE)
 	private Date data;
 	
@@ -81,69 +79,11 @@ public class Financeiro implements Serializable{
 	public void setOs(OS os) {
 		this.os = os;
 	}
-	public double getValorOrcamentoOS() {
-		return valorOrcamentoOS;
-	}
-	public void setValorOrcamentoOS(double valorOrcamentoOS) {
-		this.valorOrcamentoOS = valorOrcamentoOS;
-	}
 	public Date getData() {
 		return data;
 	}
 	public void setData(Date data) {
 		this.data = data;
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
-		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		result = prime * result + ((funcionario == null) ? 0 : funcionario.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((os == null) ? 0 : os.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(valorOrcamentoOS);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Financeiro other = (Financeiro) obj;
-		if (cliente == null) {
-			if (other.cliente != null)
-				return false;
-		} else if (!cliente.equals(other.cliente))
-			return false;
-		if (data == null) {
-			if (other.data != null)
-				return false;
-		} else if (!data.equals(other.data))
-			return false;
-		if (funcionario == null) {
-			if (other.funcionario != null)
-				return false;
-		} else if (!funcionario.equals(other.funcionario))
-			return false;
-		if (id != other.id)
-			return false;
-		if (os == null) {
-			if (other.os != null)
-				return false;
-		} else if (!os.equals(other.os))
-			return false;
-		if (status != other.status)
-			return false;
-		if (Double.doubleToLongBits(valorOrcamentoOS) != Double.doubleToLongBits(other.valorOrcamentoOS))
-			return false;
-		return true;
 	}
 	
 	public TipoLancamento getTipoLancamento() {

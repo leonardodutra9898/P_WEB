@@ -16,7 +16,7 @@
 
  <p:toolbar>
  	 <f:facet name="left">
-            <p:button type="button" value="Novo" icon="fa fa-plus" outcome="/financeiro/newFinanceiro.xhtml"/>
+            <p:button type="button" value="Dar Baixa em OS" icon="fa fa-plus" outcome="/financeiro/newFinanceiro.xhtml"/>
     </f:facet>
  </p:toolbar>
 
@@ -48,8 +48,8 @@
         <h:outputText value="#{fin.tipoLancamento}" />
     </p:column>
 
- 	<p:column headerText="Valor Orçamento">
-        <h:outputText value="R$ #{fin.valorOrcamentoOS}"> 
+ 	<p:column headerText="Valor do Serviço Prestado">
+        <h:outputText value="R$ #{fin.os.valorServico}"> 
         	<f:convertNumber pattern="##.###,##" />
         </h:outputText>
         <!-- <p:outputLabel value="#{fin.valorOrcamentoOS}" symbol="R$ " symbolPosition="p" 

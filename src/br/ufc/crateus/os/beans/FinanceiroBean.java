@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 
 import br.ufc.crateus.os.enums.FinanceiroEnum;
 import br.ufc.crateus.os.enums.MessagesTypes;
+import br.ufc.crateus.os.enums.Status;
 import br.ufc.crateus.os.enums.TipoLancamento;
 import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.Financeiro;
@@ -68,6 +69,9 @@ public class FinanceiroBean implements Serializable{
 			nFinanceiro.setData(Calendar.getInstance().getTime());
 			
 				finRepo.addFinanceiro(nFinanceiro);
+				
+				osSetado.setStatus(Status.FECHADO);
+				osRepo.addOS(osSetado);
 				
 				nFinanceiro = new Financeiro();
 				msgUtils = new MessagesUtils("Registro Salvo", "Novo lançamento financeiro Registrado!", MessagesTypes.SUCCESS);				

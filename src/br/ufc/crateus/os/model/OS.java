@@ -52,6 +52,8 @@ public class OS implements Serializable{
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Funcionario funcionario;
 	
+	private double valorServico;
+	
 	public OS() {
 		
 	}
@@ -112,6 +114,16 @@ public class OS implements Serializable{
 
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
+	}
+
+
+	public double getValorServico() {
+		return valorServico;
+	}
+
+
+	public void setValorServico(double valorServico) {
+		this.valorServico = valorServico;
 	}
 	
 	

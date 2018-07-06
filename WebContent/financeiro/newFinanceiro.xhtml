@@ -9,14 +9,14 @@
 
 <ui:define name="conteudo">
 
-<h2>Lançar Valores à Pagar (AVULSO)</h2>
+<h2>Dar baixa em Serviços Prestados</h2>
 
 <h:form>
 
 <p:growl id="growl" life="2000" />
 	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
-		<p:outputLabel value="Situação do Lançamento: " for="st" />
+		<p:outputLabel value="Situação do Serviço: " for="st" />
 		<p:selectOneMenu id="st" value="#{finBean.nFinanceiro.status}" required="true">
 					<f:selectItem itemLabel="Altere a situação desse lançamento" itemValue=""/>
 					<f:selectItems value="#{finBean.status}"/>
@@ -27,19 +27,14 @@
 					<f:selectItem itemLabel="Qual a Ordem de Serviço?" itemValue=""/>
 					<f:selectItems value="#{osBean.listOS}" var="o" itemValue="#{o.id}" itemLabel="#{o.descricao}"/>
 		</p:selectOneMenu>
-
-		<p:outputLabel value="Valor do Serviço: " for="serv" /> 
-		<p:inputNumber id="serv" value="#{finBean.nFinanceiro.valorOrcamentoOS}" symbol="R$ " symbolPosition="p" 
-                               decimalSeparator="," thousandSeparator="." validatorMessage="Valores em reais" required="true" /> 
-		<!-- <p:inputText id="serv" required="true" value="#{finBean.nFinanceiro.valorOrcamentoOS}" validatorMessage="Valores em reais" /> -->
 		
-		<p:outputLabel value="Tipo de Lançamento: " for="ti" />
+		<p:outputLabel value="Lançamento como (ISENTO = Gratuito): " for="ti" />
 		<p:selectOneMenu id="ti" value="#{finBean.nFinanceiro.tipoLancamento}" required="true">
 					<f:selectItem itemLabel="Tipos de lançamento" itemValue=""/>
 					<f:selectItems value="#{finBean.tipoLancamento}"/>
 		</p:selectOneMenu>
 		
-		<p:commandButton value="Adicionar" actionListener="#{finBean.novoLancamentoFinanceiro}" update="growl"/>
+		<p:commandButton value="Dar Baixa" actionListener="#{finBean.novoLancamentoFinanceiro}" update="growl"/>
 		
 		</h:panelGrid>
 	</h:form>

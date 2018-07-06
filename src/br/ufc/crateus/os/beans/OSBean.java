@@ -42,7 +42,6 @@ public class OSBean implements Serializable {
 	private int idFuncionarioSetado;
 	private OS nOS;
 	private OS osEdit;
-	private Financeiro nFinanceiro;
 
 	MessagesUtils msgUtils;
 
@@ -56,7 +55,7 @@ public class OSBean implements Serializable {
 		nOS = new OS();
 		manager.close();
 		osEdit = new OS();
-		nFinanceiro = new Financeiro();
+	
 
 	}
 	
@@ -99,33 +98,22 @@ public class OSBean implements Serializable {
 			Cliente clienteSelect = cliRepo.clienteById(idCliSetado);
 			FuncionarioRepository funRepo = new FuncionarioRepository(manager);
 			Funcionario funcionarioSelect = funRepo.funcionarioById(idFuncionarioSetado);
-			FinanceiroRepository finRepo = new FinanceiroRepository(manager);
 			
 			nOS.setFuncionario(funcionarioSelect);
 			nOS.setCliente(clienteSelect);
-
-			nFinanceiro.setCliente(clienteSelect);
-			nFinanceiro.setFuncionario(funcionarioSelect);
-			nFinanceiro.setData(Calendar.getInstance().getTime());
-			nFinanceiro.setOs(nOS);
-			nFinanceiro.setStatus(FinanceiroEnum.ORÇADO);
-			nFinanceiro.setTipoLancamento(TipoLancamento.RECEITA);
-						
+			nOS.setValorServico(50.00d);
 			osRepo.addOS(nOS);
-			finRepo.addFinanceiro(nFinanceiro);
-		
-			nFinanceiro = new Financeiro();
-			nOS = new OS();
-
-			msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
+			
+			msgUtils = new MessagesUtils("Nova Ordem de Serviço registrada!", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
 			manager.getTransaction().commit();
 			
+			nOS = new OS();
 			listOS = osRepo.listOS();
 
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 
-			msgUtils = new MessagesUtils("Registro não pode ser salvo",
+			msgUtils = new MessagesUtils("Ordem de Serviço - Registro não pode ser salvo",
 					("OS não pode ser registrada... " + e.toString()), MessagesTypes.ERROR);
 		} finally {
 			manager.close();
@@ -273,11 +261,4 @@ public class OSBean implements Serializable {
 		this.idFuncionarioSetado = idFuncionarioSetado;
 	}
 
-	public Financeiro getnFinanceiro() {
-		return nFinanceiro;
-	}
-
-	public void setnFinanceiro(Financeiro nFinanceiro) {
-		this.nFinanceiro = nFinanceiro;
-	}	
 }
