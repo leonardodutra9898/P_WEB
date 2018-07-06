@@ -44,6 +44,10 @@
         <h:outputText value="#{fin.os.id}" />
     </p:column>
 
+	<p:column headerText="Tipo">
+        <h:outputText value="#{fin.tipoLancamento}" />
+    </p:column>
+
  	<p:column headerText="Valor Orçamento">
         <h:outputText value="R$ #{fin.valorOrcamentoOS}"> 
         	<f:convertNumber pattern="##.###,##" />
