@@ -37,6 +37,9 @@
 		<p:outputLabel value="Prioridade: " for="prio" /> 
 		<p:inputText id="prio" required="true" value="#{osBean.nOS.prioridade}" validatorMessage="Apenas numero" /> 
 		
+		<p:outputLabel value="Valor do Serviço: " for="val" /> 
+		<p:inputText id="val" value="#{osBean.nFinanceiro.valorOrcamentoOS}" readonly="true" maxlength="10">300.00</p:inputText> 
+		
 		<p:commandButton value="Adicionar" actionListener="#{osBean.novoOS}" id="actOS" update="growl" />
 		
 		</h:panelGrid>

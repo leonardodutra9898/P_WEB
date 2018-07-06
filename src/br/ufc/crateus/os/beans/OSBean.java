@@ -4,18 +4,23 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import com.sun.media.sound.FFT;
+
+import br.ufc.crateus.os.enums.FinanceiroEnum;
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.enums.Status;
+import br.ufc.crateus.os.enums.TipoLancamento;
 import br.ufc.crateus.os.model.Cliente;
+import br.ufc.crateus.os.model.Financeiro;
 import br.ufc.crateus.os.model.Funcionario;
 import br.ufc.crateus.os.model.OS;
 import br.ufc.crateus.os.repository.ClienteRepository;
+import br.ufc.crateus.os.repository.FinanceiroRepository;
 import br.ufc.crateus.os.repository.FuncionarioRepository;
 import br.ufc.crateus.os.repository.OSRepository;
 import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
@@ -37,6 +42,7 @@ public class OSBean implements Serializable {
 	private int idFuncionarioSetado;
 	private OS nOS;
 	private OS osEdit;
+	private Financeiro nFinanceiro;
 
 	MessagesUtils msgUtils;
 
@@ -50,6 +56,7 @@ public class OSBean implements Serializable {
 		nOS = new OS();
 		manager.close();
 		osEdit = new OS();
+		nFinanceiro = new Financeiro();
 
 	}
 	
@@ -92,12 +99,22 @@ public class OSBean implements Serializable {
 			Cliente clienteSelect = cliRepo.clienteById(idCliSetado);
 			FuncionarioRepository funRepo = new FuncionarioRepository(manager);
 			Funcionario funcionarioSelect = funRepo.funcionarioById(idFuncionarioSetado);
+			FinanceiroRepository finRepo = new FinanceiroRepository(manager);
 			
 			nOS.setFuncionario(funcionarioSelect);
 			nOS.setCliente(clienteSelect);
-			
+
+			nFinanceiro.setCliente(clienteSelect);
+			nFinanceiro.setFuncionario(funcionarioSelect);
+			nFinanceiro.setData(Calendar.getInstance().getTime());
+			nFinanceiro.setOs(nOS);
+			nFinanceiro.setStatus(FinanceiroEnum.ORÇADO);
+			nFinanceiro.setTipoLancamento(TipoLancamento.RECEITA);
+						
 			osRepo.addOS(nOS);
-			
+			finRepo.addFinanceiro(nFinanceiro);
+		
+			nFinanceiro = new Financeiro();
 			nOS = new OS();
 
 			msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
@@ -255,4 +272,12 @@ public class OSBean implements Serializable {
 	public void setIdFuncionarioSetado(int idFuncionarioSetado) {
 		this.idFuncionarioSetado = idFuncionarioSetado;
 	}
+
+	public Financeiro getnFinanceiro() {
+		return nFinanceiro;
+	}
+
+	public void setnFinanceiro(Financeiro nFinanceiro) {
+		this.nFinanceiro = nFinanceiro;
+	}	
 }
