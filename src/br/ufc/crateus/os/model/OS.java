@@ -10,7 +10,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -28,7 +27,7 @@ public class OS implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private int id;
 	
 	@Temporal(TemporalType.DATE)
 	private Date dataAbertura;
@@ -45,6 +44,7 @@ public class OS implements Serializable{
 	private int prioridade;
 	
 	@Lob
+	@ManyToOne
 	private Cliente cliente;
 
 	//	private Funcionario funcionario;
@@ -54,10 +54,10 @@ public class OS implements Serializable{
 	}
 
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -93,8 +93,8 @@ public class OS implements Serializable{
 		this.prioridade = prioridade;
 	}
 
-	@JoinColumn(name="cliente_id")
-	@ManyToOne
+//	@JoinColumn()
+//	@ManyToOne
 	public Cliente getCliente() {
 		return cliente;
 	}
