@@ -28,6 +28,7 @@ public class FuncionarioBean implements Serializable {
 
 	private Funcionario funcionario;
 	private List<Funcionario> funcionarios;
+	private List<Funcionario> tecnicos;
 	private FuncionarioFuncoes FUNCAO;
 	private Funcionario nFuncionario;
 	private Funcionario funcionarioEdit;
@@ -39,6 +40,7 @@ public class FuncionarioBean implements Serializable {
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		FuncionarioRepository funcionarioRepo = new FuncionarioRepository(manager);
 		funcionarios = funcionarioRepo.listFuncionarios();
+		tecnicos = funcionarioRepo.listTecnicos();
 
 		funcionario = new Funcionario();
 		nFuncionario = new Funcionario();
@@ -56,7 +58,8 @@ public class FuncionarioBean implements Serializable {
 			FuncionarioRepository funcionarioRepo = new FuncionarioRepository(manager);
 			funcionarioRepo.addFuncionario(nFuncionario);
 			funcionarios = funcionarioRepo.listFuncionarios();
-
+			tecnicos = funcionarioRepo.listTecnicos();
+			
 			nFuncionario = new Funcionario();
 			msgUtils = new MessagesUtils("Registro Salvo", "Funcionário registrado!", MessagesTypes.SUCCESS);
 
@@ -217,5 +220,11 @@ public class FuncionarioBean implements Serializable {
 	public void setnFuncionario(Funcionario nFuncionario) {
 		this.nFuncionario = nFuncionario;
 	}
+
+	public List<Funcionario> getTecnicos() {
+		return tecnicos;
+	}
+	
+	
 
 }
