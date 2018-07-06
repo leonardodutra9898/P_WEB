@@ -56,13 +56,14 @@ public class FuncionarioBean implements Serializable {
 			manager.getTransaction().begin();
 			FuncionarioRepository funcionarioRepo = new FuncionarioRepository(manager);
 			funcionarioRepo.addFuncionario(nFuncionario);
-			funcionarios = funcionarioRepo.listFuncionarios();
-			tecnicos = funcionarioRepo.listTecnicos();
-			
+						
 			nFuncionario = new Funcionario();
 			msgUtils = new MessagesUtils("Registro Salvo", "Funcionário registrado!", MessagesTypes.SUCCESS);
 
 			manager.getTransaction().commit();
+			
+			funcionarios = funcionarioRepo.listFuncionarios();
+			tecnicos = funcionarioRepo.listTecnicos();
 
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
@@ -151,11 +152,13 @@ public class FuncionarioBean implements Serializable {
 			manager.getTransaction().begin();
 			FuncionarioRepository funcionarioRepo = new FuncionarioRepository(manager);
 			funcionarioRepo.addFuncionario(funcionarioEdit);
-			funcionarios = funcionarioRepo.listFuncionarios();
+			
 			funcionarioEdit = new Funcionario();
 			msgUtils = new MessagesUtils("Atualização realizada com sucesso em funcionário...", "Atualização concluída",
 					MessagesTypes.SUCCESS);
 			manager.getTransaction().commit();
+			
+			funcionarios = funcionarioRepo.listFuncionarios();
 
 		} catch (Exception e) {
 			manager.getTransaction().rollback();

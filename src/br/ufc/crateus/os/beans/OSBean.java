@@ -84,11 +84,13 @@ public class OSBean implements Serializable {
 			nOS.setCliente(clienteSelect);
 			
 			osRepo.addOS(nOS);
-			listOS = osRepo.listOS();
+			
 			nOS = new OS();
 
 			msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
 			manager.getTransaction().commit();
+			
+			listOS = osRepo.listOS();
 
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
@@ -159,13 +161,15 @@ public class OSBean implements Serializable {
 			manager.getTransaction().begin();
 			OSRepository osRepo = new OSRepository(manager);
 			osRepo.addOS(osEdit);
-			listOS = osRepo.listOS();
+			
 			osEdit = new OS();
 
 			msgUtils = new MessagesUtils("Atualização realizada com sucesso em Ordem de Serviço...",
 					"Atualização concluída", MessagesTypes.SUCCESS);
 
 			manager.getTransaction().commit();
+			
+			listOS = osRepo.listOS();
 
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
