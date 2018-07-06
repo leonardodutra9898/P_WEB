@@ -13,8 +13,10 @@ import javax.persistence.EntityManager;
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.enums.Status;
 import br.ufc.crateus.os.model.Cliente;
+import br.ufc.crateus.os.model.Funcionario;
 import br.ufc.crateus.os.model.OS;
 import br.ufc.crateus.os.repository.ClienteRepository;
+import br.ufc.crateus.os.repository.FuncionarioRepository;
 import br.ufc.crateus.os.repository.OSRepository;
 import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
@@ -32,6 +34,7 @@ public class OSBean implements Serializable {
 	private List<OS> listOS;
 	private OS os;
 	private int idCliSetado;
+	private int idFuncionarioSetado;
 	private OS nOS;
 	private OS osEdit;
 
@@ -75,7 +78,10 @@ public class OSBean implements Serializable {
 			
 			ClienteRepository cliRepo = new ClienteRepository(manager);
 			Cliente clienteSelect = cliRepo.clienteById(idCliSetado);
+			FuncionarioRepository funRepo = new FuncionarioRepository(manager);
+			Funcionario funcionarioSelect = funRepo.funcionarioById(idFuncionarioSetado);
 			
+			nOS.setFuncionario(funcionarioSelect);
 			nOS.setCliente(clienteSelect);
 			
 			osRepo.addOS(nOS);
@@ -182,9 +188,9 @@ public class OSBean implements Serializable {
 
 			manager.getTransaction().begin();
 			OSRepository osRepo = new OSRepository(manager);
-			osRepo.addOS(os);
+			osRepo.addOS(osEdit);
 			listOS = osRepo.listOS();
-			os = new OS();
+			osEdit = new OS();
 
 			msgUtils = new MessagesUtils("Atualização realizada com sucesso em Ordem de Serviço...",
 					"Atualização concluída", MessagesTypes.SUCCESS);
@@ -253,6 +259,14 @@ public class OSBean implements Serializable {
 
 	public void setOsEdit(OS osEdit) {
 		this.osEdit = osEdit;
+	}
+
+	public int getIdFuncionarioSetado() {
+		return idFuncionarioSetado;
+	}
+
+	public void setIdFuncionarioSetado(int idFuncionarioSetado) {
+		this.idFuncionarioSetado = idFuncionarioSetado;
 	}
 
 	
