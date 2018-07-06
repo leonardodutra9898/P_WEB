@@ -25,7 +25,9 @@
     </p:column>
     
     <p:column headerText="Salário">
-        <h:outputText value="#{fun.salario}" />
+        <h:outputText value="R$ #{fun.salario}">
+        	<f:convertNumber pattern="##.###,##" />
+        </h:outputText>
     </p:column>
  
     <p:column headerText="Função">

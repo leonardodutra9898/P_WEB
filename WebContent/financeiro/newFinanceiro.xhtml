@@ -16,9 +16,6 @@
 <p:growl id="growl" life="2000" />
 	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
-		<!-- <p:outputLabel value="Nome do Cliente: " />
-		<p:outputLabel value="#{finBean.}"/> -->
-
 		<p:outputLabel value="Situação do Lançamento: " for="st" />
 		<p:selectOneMenu id="st" value="#{finBean.nFinanceiro.status}" required="true">
 					<f:selectItem itemLabel="Altere a situação desse lançamento" itemValue=""/>
@@ -32,8 +29,10 @@
 		</p:selectOneMenu>
 
 		<p:outputLabel value="Valor do Serviço: " for="serv" /> 
-		<p:inputText id="serv" required="true" value="#{finBean.nFinanceiro.valorOrcamentoOS}" validatorMessage="Valores em reais" />
-
+		<p:inputNumber id="serv" value="#{finBean.nFinanceiro.valorOrcamentoOS}" symbol="R$ " symbolPosition="p" 
+                               decimalSeparator="," thousandSeparator="." validatorMessage="Valores em reais" required="true" /> 
+		<!-- <p:inputText id="serv" required="true" value="#{finBean.nFinanceiro.valorOrcamentoOS}" validatorMessage="Valores em reais" /> -->
+		
 		<p:commandButton value="Adicionar" actionListener="#{finBean.novoLancamentoFinanceiro}" update="growl"/>
 		
 		</h:panelGrid>

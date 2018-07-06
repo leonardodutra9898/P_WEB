@@ -41,7 +41,11 @@
     </p:column>
 
  	<p:column headerText="Valor Orçamento">
-        <h:outputText value="#{fin.valorOrcamentoOS}" />
+        <h:outputText value="R$ #{fin.valorOrcamentoOS}"> 
+        	<f:convertNumber pattern="##.###,##" />
+        </h:outputText>
+        <!-- <p:outputLabel value="#{fin.valorOrcamentoOS}" symbol="R$ " symbolPosition="p" 
+                               decimalSeparator="," thousandSeparator="." /> -->
     </p:column>
     
  	<p:column headerText="Data Lançamento">
