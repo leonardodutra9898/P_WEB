@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
@@ -51,6 +52,18 @@ public class OSBean implements Serializable {
 		osEdit = new OS();
 
 	}
+	
+//	@PostConstruct
+	public void init() {
+
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		OSRepository osRepo = new OSRepository(manager);
+		
+		listOS = osRepo.listOS();
+		
+		manager.close();
+		
+	}
 
 	public List<OS> getListOS() {
 		return listOS;
@@ -84,11 +97,13 @@ public class OSBean implements Serializable {
 			nOS.setCliente(clienteSelect);
 			
 			osRepo.addOS(nOS);
-			listOS = osRepo.listOS();
+			
 			nOS = new OS();
 
 			msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
 			manager.getTransaction().commit();
+			
+			listOS = osRepo.listOS();
 
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
@@ -159,13 +174,15 @@ public class OSBean implements Serializable {
 			manager.getTransaction().begin();
 			OSRepository osRepo = new OSRepository(manager);
 			osRepo.addOS(osEdit);
-			listOS = osRepo.listOS();
+			
 			osEdit = new OS();
 
 			msgUtils = new MessagesUtils("Atualização realizada com sucesso em Ordem de Serviço...",
 					"Atualização concluída", MessagesTypes.SUCCESS);
 
 			manager.getTransaction().commit();
+			
+			listOS = osRepo.listOS();
 
 		} catch (Exception e) {
 			manager.getTransaction().rollback();

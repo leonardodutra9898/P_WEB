@@ -7,6 +7,11 @@
 >
 
 <ui:define name="conteudo">
+
+<f:metadata>
+	<f:event listener="#{osBean.init}" type="preRenderView" />
+</f:metadata>
+
 <h:form id="formOS">  
 
 <p:growl id="growl" life="2000" />

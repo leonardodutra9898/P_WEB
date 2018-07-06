@@ -47,8 +47,6 @@ public class FinanceiroBean implements Serializable{
 	
 	public void novoLancamentoFinanceiro() {
 
-		System.out.println("ID oS setado === " + idOSSelecionado);
-		
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
 		try {
@@ -69,10 +67,12 @@ public class FinanceiroBean implements Serializable{
 			nFinanceiro.setData(Calendar.getInstance().getTime());
 			
 				finRepo.addFinanceiro(nFinanceiro);
-				financeiroList = finRepo.listLancamentosFinanceiro();
+				
 				nFinanceiro = new Financeiro();
 				msgUtils = new MessagesUtils("Registro Salvo", "Novo lançamento financeiro Registrado!", MessagesTypes.SUCCESS);				
 				manager.getTransaction().commit();
+				
+				financeiroList = finRepo.listLancamentosFinanceiro();
 			
 		}catch(Exception e) {
 			manager.getTransaction().rollback();			
@@ -88,6 +88,14 @@ public class FinanceiroBean implements Serializable{
 		} finally {
 			manager.close();
 		}
+	}
+	
+	public void init() {
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		FinanceiroRepository financeiroRepo = new FinanceiroRepository(manager);
+		
+		financeiroList = financeiroRepo.listLancamentosFinanceiro();
+		manager.close();
 	}
 	
 	public FinanceiroBean() {
@@ -182,12 +190,14 @@ public class FinanceiroBean implements Serializable{
 			financeiroEdit.setCliente(clienteSetado);
 			financeiroEdit.setFuncionario(funcionarioSetado);
 			finRepo.addFinanceiro(financeiroEdit);
-			financeiroList = finRepo.listLancamentosFinanceiro();
+			
 			financeiroEdit = new Financeiro();
 			msgUtils = new MessagesUtils("Atualização realizada com sucesso em Finanças...", "Atualização concluída", 
 					MessagesTypes.SUCCESS);
 			
 			manager.getTransaction().commit();
+			
+			financeiroList = finRepo.listLancamentosFinanceiro();
 						
 		}catch(Exception e) {
 			manager.getTransaction().rollback();

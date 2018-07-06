@@ -39,11 +39,13 @@ public class ClienteBean implements Serializable {
 				manager.getTransaction().begin();
 				ClienteRepository clienteRepo = new ClienteRepository(manager);
 				clienteRepo.addCliente(nCliente);
-				clientes = clienteRepo.listClientes();
+				
 				nCliente = new Cliente();
 				msgUtils = new MessagesUtils("Registro Salvo", "Novo Cliente Registrado!", MessagesTypes.SUCCESS);
 				
 				manager.getTransaction().commit();
+				
+				clientes = clienteRepo.listClientes();
 				
 			}catch(Exception e) {
 				manager.getTransaction().rollback();
@@ -144,13 +146,15 @@ public class ClienteBean implements Serializable {
 			manager.getTransaction().begin();
 			ClienteRepository clienteRepo = new ClienteRepository(manager);
 			clienteRepo.addCliente(cliEdit);
-			clientes = clienteRepo.listClientes();
+			
 			
 			cliEdit = new Cliente();
 			msgUtils = new MessagesUtils("Atualização realizada com sucesso em CLiente...", "Atualização concluída", 
 					MessagesTypes.SUCCESS);
 			
 			manager.getTransaction().commit();
+			
+			clientes = clienteRepo.listClientes();
 						
 		}catch(Exception e) {
 			manager.getTransaction().rollback();
