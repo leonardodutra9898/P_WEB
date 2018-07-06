@@ -1,6 +1,7 @@
 package br.ufc.crateus.os.beans;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
@@ -65,19 +66,29 @@ public class FinanceiroBean implements Serializable{
 			nFinanceiro.setOs(osSetado);
 			nFinanceiro.setCliente(clienteSetado);
 			nFinanceiro.setFuncionario(funcionarioSetado);
+			nFinanceiro.setData(Calendar.getInstance().getTime());
+			
+				finRepo.addFinanceiro(nFinanceiro);
+				financeiroList = finRepo.listLancamentosFinanceiro();
+				nFinanceiro = new Financeiro();
+				msgUtils = new MessagesUtils("Registro Salvo", "Novo lançamento financeiro Registrado!", MessagesTypes.SUCCESS);				
 			
 			
-			finRepo.addFinanceiro(nFinanceiro);
-			financeiroList = finRepo.listLancamentosFinanceiro();
-			nFinanceiro = new Financeiro();
-			msgUtils = new MessagesUtils("Registro Salvo", "Novo lançamento financeiro Registrado!", MessagesTypes.SUCCESS);
+
 			
 			manager.getTransaction().commit();
 			
 		}catch(Exception e) {
-			manager.getTransaction().rollback();
-			msgUtils = new MessagesUtils("Erro ao tentar salvar registro", ("Erro: " + e.toString()), 
-					MessagesTypes.ERROR);
+			manager.getTransaction().rollback();			
+
+			if(osSetado.getFuncionario() == null) {
+				msgUtils = new MessagesUtils("Não há técnico responsável para esta OS!", "Não há técnico responsável para esta OS!", 
+						MessagesTypes.WARNING);
+			} else {
+				msgUtils = new MessagesUtils("Erro ao tentar salvar registro", "Erro: " + e.toString(), 
+						MessagesTypes.ERROR);
+			}
+			
 		} finally {
 			manager.close();
 		}

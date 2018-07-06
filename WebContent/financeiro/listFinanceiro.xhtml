@@ -45,7 +45,9 @@
     </p:column>
     
  	<p:column headerText="Data Lançamento">
-        <h:outputText value="#{fin.data}" />
+        <h:outputText value="#{fin.data}">
+        	<f:convertDateTime dateStyle="medium"/>
+        </h:outputText>
     </p:column>    
     
     <p:column>
