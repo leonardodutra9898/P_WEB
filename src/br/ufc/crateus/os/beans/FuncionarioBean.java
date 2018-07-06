@@ -139,7 +139,7 @@ public class FuncionarioBean implements Serializable {
 
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
-			msgUtils = new MessagesUtils("Funcionário não pode ser excluido...",
+			msgUtils = new MessagesUtils("Pode haver dependência desse registro em outra entidade...",
 					("Funcionário não removido... " + e.toString()), MessagesTypes.ERROR);
 		} finally {
 			manager.close();

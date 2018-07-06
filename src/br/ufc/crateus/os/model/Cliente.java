@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class Cliente implements Serializable{
 	private String cpf;
 	private String email;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REFRESH)
 	private List<OS> listOS = new ArrayList<OS>();
 	
 	public Cliente() {

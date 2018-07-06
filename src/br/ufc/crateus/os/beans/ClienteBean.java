@@ -1,6 +1,7 @@
 package br.ufc.crateus.os.beans;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -10,6 +11,8 @@ import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+
+import org.hibernate.exception.ConstraintViolationException;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.model.Cliente;
@@ -133,11 +136,13 @@ public class ClienteBean implements Serializable {
 					
 			clientes = clienteRepo.listClientes();
 			clienteSelecionado = new Cliente();
-			
+		
 		}catch(Exception e) {
+			
 			manager.getTransaction().rollback();
-			msgUtils = new MessagesUtils("Cliente não pode ser excluido...", ("Cliente não removido... " + e.toString()), 
+			msgUtils = new MessagesUtils("Pode haver dependência desse registro em outra entidade...", ("Cliente não removido... " + e.toString()), 
 					MessagesTypes.ERROR);
+			
 		} finally {
 			manager.close();
 		}
