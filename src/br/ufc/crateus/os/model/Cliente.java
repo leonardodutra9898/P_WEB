@@ -18,15 +18,17 @@ public class Cliente implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
+	@Id
+	@GeneratedValue
 	private Integer id;
+	
 	private String nome;
 	private String endereco;
 	
 	private String cpf;
 	private String email;
 	
-	
+	@OneToMany
 	private List<OS> listOS = new ArrayList<OS>();
 	
 	public Cliente() {
@@ -41,8 +43,7 @@ public class Cliente implements Serializable{
 //		this.email = email;
 //	}
 	
-	@Id
-	@GeneratedValue
+
 	public Integer getId() {
 		return id;
 	}
@@ -75,7 +76,7 @@ public class Cliente implements Serializable{
 	}
 
 	
-	@OneToMany
+	
 	public List<OS> getListOS() {
 		return listOS;
 	}

@@ -10,9 +10,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -45,9 +45,12 @@ public class OS implements Serializable{
 	private int prioridade;
 	
 	@Lob
+	@ManyToOne
 	private Cliente cliente;
 
-	//	private Funcionario funcionario;
+	@Lob
+	@ManyToOne
+	private Funcionario funcionario;
 	
 	public OS() {
 		
@@ -93,8 +96,8 @@ public class OS implements Serializable{
 		this.prioridade = prioridade;
 	}
 
-	@JoinColumn(name="cliente_id")
-	@ManyToOne
+//	@JoinColumn()
+//	@ManyToOne
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -102,5 +105,16 @@ public class OS implements Serializable{
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+	
 	
 }

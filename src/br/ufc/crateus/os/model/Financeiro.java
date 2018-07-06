@@ -3,8 +3,19 @@ package br.ufc.crateus.os.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import br.ufc.crateus.os.enums.FinanceiroEnum;
 
+@Entity
 public class Financeiro implements Serializable{
 
 	/**
@@ -13,13 +24,28 @@ public class Financeiro implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	
+	@Id
+	@GeneratedValue
 	private int id;
+	
+	@Lob
+	@ManyToOne
 	private Cliente cliente;
+	
+	@Enumerated(EnumType.STRING)
 	private FinanceiroEnum status;
+	
+	@ManyToOne
 	private Funcionario funcionario;
+	
+	@ManyToOne
 	private OS os;
+	
 	private double valorOrcamentoOS;
+	
+	@Temporal(TemporalType.DATE)
 	private Date data;
+	
 	public int getId() {
 		return id;
 	}
