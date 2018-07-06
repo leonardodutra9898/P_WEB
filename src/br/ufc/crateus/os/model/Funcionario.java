@@ -5,7 +5,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import br.ufc.crateus.os.enums.FuncionarioFuncoes;
 
@@ -21,29 +20,22 @@ public class Funcionario {
 	
 	@Enumerated(EnumType.STRING)
 	private FuncionarioFuncoes FUNCAO;
-	
-
-
 
 	public FuncionarioFuncoes getFUNCAO() {
 		return FUNCAO;
 	}
 
-
 	public void setFUNCAO(FuncionarioFuncoes fUNCAO) {
 		FUNCAO = fUNCAO;
 	}
-
 
 	public Funcionario() {
 		
 	}
 
-
 	public Integer getId() {
 		return id;
 	}
-
 
 	public void setId(Integer id) {
 		this.id = id;
@@ -117,8 +109,4 @@ public class Funcionario {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
 }

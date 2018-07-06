@@ -7,6 +7,11 @@
 >
 
 <ui:define name="conteudo">
+
+<f:metadata>
+	<f:event listener="#{funcBean.init}" type="preRenderView" />
+</f:metadata>
+
 <h:form id="formFunc">  
 
 <p:growl id="growl" life="2000" />
@@ -25,7 +30,9 @@
     </p:column>
     
     <p:column headerText="Salário">
-        <h:outputText value="#{fun.salario}" />
+        <h:outputText value="R$ #{fun.salario}">
+        	<f:convertNumber pattern="##.###,##" />
+        </h:outputText>
     </p:column>
  
     <p:column headerText="Função">

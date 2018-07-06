@@ -18,7 +18,8 @@
 
 		<p:outputLabel value="Nome do Cliente: " for="nom" />		
 		<p:inputText id="nom" value="#{cliBean.nCliente.nome}" 
-			required="true" requiredMessage="Nome é necessário"	>
+			required="true" requiredMessage="Nome é necessário" type="text"	validatorMessage="Nome do Cliente requer apenas letras">
+				<f:validateRegex pattern="[a-zA-Z]+" />
 		</p:inputText>
 		
 		<p:outputLabel value="E-mail " for="mail" /> 

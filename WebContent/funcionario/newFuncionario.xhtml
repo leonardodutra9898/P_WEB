@@ -16,7 +16,8 @@
 		
 		<p:outputLabel value="Nome Funcionario: " for="desc" />		
 		<p:inputText id="desc" value="#{funcBean.nFuncionario.nome}" 
-			required="true" requiredMessage="Nome do Funcionário!">
+			required="true" requiredMessage="Nome do Funcionário!" validatorMessage="Nome do Funcionário requer letras apenas">
+			<f:validateRegex pattern="[a-zA-Z]+" />
 		</p:inputText>
 		
 		<p:outputLabel value="E-mail Institucional" for="mail" /> 
@@ -24,11 +25,14 @@
 			<f:validator validatorId="emailValidator" />
 		</p:inputText>
 		
-		<p:outputLabel value="Salário: " for="sal" /> 
-		<p:inputText id="sal" required="true" value="#{funcBean.nFuncionario.salario}" validatorMessage="Valores em reais" />
+		<p:outputLabel value="Salário: " for="sal" />
+		<p:inputNumber id="sal" value="#{funcBean.nFuncionario.salario}" symbol="R$ " symbolPosition="p" 
+                               decimalSeparator="," thousandSeparator="." validatorMessage="Valores em reais" /> 
+		<!-- <p:inputMask id="sal" required="true" value="#{funcBean.nFuncionario.salario}" validatorMessage="Valores em reais" 
+			mask="9.999,99" /> -->
 		
 		<p:outputLabel value="Função: " for="fun" />
-		<p:selectOneMenu id="fun" value="#{funcBean.nFuncionario.FUNCAO}" >
+		<p:selectOneMenu id="fun" value="#{funcBean.nFuncionario.FUNCAO}" required="true">
 					<f:selectItem itemLabel="Altere a Função do Funcionário" itemValue=""/>
 					<f:selectItems value="#{funcBean.funcoes}"/>
 		</p:selectOneMenu>

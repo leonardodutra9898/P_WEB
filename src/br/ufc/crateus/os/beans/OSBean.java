@@ -1,10 +1,10 @@
 package br.ufc.crateus.os.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
@@ -52,6 +52,18 @@ public class OSBean implements Serializable {
 		osEdit = new OS();
 
 	}
+	
+//	@PostConstruct
+	public void init() {
+
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		OSRepository osRepo = new OSRepository(manager);
+		
+		listOS = osRepo.listOS();
+		
+		manager.close();
+		
+	}
 
 	public List<OS> getListOS() {
 		return listOS;
@@ -85,11 +97,13 @@ public class OSBean implements Serializable {
 			nOS.setCliente(clienteSelect);
 			
 			osRepo.addOS(nOS);
-			listOS = osRepo.listOS();
+			
 			nOS = new OS();
 
 			msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
 			manager.getTransaction().commit();
+			
+			listOS = osRepo.listOS();
 
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
@@ -102,15 +116,6 @@ public class OSBean implements Serializable {
 	}
 
 	public OS searchById(int idOS) {
-//		if (listOS != null) {
-//			for (OS os : listOS) {
-//
-//				if (os.getId() == idOS) {
-//					return os;
-//				}
-//
-//			}
-//		}
 		
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
@@ -151,32 +156,12 @@ public class OSBean implements Serializable {
 			manager.getTransaction().begin();
 			OS temp = osRepo.osById(oo.getId());
 			osEdit = temp;
-//			idCliSetado = os.getCliente().getId();
-			
-//			ClienteRepository cliRepo = new ClienteRepository(manager);
-//			Cliente clienteTemp = cliRepo.clienteById(temp.getCliente().getId());
-			
-//			cliEdit = clienteTemp;
-			
-			System.out.println("Teste ====== >>> " + os.getCliente().getId());
-			
-			
-//			os.setCliente(clienteTemp);
 			
 		}catch(Exception e) {
 			System.out.println("Erro ao tentar consultar OS individual");
 		}finally {
 			manager.close();
 		}
-
-		
-		
-//		for (OS o : listOS) {
-//			if (o.getId() == oo.getId()) {
-//				os = o;
-//			}
-//		}
-
 		return "/os/editOS?faces-redirect=true";
 	}
 
@@ -189,13 +174,15 @@ public class OSBean implements Serializable {
 			manager.getTransaction().begin();
 			OSRepository osRepo = new OSRepository(manager);
 			osRepo.addOS(osEdit);
-			listOS = osRepo.listOS();
+			
 			osEdit = new OS();
 
 			msgUtils = new MessagesUtils("Atualização realizada com sucesso em Ordem de Serviço...",
 					"Atualização concluída", MessagesTypes.SUCCESS);
 
 			manager.getTransaction().commit();
+			
+			listOS = osRepo.listOS();
 
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
@@ -268,6 +255,4 @@ public class OSBean implements Serializable {
 	public void setIdFuncionarioSetado(int idFuncionarioSetado) {
 		this.idFuncionarioSetado = idFuncionarioSetado;
 	}
-
-	
 }

@@ -8,6 +8,10 @@
 
 <ui:define name="conteudo">
 
+<f:metadata>
+	<f:event listener="#{finBean.init}" type="preRenderView" />
+</f:metadata>
+
 <h2>Lançamentos Financeiros (Ordens de Serviço)</h2>
 
  <p:toolbar>
@@ -41,7 +45,11 @@
     </p:column>
 
  	<p:column headerText="Valor Orçamento">
-        <h:outputText value="#{fin.valorOrcamentoOS}" />
+        <h:outputText value="R$ #{fin.valorOrcamentoOS}"> 
+        	<f:convertNumber pattern="##.###,##" />
+        </h:outputText>
+        <!-- <p:outputLabel value="#{fin.valorOrcamentoOS}" symbol="R$ " symbolPosition="p" 
+                               decimalSeparator="," thousandSeparator="." /> -->
     </p:column>
     
  	<p:column headerText="Data Lançamento">

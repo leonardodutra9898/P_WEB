@@ -7,7 +7,6 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
 @FacesValidator("emailValidator")
@@ -21,10 +20,6 @@ public class EmailValidator implements Validator{
 		String email = (String) obj;
 		
 		if(!(email.contains("@") && email.contains("."))){
-		
-//			msg = new MessagesUtils("E-mail invalido Formato de email inválido", "Redigite o e-mail", 
-//					MessagesTypes.ERROR);	
-			
 			FacesMessage msg =
 					new FacesMessage("E-mail invalido.",
 					"Formato de email inválido.");

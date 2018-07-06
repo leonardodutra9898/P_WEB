@@ -30,7 +30,8 @@ public class FuncionarioRepository implements Serializable {
 	
 	public List<Funcionario> listTecnicos(){
 		
-		TypedQuery<Funcionario> query = manager.createQuery("SELECT f from Funcionario f WHERE FUNCAO = 'TECNICO'", Funcionario.class);
+		TypedQuery<Funcionario> query = manager.createQuery("SELECT f FROM Funcionario f WHERE FUNCAO = 'TECNICO'", 
+				Funcionario.class);
 		return query.getResultList();
 	}
 	

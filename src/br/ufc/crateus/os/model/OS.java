@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -97,8 +96,6 @@ public class OS implements Serializable{
 		this.prioridade = prioridade;
 	}
 
-//	@JoinColumn()
-//	@ManyToOne
 	public Cliente getCliente() {
 		return cliente;
 	}
