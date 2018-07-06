@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -27,7 +28,7 @@ public class OS implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	private int id;
+	private Integer id;
 	
 	@Temporal(TemporalType.DATE)
 	private Date dataAbertura;
@@ -47,17 +48,19 @@ public class OS implements Serializable{
 	@ManyToOne
 	private Cliente cliente;
 
-	//	private Funcionario funcionario;
+	@Lob
+	@ManyToOne
+	private Funcionario funcionario;
 	
 	public OS() {
 		
 	}
 
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -102,5 +105,16 @@ public class OS implements Serializable{
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+	
 	
 }

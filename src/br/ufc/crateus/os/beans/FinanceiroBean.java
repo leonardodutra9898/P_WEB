@@ -12,8 +12,12 @@ import br.ufc.crateus.os.enums.FinanceiroEnum;
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.Financeiro;
+import br.ufc.crateus.os.model.Funcionario;
 import br.ufc.crateus.os.model.OS;
+import br.ufc.crateus.os.repository.ClienteRepository;
 import br.ufc.crateus.os.repository.FinanceiroRepository;
+import br.ufc.crateus.os.repository.FuncionarioRepository;
+import br.ufc.crateus.os.repository.OSRepository;
 import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
@@ -35,16 +39,33 @@ public class FinanceiroBean implements Serializable{
 	
 	private Cliente clienteSetado;
 	private OS osSetado;
+	private Funcionario funcionarioSetado;
+	private int idOSSelecionado;
 	
 	MessagesUtils msgUtils;
 	
 	public void novoLancamentoFinanceiro() {
 
+		System.out.println("ID oS setado === " + idOSSelecionado);
+		
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
 		try {
 			manager.getTransaction().begin();
 			FinanceiroRepository finRepo = new FinanceiroRepository(manager);
+			OSRepository osRepo = new OSRepository(manager);
+			ClienteRepository cliRepo = new ClienteRepository(manager);
+			FuncionarioRepository funRepo = new FuncionarioRepository(manager);
+			
+			
+			osSetado = osRepo.osById(idOSSelecionado);
+			clienteSetado = cliRepo.clienteById(osSetado.getCliente().getId());
+			funcionarioSetado = funRepo.funcionarioById(osSetado.getFuncionario().getId());
+			
+			nFinanceiro.setOs(osSetado);
+			nFinanceiro.setCliente(clienteSetado);
+			nFinanceiro.setFuncionario(funcionarioSetado);
+			
 			
 			finRepo.addFinanceiro(nFinanceiro);
 			financeiroList = finRepo.listLancamentosFinanceiro();
@@ -71,6 +92,7 @@ public class FinanceiroBean implements Serializable{
 		financeiro = new Financeiro();
 		financeiroEdit = new Financeiro();
 		nFinanceiro = new Financeiro();
+		funcionarioSetado = new Funcionario();
 		manager.close();
 	}
 	
@@ -109,7 +131,7 @@ public class FinanceiroBean implements Serializable{
 
 	public void excluirLancamentoFinanceiro() {
 
-EntityManager manager = EntityManagerPersistence.getEntityManager();
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
 		try {
 			
@@ -207,6 +229,14 @@ EntityManager manager = EntityManagerPersistence.getEntityManager();
 
 	public void setOsSetado(OS osSetado) {
 		this.osSetado = osSetado;
+	}
+
+	public int getIdOSSelecionado() {
+		return idOSSelecionado;
+	}
+
+	public void setIdOSSelecionado(int idOSSelecionado) {
+		this.idOSSelecionado = idOSSelecionado;
 	}
 	
 	

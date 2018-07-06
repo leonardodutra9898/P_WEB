@@ -50,7 +50,7 @@
     
     <p:column>
 		
-        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form">
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{finBean.excluirLancamentoFinanceiro}">
         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
          	<f:setPropertyActionListener value="#{fin}" target="#{finBean.financeiro}" />
         </p:commandButton>
@@ -63,7 +63,7 @@
 
 </p:dataTable>
     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{finBean.excluirFinanceiro}" update="@form" process="@this" />
+        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{finBean.excluirLancamentoFinanceiro}" update="@form" process="@this" />
         <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" onclick="return false;"/>
     </p:confirmDialog>
  
