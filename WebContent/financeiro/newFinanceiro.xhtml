@@ -33,6 +33,12 @@
                                decimalSeparator="," thousandSeparator="." validatorMessage="Valores em reais" required="true" /> 
 		<!-- <p:inputText id="serv" required="true" value="#{finBean.nFinanceiro.valorOrcamentoOS}" validatorMessage="Valores em reais" /> -->
 		
+		<p:outputLabel value="Tipo de Lançamento: " for="ti" />
+		<p:selectOneMenu id="ti" value="#{finBean.nFinanceiro.tipoLancamento}" required="true">
+					<f:selectItem itemLabel="Tipos de lançamento" itemValue=""/>
+					<f:selectItems value="#{finBean.tipoLancamento}"/>
+		</p:selectOneMenu>
+		
 		<p:commandButton value="Adicionar" actionListener="#{finBean.novoLancamentoFinanceiro}" update="growl"/>
 		
 		</h:panelGrid>

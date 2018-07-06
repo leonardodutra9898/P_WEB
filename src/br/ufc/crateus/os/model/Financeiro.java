@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.ufc.crateus.os.enums.FinanceiroEnum;
+import br.ufc.crateus.os.enums.TipoLancamento;
 
 @Entity
 public class Financeiro implements Serializable{
@@ -35,6 +36,9 @@ public class Financeiro implements Serializable{
 	
 	@Enumerated(EnumType.STRING)
 	private FinanceiroEnum status;
+
+	@Enumerated(EnumType.STRING)
+	private TipoLancamento tipoLancamento;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Funcionario funcionario;
@@ -140,6 +144,13 @@ public class Financeiro implements Serializable{
 		if (Double.doubleToLongBits(valorOrcamentoOS) != Double.doubleToLongBits(other.valorOrcamentoOS))
 			return false;
 		return true;
+	}
+	
+	public TipoLancamento getTipoLancamento() {
+		return tipoLancamento;
+	}
+	public void setTipoLancamento(TipoLancamento tipoLancamento) {
+		this.tipoLancamento = tipoLancamento;
 	}
 	
 	

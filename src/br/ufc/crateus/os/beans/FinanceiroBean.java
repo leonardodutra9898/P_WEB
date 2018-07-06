@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 
 import br.ufc.crateus.os.enums.FinanceiroEnum;
 import br.ufc.crateus.os.enums.MessagesTypes;
+import br.ufc.crateus.os.enums.TipoLancamento;
 import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.Financeiro;
 import br.ufc.crateus.os.model.Funcionario;
@@ -240,6 +241,10 @@ public class FinanceiroBean implements Serializable{
 		return FinanceiroEnum.values();
 	}
 
+	public TipoLancamento[] getTipoLancamento() {
+		return TipoLancamento.values();
+	}
+	
 	public Cliente getClienteSetado() {
 		return clienteSetado;
 	}
@@ -263,4 +268,6 @@ public class FinanceiroBean implements Serializable{
 	public void setIdOSSelecionado(int idOSSelecionado) {
 		this.idOSSelecionado = idOSSelecionado;
 	}
+	
+	
 }

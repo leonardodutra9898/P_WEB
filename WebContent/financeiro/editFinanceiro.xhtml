@@ -22,6 +22,12 @@
 					<f:selectItems value="#{finBean.status}"/>
 		</p:selectOneMenu>
 
+		<p:outputLabel value="Tipo de Lançamento: " for="tipo" />
+		<p:selectOneMenu id="tipo" value="#{finBean.financeiroEdit.tipoLancamento}" >
+					<f:selectItem itemLabel="Altere o tipo de lançamento" itemValue=""/>
+					<f:selectItems value="#{finBean.tipos}"/>
+		</p:selectOneMenu>
+
 		<p:outputLabel value="Ordem de Serviço: " for="os" />
 		<p:selectOneMenu id="os" value="#{finBean.financeiroEdit.os.id}" >
 					<f:selectItem itemLabel="Qual a Ordem de Serviço?" itemValue=""/>
