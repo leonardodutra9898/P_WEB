@@ -16,14 +16,17 @@
 <p:growl id="growl" life="2000" />
 	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
+		<!-- <p:outputLabel value="Nome do Cliente: " />
+		<p:outputLabel value="#{finBean.}"/> -->
+
 		<p:outputLabel value="Situação do Lançamento: " for="st" />
-		<p:selectOneMenu id="st" value="#{finBean.nFinanceiro.status}" >
+		<p:selectOneMenu id="st" value="#{finBean.nFinanceiro.status}" required="true">
 					<f:selectItem itemLabel="Altere a situação desse lançamento" itemValue=""/>
 					<f:selectItems value="#{finBean.status}"/>
 		</p:selectOneMenu>
 
 		<p:outputLabel value="Ordem de Serviço: " for="os" />
-		<p:selectOneMenu id="os" value="#{finBean.idOSSelecionado}" >
+		<p:selectOneMenu id="os" value="#{finBean.idOSSelecionado}" required="true">
 					<f:selectItem itemLabel="Qual a Ordem de Serviço?" itemValue=""/>
 					<f:selectItems value="#{osBean.listOS}" var="o" itemValue="#{o.id}" itemLabel="#{o.descricao}"/>
 		</p:selectOneMenu>
