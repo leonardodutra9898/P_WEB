@@ -25,8 +25,11 @@
 			<f:validator validatorId="emailValidator" />
 		</p:inputText>
 		
-		<p:outputLabel value="Salário: " for="sal" /> 
-		<p:inputText id="sal" required="true" value="#{funcBean.nFuncionario.salario}" validatorMessage="Valores em reais" />
+		<p:outputLabel value="Salário: " for="sal" />
+		<p:inputNumber id="sal" value="#{funcBean.nFuncionario.salario}" symbol="R$ " symbolPosition="p" 
+                               decimalSeparator="," thousandSeparator="." validatorMessage="Valores em reais" /> 
+		<!-- <p:inputMask id="sal" required="true" value="#{funcBean.nFuncionario.salario}" validatorMessage="Valores em reais" 
+			mask="9.999,99" /> -->
 		
 		<p:outputLabel value="Função: " for="fun" />
 		<p:selectOneMenu id="fun" value="#{funcBean.nFuncionario.FUNCAO}" required="true">
