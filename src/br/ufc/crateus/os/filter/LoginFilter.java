@@ -36,7 +36,7 @@ public class LoginFilter implements Filter {
 		UsuarioBean loginBean = (UsuarioBean) session.getAttribute("uBean");
 
 		if (loginBean != null && loginBean.getUsuario() != null) {
-			System.out.println("Autorizado para: " + loginBean.getUsuario().getLogin() + ", Funcionario => ");			
+			System.out.println("Autorizado para: " + loginBean.getUsuario().getNome());			
 			filter.doFilter(req, res);
 
 		} else {

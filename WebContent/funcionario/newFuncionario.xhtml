@@ -37,6 +37,12 @@
 					<f:selectItems value="#{funcBean.funcoes}"/>
 		</p:selectOneMenu>
 		
+		<p:outputLabel value="Usuário: " for="us" /> 
+		<p:inputText id="us" required="true" value="#{funcBean.nFuncionario.login}" /> 
+			
+		<p:outputLabel value="Senha: " for="pa" /> 
+		<p:password id="pa" required="true" value="#{funcBean.nFuncionario.senha}" /> 		
+		
 		<p:commandButton value="Adicionar" actionListener="#{funcBean.novoFunc}" id="actF" update="growl"/>
 		
 		</h:panelGrid>
