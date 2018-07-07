@@ -4,18 +4,23 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import com.sun.media.sound.FFT;
+
+import br.ufc.crateus.os.enums.FinanceiroEnum;
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.enums.Status;
+import br.ufc.crateus.os.enums.TipoLancamento;
 import br.ufc.crateus.os.model.Cliente;
+import br.ufc.crateus.os.model.Financeiro;
 import br.ufc.crateus.os.model.Funcionario;
 import br.ufc.crateus.os.model.OS;
 import br.ufc.crateus.os.repository.ClienteRepository;
+import br.ufc.crateus.os.repository.FinanceiroRepository;
 import br.ufc.crateus.os.repository.FuncionarioRepository;
 import br.ufc.crateus.os.repository.OSRepository;
 import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
@@ -32,6 +37,7 @@ public class OSBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private List<OS> listOS;
+	private List<OS> osa;
 	private OS os;
 	private int idCliSetado;
 	private int idFuncionarioSetado;
@@ -47,9 +53,11 @@ public class OSBean implements Serializable {
 
 		os = new OS();
 		listOS = osRepo.listOS();
+		osa = osRepo.listOSAbertos();
 		nOS = new OS();
 		manager.close();
 		osEdit = new OS();
+	
 
 	}
 	
@@ -59,6 +67,7 @@ public class OSBean implements Serializable {
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		OSRepository osRepo = new OSRepository(manager);
 		
+		osa = osRepo.listOSAbertos();
 		listOS = osRepo.listOS();
 		
 		manager.close();
@@ -98,17 +107,16 @@ public class OSBean implements Serializable {
 			
 			osRepo.addOS(nOS);
 			
-			nOS = new OS();
-
-			msgUtils = new MessagesUtils("Registro Salvo", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
+			msgUtils = new MessagesUtils("Nova Ordem de Serviço registrada!", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
 			manager.getTransaction().commit();
 			
+			nOS = new OS();
 			listOS = osRepo.listOS();
 
 		} catch (Exception e) {
 			manager.getTransaction().rollback();
 
-			msgUtils = new MessagesUtils("Registro não pode ser salvo",
+			msgUtils = new MessagesUtils("Ordem de Serviço - Registro não pode ser salvo",
 					("OS não pode ser registrada... " + e.toString()), MessagesTypes.ERROR);
 		} finally {
 			manager.close();
@@ -255,4 +263,10 @@ public class OSBean implements Serializable {
 	public void setIdFuncionarioSetado(int idFuncionarioSetado) {
 		this.idFuncionarioSetado = idFuncionarioSetado;
 	}
+
+	public List<OS> getOsa() {
+		return osa;
+	}
+	
+
 }

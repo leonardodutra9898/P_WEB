@@ -37,6 +37,10 @@
 		<p:outputLabel value="Prioridade: " for="prio" /> 
 		<p:inputText id="prio" required="true" value="#{osBean.nOS.prioridade}" validatorMessage="Apenas numero" /> 
 		
+		<p:outputLabel value="Valor do Serviço: "/> 
+		<p:inputNumber value="#{osBean.nOS.valorServico}" symbol="R$ " symbolPosition="p" 
+                               decimalSeparator="," thousandSeparator="." validatorMessage="Valores em reais" /> 
+				
 		<p:commandButton value="Adicionar" actionListener="#{osBean.novoOS}" id="actOS" update="growl" />
 		
 		</h:panelGrid>
