@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import br.ufc.crateus.os.beans.UsuarioBean;
+import br.ufc.crateus.os.beans.LoginBean;
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
@@ -33,7 +33,7 @@ public class LoginFilter implements Filter {
 		System.out.println("Testando sessão ==========");
 		System.out.println("ID sessão = " + session.getId());
 		
-		UsuarioBean loginBean = (UsuarioBean) session.getAttribute("uBean");
+		LoginBean loginBean = (LoginBean) session.getAttribute("uBean");
 
 		if (loginBean != null && loginBean.getUsuario() != null) {
 			System.out.println("Autorizado para: " + loginBean.getUsuario().getNome());			

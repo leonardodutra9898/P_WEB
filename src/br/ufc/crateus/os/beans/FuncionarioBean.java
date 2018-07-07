@@ -32,7 +32,9 @@ public class FuncionarioBean implements Serializable {
 	private FuncionarioFuncoes FUNCAO;
 	private Funcionario nFuncionario;
 	private Funcionario funcionarioEdit;
-
+	private Funcionario senhaFuncionarioTemp;
+	
+	
 	MessagesUtils msgUtils;
 
 	public FuncionarioBean() {
@@ -46,6 +48,15 @@ public class FuncionarioBean implements Serializable {
 		nFuncionario = new Funcionario();
 		funcionarioEdit = new Funcionario();
 
+		manager.close();
+	}
+
+	public void sessaoCarrega() {
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+//		FuncionarioRepository funcionarioRepo = new FuncionarioRepository(manager);
+		
+		funcionarioEdit = FuncionarioRepository.getUsuarioLogado();
+		
 		manager.close();
 	}
 	
@@ -180,6 +191,35 @@ public class FuncionarioBean implements Serializable {
 		}
 
 	}
+	
+	public void mudarSenha() {
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+
+		try {
+
+			manager.getTransaction().begin();
+			FuncionarioRepository funcionarioRepo = new FuncionarioRepository(manager);
+//			Funcionario temp = funcionarioRepo.funcionarioById(idFuncionarioTemp);
+//			temp.setSenha(senha);
+//			funcionarioRepo.addFuncionario(funcionarioEdit);
+			
+			
+			
+			funcionarioEdit = new Funcionario();
+			msgUtils = new MessagesUtils("Atualização realizada com sucesso em funcionário...", "Atualização concluída",
+					MessagesTypes.SUCCESS);
+			manager.getTransaction().commit();
+			
+			funcionarios = funcionarioRepo.listFuncionarios();
+
+		} catch (Exception e) {
+			manager.getTransaction().rollback();
+			msgUtils = new MessagesUtils("Erro ao tentar atualizar funcionário...",
+					("Erro ao atualizar... " + e.toString()), MessagesTypes.ERROR);
+		} finally {
+			manager.close();
+		}
+	}
 
 	public String funcById(Funcionario f) {
 
@@ -232,4 +272,15 @@ public class FuncionarioBean implements Serializable {
 	public List<Funcionario> getTecnicos() {
 		return tecnicos;
 	}
+
+	public Funcionario getSenhaFuncionarioTemp() {
+		return senhaFuncionarioTemp;
+	}
+
+	public void setSenhaFuncionarioTemp(Funcionario senhaFuncionarioTemp) {
+		this.senhaFuncionarioTemp = senhaFuncionarioTemp;
+	}
+
+	
+	
 }
