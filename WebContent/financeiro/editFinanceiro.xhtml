@@ -28,14 +28,19 @@
 					<f:selectItems value="#{finBean.tipoLancamento}"/>
 		</p:selectOneMenu>
 
-		<p:outputLabel value="Ordem de Serviço: " for="os" />
-		<p:selectOneMenu id="os" value="#{finBean.financeiroEdit.os.id}" >
-					<f:selectItem itemLabel="Qual a Ordem de Serviço?" itemValue=""/>
-					<f:selectItems value="#{osBean.listOS}" var="o" itemValue="#{o.id}" itemLabel="#{o.descricao}"/>
-		</p:selectOneMenu>
+		<p:outputLabel value="Cliente: " />
+		<p:outputLabel value="#{finBean.financeiroEdit.cliente.nome}"/>
 
-		<p:outputLabel value="Valor do Serviço: " for="serv" /> 
-		<p:inputText id="serv" required="true" value="#{finBean.financeiroEdit.valorOrcamentoOS}" validatorMessage="Valores em reais" />
+		<p:outputLabel value="Ordem de Serviço: " />
+		<p:outputLabel value="#{finBean.financeiroEdit.os.descricao}"/>
+
+		<p:outputLabel value="Valor do Serviço: " />
+		<p:outputLabel value="R$ #{finBean.financeiroEdit.os.valorServico}"/>
+
+		<p:outputLabel value="Data do Faturamento: " />
+		<p:outputLabel value="#{finBean.financeiroEdit.data}">
+			<f:convertDateTime dateStyle="medium"/>
+		</p:outputLabel>
 
 		<p:commandButton value="Atualizar" actionListener="#{finBean.novoLancamentoFinanceiro}" update="growl"/>
 		

@@ -9,6 +9,10 @@
 
 <ui:define name="conteudo">
 
+<f:metadata>
+	<f:event listener="#{osBean.init}" type="preRenderView" />
+</f:metadata>
+
 <h2>Dar baixa em Serviços Prestados</h2>
 
 <h:form>
@@ -25,7 +29,7 @@
 		<p:outputLabel value="Ordem de Serviço: " for="os" />
 		<p:selectOneMenu id="os" value="#{finBean.idOSSelecionado}" required="true">
 					<f:selectItem itemLabel="Qual a Ordem de Serviço?" itemValue=""/>
-					<f:selectItems value="#{osBean.listOS}" var="o" itemValue="#{o.id}" itemLabel="#{o.descricao}"/>
+					<f:selectItems value="#{osBean.osa}" var="o" itemValue="#{o.id}" itemLabel="#{o.descricao}"/>
 		</p:selectOneMenu>
 		
 		<p:outputLabel value="Lançamento como (ISENTO = Gratuito): " for="ti" />

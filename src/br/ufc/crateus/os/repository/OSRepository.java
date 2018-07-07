@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import br.ufc.crateus.os.enums.Status;
 import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.OS;
 
@@ -29,6 +30,12 @@ public class OSRepository implements Serializable{
 		return query.getResultList();
 	}
 	
+	public List<OS> listOSAbertos(){
+		
+		TypedQuery<OS> query = manager.createQuery("SELECT o FROM OS o WHERE status in ('ABERTO', 'ANDAMENTO')", OS.class);
+		return query.getResultList();
+	}
+	
 	public void addOS(OS os) {
 		manager.merge(os);
 	}
@@ -39,6 +46,11 @@ public class OSRepository implements Serializable{
 	
 	public void delete(OS os) {
 		manager.remove(manager.getReference(OS.class, os.getId()));
+	}
+	
+	public void setStatusOS(OS os, Status s) {
+		os.setStatus(s);
+		addOS(os);
 	}
 	
 }

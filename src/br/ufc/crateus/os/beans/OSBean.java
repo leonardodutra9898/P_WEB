@@ -37,6 +37,7 @@ public class OSBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private List<OS> listOS;
+	private List<OS> osa;
 	private OS os;
 	private int idCliSetado;
 	private int idFuncionarioSetado;
@@ -52,6 +53,7 @@ public class OSBean implements Serializable {
 
 		os = new OS();
 		listOS = osRepo.listOS();
+		osa = osRepo.listOSAbertos();
 		nOS = new OS();
 		manager.close();
 		osEdit = new OS();
@@ -65,6 +67,7 @@ public class OSBean implements Serializable {
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		OSRepository osRepo = new OSRepository(manager);
 		
+		osa = osRepo.listOSAbertos();
 		listOS = osRepo.listOS();
 		
 		manager.close();
@@ -260,5 +263,10 @@ public class OSBean implements Serializable {
 	public void setIdFuncionarioSetado(int idFuncionarioSetado) {
 		this.idFuncionarioSetado = idFuncionarioSetado;
 	}
+
+	public List<OS> getOsa() {
+		return osa;
+	}
+	
 
 }

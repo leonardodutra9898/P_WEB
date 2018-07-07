@@ -68,16 +68,17 @@ public class FinanceiroBean implements Serializable{
 			nFinanceiro.setFuncionario(funcionarioSetado);
 			nFinanceiro.setData(Calendar.getInstance().getTime());
 			
-				finRepo.addFinanceiro(nFinanceiro);
+			finRepo.addFinanceiro(nFinanceiro);
 				
-				osSetado.setStatus(Status.FECHADO);
-				osRepo.addOS(osSetado);
+			osSetado.setStatus(Status.FECHADO);
+			osSetado.setDataFechamento(Calendar.getInstance().getTime());
+			osRepo.setStatusOS(osSetado, Status.FECHADO);
 				
-				nFinanceiro = new Financeiro();
-				msgUtils = new MessagesUtils("Registro Salvo", "Novo lançamento financeiro Registrado!", MessagesTypes.SUCCESS);				
-				manager.getTransaction().commit();
+			nFinanceiro = new Financeiro();
+			msgUtils = new MessagesUtils("Registro Salvo", "Novo lançamento financeiro Registrado!", MessagesTypes.SUCCESS);				
+			manager.getTransaction().commit();
 				
-				financeiroList = finRepo.listLancamentosFinanceiro();
+			financeiroList = finRepo.listLancamentosFinanceiro();
 			
 		}catch(Exception e) {
 			manager.getTransaction().rollback();			

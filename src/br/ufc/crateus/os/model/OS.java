@@ -34,7 +34,7 @@ public class OS implements Serializable{
 	private Date dataAbertura;
 	
 	@Temporal(TemporalType.DATE)
-	private Calendar dataFechamento;
+	private Date dataFechamento;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
@@ -72,10 +72,10 @@ public class OS implements Serializable{
 	public void setDataAbertura(Date calendar) {
 		this.dataAbertura = calendar;
 	}
-	public Calendar getDataFechamento() {
+	public Date getDataFechamento() {
 		return dataFechamento;
 	}
-	public void setDataFechamento(Calendar dataFechamento) {
+	public void setDataFechamento(Date dataFechamento) {
 		this.dataFechamento = dataFechamento;
 	}
 	public Status getStatus() {
