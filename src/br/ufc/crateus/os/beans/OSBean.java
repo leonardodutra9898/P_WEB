@@ -13,6 +13,7 @@ import com.sun.media.sound.FFT;
 
 import br.ufc.crateus.os.enums.FinanceiroEnum;
 import br.ufc.crateus.os.enums.MessagesTypes;
+import br.ufc.crateus.os.enums.OSPrioridade;
 import br.ufc.crateus.os.enums.Status;
 import br.ufc.crateus.os.enums.TipoLancamento;
 import br.ufc.crateus.os.model.Cliente;
@@ -268,5 +269,9 @@ public class OSBean implements Serializable {
 		return osa;
 	}
 	
-
+	public OSPrioridade[] getPrioridade() {
+		return OSPrioridade.values();
+	}
+	
+	
 }

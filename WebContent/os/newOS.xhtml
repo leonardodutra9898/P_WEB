@@ -35,7 +35,10 @@
 		</p:inputText>
 		
 		<p:outputLabel value="Prioridade: " for="prio" /> 
-		<p:inputText id="prio" required="true" value="#{osBean.nOS.prioridade}" validatorMessage="Apenas numero" /> 
+		<p:selectOneMenu id="prio" value="#{osBean.nOS.prioridade}" required="true">
+					<f:selectItem itemLabel="Prioridade" itemValue=""/>
+					<f:selectItems value="#{osBean.prioridade}"/>
+		</p:selectOneMenu>
 		
 		<p:outputLabel value="Valor do Serviço: "/> 
 		<p:inputNumber value="#{osBean.nOS.valorServico}" symbol="R$ " symbolPosition="p" 
