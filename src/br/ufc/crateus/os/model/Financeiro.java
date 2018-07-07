@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -34,9 +35,11 @@ public class Financeiro implements Serializable{
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Cliente cliente;
 	
+	@Column(length = 20, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private FinanceiroEnum status;
 
+	@Column(length = 20, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TipoLancamento tipoLancamento;
 	

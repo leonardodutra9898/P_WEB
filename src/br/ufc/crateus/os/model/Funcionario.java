@@ -1,10 +1,12 @@
 package br.ufc.crateus.os.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import br.ufc.crateus.os.enums.FuncionarioFuncoes;
 
@@ -14,12 +16,22 @@ public class Funcionario {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	
+	@Column(length = 100, nullable = false)
 	private String nome;
+	
+	@Column(length = 200, nullable = false)
 	private String email;
+	
+	@Column(length = 15, nullable = false)
 	private float salario;
 	
+	@Column(length = 20, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private FuncionarioFuncoes FUNCAO;
+	
+	@OneToOne
+	private Usuario usuario;
 
 	public FuncionarioFuncoes getFUNCAO() {
 		return FUNCAO;
@@ -109,4 +121,14 @@ public class Funcionario {
 			return false;
 		return true;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 }
