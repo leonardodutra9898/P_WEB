@@ -37,12 +37,14 @@ public class OS implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dataFechamento;
 	
+	@Column(length = 20, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
 	@Column(length = 255, nullable = false)
 	private String descricao;
 	
+	@Column(length = 20, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private OSPrioridade prioridade;
 	
@@ -54,6 +56,7 @@ public class OS implements Serializable{
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Funcionario funcionario;
 	
+	@Column(length = 15, nullable = false)
 	private double valorServico;
 	
 	public OS() {
