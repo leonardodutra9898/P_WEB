@@ -16,7 +16,8 @@
 		
 		<p:outputLabel value="Nome Funcionario: " for="desc" />		
 		<p:inputText id="desc" value="#{funcBean.funcionarioEdit.nome}" 
-			required="true" requiredMessage="Nome do Funcionário!">
+			required="true" requiredMessage="Nome do Funcionário!" validatorMessage="Nome do Funcionário requer apenas letras">
+				<f:validateRegex pattern="^[ a-zA-Z á]*$" />
 		</p:inputText>
 		
 		<p:outputLabel value="E-mail Institucional" for="mail" /> 
