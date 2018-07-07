@@ -7,16 +7,17 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Login</title>
+	<title>Login / OS (Ordem de Serviço)</title>
 </h:head>
+
 <h:body>
 
-<div style="margin: 10% 35% 0px 35%;">
+<div style="margin: 10% 30% 0px 30%;">
 	<h2 style="font-family: arial;">Sistema de Ordem de Serviços</h2>
 	<h:form>
 		<p:growl id="growl" life="2000" />
 		<p:panel header="Login">
-			<p:panelGrid columns="2" style="margin: auto 0px auto 0px;">
+			<p:panelGrid columns="2" >
 				<p:outputLabel for="login" value="Login:" />
 				<p:inputText id="login" value="#{uBean.login}" required="true" />
 

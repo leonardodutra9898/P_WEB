@@ -78,7 +78,7 @@ public class UsuarioBean implements Serializable{
 		}else {
 			setUsuario(usuarioLogado);
 			manager.close();
-			return "/?faces-redirect=true"; 
+			return "/index.xhtml?faces-redirect=true"; 
 		}		
 	}
 	
