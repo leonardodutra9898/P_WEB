@@ -14,7 +14,7 @@
 <h:body>
 <p:layout fullPage="true">
  
-    <p:layoutUnit position="north" size="100" header="Sistema de Ordem de Serviços" resizable="true" closable="false" collapsible="false">
+    <p:layoutUnit position="north" size="100" header="Sistema de Ordem de Serviços,   Olá #{uBean.usuario.login}!  |   " resizable="true" closable="false" collapsible="false">
         
 <h:form>     
     <p:growl id="messages" showDetail="true" />
@@ -45,9 +45,19 @@
         </f:facet> 
         
          <f:facet name="right">
-			<p:menuButton value="Opções">
+			<p:menuButton value="Mais">
                 <p:menuitem value="Listar Clientes" update="messages" icon="fa fa-align-justify large" outcome="/cliente/listCliente.xhtml" />
                 <p:menuitem value="Listar Funcionários" update="messages" icon="fa fa-align-justify large" outcome="/funcionario/listFuncionario.xhtml"/>
+
+            </p:menuButton>
+         </f:facet>   
+            
+            <f:facet name="right">
+			<p:menuButton value="Opções">
+				<p:menuitem value="Usuários" update="messages" icon="fa fa-user-plus" outcome="/cliente/listCliente.xhtml" />
+			    <p:menuitem value="Permissões" update="messages" icon="fa fa-gear large" outcome="/cliente/listCliente.xhtml" />
+                <p:menuitem value="Mudar Senha" update="messages" icon="fa fa-user-secret large" outcome="/funcionario/listFuncionario.xhtml"/>
+                <p:menuitem value="Logout" update="messages" icon="fa fa-eject large" action="#{uBean.logout}"/>
 
             </p:menuButton>
  		</f:facet>
@@ -65,7 +75,7 @@
     <p:layoutUnit position="center">
         
 		<ui:insert name="conteudo">
-			Conteuúdo inicial...
+			
 		</ui:insert>
 
     </p:layoutUnit>

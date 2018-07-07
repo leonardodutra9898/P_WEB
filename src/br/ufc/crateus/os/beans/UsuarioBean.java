@@ -77,7 +77,10 @@ public class UsuarioBean implements Serializable{
 			return "/login.xhtml?faces-redirect=true"; 
 		}else {
 			setUsuario(usuarioLogado);
+			System.out.println("Teste de autenticação feito -- " + usuarioLogado.getLogin());
 			manager.close();
+			msgUtils = new MessagesUtils("Usuário Logado. Bem-Vindo!", "Autenticação realizada.", 
+					MessagesTypes.SUCCESS);
 			return "/index.xhtml?faces-redirect=true"; 
 		}		
 	}
@@ -88,9 +91,9 @@ public class UsuarioBean implements Serializable{
 		
 		UsuarioRepository.setUsuarioLogado(null);
 		setUsuario(null);
-		setLogin("");
-		setSenha("");
-		return "/login.xhtml?faces-redirect=true";
+//		setLogin("");
+//		setSenha("");
+		return "/index.xhtml?faces-redirect=true";
 	}
 	
 	public Usuario getUsuario() {
