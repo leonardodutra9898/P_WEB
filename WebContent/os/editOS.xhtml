@@ -22,7 +22,13 @@
 					<f:selectItem itemLabel="Selecione um cliente" itemValue=""/>
 					<f:selectItems value="#{cliBean.clientes}" var="c" itemValue="#{c.id}" itemLabel="#{c.nome}"/>
 		</p:selectOneMenu>
-				
+		
+		<p:outputLabel value="Técnico: " for="tec" />
+		<p:selectOneMenu id="tec" value="#{osBean.osEdit.funcionario.id}" required="true" requiredMessage="Informe um técnico...">>
+					<f:selectItem itemLabel="Altere um Técnico habilitado" itemValue=""/>
+					<f:selectItems value="#{funcBean.tecnicos}" var="t" itemValue="#{t.id}" itemLabel="#{t.nome}"/>
+		</p:selectOneMenu>
+		
 		<p:outputLabel value="Descrição: " for="desc" />		
 		<p:inputText id="desc" value="#{osBean.osEdit.descricao}" 
 			required="true" requiredMessage="Descreva o problema...">
@@ -34,8 +40,17 @@
 					<f:selectItems value="#{osBean.statuses}"/>
 		</p:selectOneMenu>
 		
-		<p:outputLabel value="Prioridade: " for="prio" /> 
-		<p:inputText id="prio" required="true" value="#{osBean.osEdit.prioridade}" validatorMessage="Apenas numero" /> 
+		<p:outputLabel value="Prioridade: " for="pr" /> 
+		<p:selectOneMenu id="pr" value="#{osBean.osEdit.prioridade}" required="true">
+					<f:selectItem itemLabel="Altere a Prioridade" itemValue=""/>
+					<f:selectItems value="#{osBean.prioridade}"/>
+		</p:selectOneMenu>
+		
+<!-- 		<p:outputLabel value="Prioridade: " for /> 
+		<p:inputText id="prio" required="true" value="#{osBean.osEdit.prioridade}" validatorMessage="Apenas numero" />  -->
+		
+		<p:outputLabel value="Valor do Serviço: "/>
+		<p:outputLabel value="R$ #{osBean.osEdit.valorServico}" />
 		
 		<p:commandButton value="Atualizar OS" actionListener="#{osBean.atualizarOS}" id="actOS" update="growl" />
 		

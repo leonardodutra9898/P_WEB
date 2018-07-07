@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.ufc.crateus.os.enums.OSPrioridade;
 import br.ufc.crateus.os.enums.Status;
 
 @Entity
@@ -42,7 +43,8 @@ public class OS implements Serializable{
 	@Column(length = 255, nullable = false)
 	private String descricao;
 	
-	private int prioridade;
+	@Enumerated(EnumType.STRING)
+	private OSPrioridade prioridade;
 	
 	@Lob
 	@ManyToOne(cascade = CascadeType.REFRESH)
@@ -91,10 +93,11 @@ public class OS implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public int getPrioridade() {
+	public OSPrioridade getPrioridade() {
 		return prioridade;
 	}
-	public void setPrioridade(int prioridade) {
+
+	public void setPrioridade(OSPrioridade prioridade) {
 		this.prioridade = prioridade;
 	}
 
