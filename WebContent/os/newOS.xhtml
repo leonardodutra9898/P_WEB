@@ -38,8 +38,9 @@
 		<p:inputText id="prio" required="true" value="#{osBean.nOS.prioridade}" validatorMessage="Apenas numero" /> 
 		
 		<p:outputLabel value="Valor do Serviço: "/> 
-		<p:outputLabel>R$ 50,00</p:outputLabel> 
-		
+		<p:inputNumber value="#{osBean.nOS.valorServico}" symbol="R$ " symbolPosition="p" 
+                               decimalSeparator="," thousandSeparator="." validatorMessage="Valores em reais" /> 
+				
 		<p:commandButton value="Adicionar" actionListener="#{osBean.novoOS}" id="actOS" update="growl" />
 		
 		</h:panelGrid>

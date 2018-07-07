@@ -104,7 +104,7 @@ public class OSBean implements Serializable {
 			
 			nOS.setFuncionario(funcionarioSelect);
 			nOS.setCliente(clienteSelect);
-			nOS.setValorServico(50.00d);
+			
 			osRepo.addOS(nOS);
 			
 			msgUtils = new MessagesUtils("Nova Ordem de Serviço registrada!", "Nova Ordem de Serviço registrada!", MessagesTypes.SUCCESS);
