@@ -29,9 +29,12 @@ public class Funcionario {
 	@Column(length = 20, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private FuncionarioFuncoes FUNCAO;
+
+	@Column(length = 50, nullable = false)
+	private String login;
 	
-	@OneToOne
-	private Usuario usuario;
+	@Column(length = 50, nullable = false)
+	private String senha;
 
 	public FuncionarioFuncoes getFUNCAO() {
 		return FUNCAO;
@@ -122,13 +125,22 @@ public class Funcionario {
 		return true;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 	
+
 }

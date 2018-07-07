@@ -13,7 +13,6 @@
 		<class>br.ufc.crateus.os.model.OS</class>
 		<class>br.ufc.crateus.os.model.Funcionario</class>
 		<class>br.ufc.crateus.os.model.Financeiro</class>
-		<class>br.ufc.crateus.os.model.Usuario</class>
 
 		<properties>
 			<!-- dados da conexao -->

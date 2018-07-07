@@ -16,6 +16,8 @@ public class FuncionarioRepository implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private EntityManager manager;
+
+	private static Funcionario usuarioLogado;
 	
 	public FuncionarioRepository(EntityManager manager) {
 		
@@ -47,4 +49,28 @@ public class FuncionarioRepository implements Serializable {
 		manager.remove(manager.getReference(Funcionario.class, funcionario.getId()));
 	}
 
+	public Funcionario byLoginSenha(String login, String senha) {
+		TypedQuery<Funcionario> query = manager.createQuery(
+				"SELECT u FROM Funcionario u WHERE login = :login AND senha = :senha",
+				Funcionario.class);
+
+		query.setParameter("login", login);
+		query.setParameter("senha", senha);
+		
+		setUsuarioLogado(query.getSingleResult());
+		
+		System.out.println("### === " + query.getSingleResult().getLogin());
+		
+		return getUsuarioLogado();
+	}
+
+	public static Funcionario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public static void setUsuarioLogado(Funcionario usuarioLogado) {
+		FuncionarioRepository.usuarioLogado = usuarioLogado;
+	}
+	
+	
 }

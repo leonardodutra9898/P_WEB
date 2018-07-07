@@ -2,15 +2,14 @@ package br.ufc.crateus.os.beans;
 
 import java.io.Serializable;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
 import br.ufc.crateus.os.enums.MessagesTypes;
-import br.ufc.crateus.os.model.Usuario;
-import br.ufc.crateus.os.repository.UsuarioRepository;
+import br.ufc.crateus.os.model.Funcionario;
+import br.ufc.crateus.os.repository.FuncionarioRepository;
 import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
@@ -18,7 +17,7 @@ import br.ufc.crateus.os.utils.messages.MessagesUtils;
 @SessionScoped
 public class UsuarioBean implements Serializable{
 
-	private Usuario usuario;
+	private Funcionario usuario;
 	private String login;
 	private String senha;
 	
@@ -28,79 +27,56 @@ public class UsuarioBean implements Serializable{
 	
 	MessagesUtils msgUtils;
 	
-	public String adiciona() {
-		
-		String retorno = "";
+
+	public String logar() {
+
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
 		try {
 			
-			manager.getTransaction().begin();
-			UsuarioRepository usuarioRepo = new UsuarioRepository(manager);
+			FuncionarioRepository usuarioRepo = new FuncionarioRepository(manager);
+			Funcionario usuarioLogado = usuarioRepo.byLoginSenha(login, senha);
 			
-			Usuario novoUsuario = new Usuario();
-			novoUsuario.setLogin(this.login);
-			novoUsuario.setSenha(this.senha);
-			usuarioRepo.addUsuario(novoUsuario);
-			setUsuario(novoUsuario);
+			if(usuarioLogado == null) {
+				setSenha("");
+				msgUtils = new MessagesUtils("Login ou senha incorreta", "Erro: " , 
+						MessagesTypes.WARNING);
+				
+				manager.close();
+				return "/login.xhtml?faces-redirect=true"; 
+			}else {
+				setUsuario(usuarioLogado);
+				System.out.println("Teste de autenticação feito -- " + usuarioLogado.getLogin());
+				manager.close();
+				msgUtils = new MessagesUtils("Usuário Logado. Bem-Vindo!", "Autenticação realizada.", 
+						MessagesTypes.SUCCESS);
+				return "/index.xhtml?faces-redirect=true"; 
+			}					
 			
-			
-			manager.getTransaction().commit();
-			
-			msgUtils = new MessagesUtils("Usuário cadastrado", "Novo usuário Registrado!", MessagesTypes.SUCCESS);
-			
-			retorno = "/index?faces-redirect=true";
-		}catch (Exception e) {
-			manager.getTransaction().rollback();
-			msgUtils = new MessagesUtils("Erro ao cadastrar usuário", ("Erro: " + e.toString()), 
-					MessagesTypes.ERROR);
-			retorno = "";
-		}finally {
+		}catch(Exception e) {
 			manager.close();
-		}
-		
-		return retorno;
-	}
-	
-	public String logar() {
-		
-		EntityManager manager = EntityManagerPersistence.getEntityManager();
-		UsuarioRepository usuarioRepo = new UsuarioRepository(manager);
-		Usuario usuarioLogado = usuarioRepo.byLoginSenha(login, senha);
-		
-		if(usuarioLogado == null) {
-			setSenha("");
 			msgUtils = new MessagesUtils("Login ou senha incorreta", "Erro: " , 
 					MessagesTypes.WARNING);
-			
-			manager.close();
-			return "/login.xhtml?faces-redirect=true"; 
-		}else {
-			setUsuario(usuarioLogado);
-			System.out.println("Teste de autenticação feito -- " + usuarioLogado.getLogin());
-			manager.close();
-			msgUtils = new MessagesUtils("Usuário Logado. Bem-Vindo!", "Autenticação realizada.", 
-					MessagesTypes.SUCCESS);
-			return "/index.xhtml?faces-redirect=true"; 
-		}		
+		}
+		return "";
 	}
 	
 	public String logout() {
 		
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		
-		UsuarioRepository.setUsuarioLogado(null);
+		FuncionarioRepository.setUsuarioLogado(null);
 		setUsuario(null);
 //		setLogin("");
 //		setSenha("");
 		return "/index.xhtml?faces-redirect=true";
 	}
 	
-	public Usuario getUsuario() {
+	public Funcionario getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(Funcionario usuario) {
 		this.usuario = usuario;
 	}
 
