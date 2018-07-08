@@ -9,9 +9,9 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import br.ufc.crateus.os.controller.PermissoesPaginas;
-import br.ufc.crateus.os.enums.EntidadeSistema;
 import br.ufc.crateus.os.enums.FuncionarioFuncoes;
 import br.ufc.crateus.os.enums.MessagesTypes;
+import br.ufc.crateus.os.enums.PermissoesTipos;
 import br.ufc.crateus.os.model.Funcionario;
 import br.ufc.crateus.os.model.Permissoes;
 import br.ufc.crateus.os.repository.FuncionarioRepository;
@@ -92,134 +92,102 @@ public class PermissoesBean implements Serializable {
 		return permissoesPorPerfil;
 	}
 	
-	public void setPermissoesPaginas(FuncionarioFuncoes perfil, EntidadeSistema entidade) {
-		// controle NOVO, EDITAR, EXCLUIR, LISTAR
+	public void setPermissoesPaginas(FuncionarioFuncoes perfil) {
 		
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		PermissoesRepository permissoesRepo = new PermissoesRepository(manager);
 		
-		List<Permissoes> listTemp = permissoesRepo.listPermissoesByPerfilEntidade(perfil, entidade);
-		
-		System.out.println("PERFIL === > " + perfil);
-		System.out.println("ENTIDADE === > " + entidade);
-//		System.out.println("CONTROLE === > " + controle);
-		System.out.println("resultado da lista === > " + listTemp.size());
-		
-		Permissoes permissao = null;
+		List<Permissoes> listTemp = permissoesRepo.listPermissoesByPerfilEntidade(perfil);
+
+		Permissoes[] permissao = new Permissoes[listTemp.size()];
+		int count = 0;
 		
 		for(Permissoes pe : listTemp) {
-			permissao = pe;
+			permissao[count++] = pe;
 		}
 		
-		System.out.println("TIPO P === > "+permissao.getTipoPermissao());
+		for(int i = 0; i < listTemp.size(); i++) {
 		
-		boolean novo = false, editar = false, excluir = false, listar = false;
-		
-		pps = new PermissoesPaginas();
-		
-		switch(permissao.getTipoPermissao()) {
-		case FULL:
-			pps.setAdminOsNew(true);
-			pps.setAdminOsEdit(true);
-			pps.setAdminOsList(true);
-			pps.setAdminOsDelete(true);
-			
-			pps.setAdminClienteNew(true);
-			pps.setAdminClienteEdit(true);
-			pps.setAdminClienteDelete(true);
-			pps.setAdminClienteList(true);
-			
-			pps.setAdminFinanceiroNew(true);
-			pps.setAdminFinanceiroEdit(true);
-			pps.setAdminFinanceiroDelete(true);
-			pps.setAdminFinanceiroList(true);
-						
-			pps.setAdminFuncionarioNew(true);
-			pps.setAdminFuncionarioEdit(true);
-			pps.setAdminFuncionarioDelete(true);
-			pps.setAdminFuncionarioList(true);
-			
-//			novo = true;
-//			editar = true;
-//			excluir = true;
-//			listar = true;
-			break;
-		case ONLY_WRITE:
-			
-			pps.setGerOsNew(false);
-			pps.setGerOsEdit(true);
-			pps.setGerOsList(true);
-			pps.setGerOsDelete(false);
-			
+			pps = new PermissoesPaginas();
+				
+			if(permissao[i].getTipoPermissao()==PermissoesTipos.FULL) {
 
-			pps.setGerClienteNew(false);
-			pps.setGerClienteEdit(true);
-			pps.setGerClienteDelete(false);
-			pps.setGerClienteList(true);
+				pps.setAdminOsNew(true);
+				pps.setAdminOsEdit(true);
+				pps.setAdminOsList(true);
+				pps.setAdminOsDelete(true);
+				
+				pps.setAdminClienteNew(true);
+				pps.setAdminClienteEdit(true);
+				pps.setAdminClienteDelete(true);
+				pps.setAdminClienteList(true);
+				
+				pps.setAdminFinanceiroNew(true);
+				pps.setAdminFinanceiroEdit(true);
+				pps.setAdminFinanceiroDelete(true);
+				pps.setAdminFinanceiroList(true);
+	
+				pps.setAdminFuncionarioNew(true);
+				pps.setAdminFuncionarioEdit(true);
+				pps.setAdminFuncionarioDelete(true);
+				pps.setAdminFuncionarioList(true);
 			
-			pps.setGerFinanceiroNew(false);
-			pps.setGerFinanceiroEdit(true);
-			pps.setGerFinanceiroDelete(false);
-			pps.setGerFinanceiroList(true);
-			
-			pps.setGerFuncionarioNew(false);
-			pps.setGerFuncionarioEdit(true);
-			pps.setGerFuncionarioDelete(false);
-			pps.setGerFuncionarioList(true);
+			} else if(permissao[i].getTipoPermissao()==PermissoesTipos.ONLY_WRITE) {
 
-			
-			pps.setSupOsNew(false);
-			pps.setSupOsEdit(true);
-			pps.setSupOsList(true);
-			pps.setSupOsDelete(false);
-			
-			pps.setSupClienteNew(false);
-			pps.setSupClienteEdit(true);
-			pps.setSupClienteDelete(false);
-			pps.setSupClienteList(true);
-			
-			pps.setSupFinanceiroNew(false);
-			pps.setSupFinanceiroEdit(true);
-			pps.setSupFinanceiroDelete(false);
-			pps.setSupFinanceiroList(true);
-			
-			
-			pps.setTecOsNew(false); 
-			pps.setTecOsEdit(true); 
-			pps.setTecOsList(true);
-			pps.setTecOsDelete(false);
-			
-//			novo = false;
-//			editar = true;
-//			excluir = false;
-//			listar = true;
-			break;
-		case ONLY_READ:
-			
-			
-			pps.setTecOsNew(true);
-			pps.setTecOsEdit(false);
-			pps.setTecOsList(true);
-			pps.setTecOsDelete(false);
+				if(permissao[i].getPerfil()==FuncionarioFuncoes.GERENTE) {
+					pps.setGerOsNew(false);
+					pps.setGerOsEdit(true);
+					pps.setGerOsList(true);
+					pps.setGerOsDelete(false);
 					
-			
-//			novo = false;
-//			editar = false;
-//			excluir = false;
-//			listar = true;
-			break;
-		}
+	
+					pps.setGerClienteNew(false);
+					pps.setGerClienteEdit(true);
+					pps.setGerClienteDelete(false);
+					pps.setGerClienteList(true);
+					
+					pps.setGerFinanceiroNew(false);
+					pps.setGerFinanceiroEdit(true);
+					pps.setGerFinanceiroDelete(false);
+					pps.setGerFinanceiroList(true);
+					
+					pps.setGerFuncionarioNew(false);
+					pps.setGerFuncionarioEdit(true);
+					pps.setGerFuncionarioDelete(false);
+					pps.setGerFuncionarioList(true);				
+				} else if(permissao[i].getPerfil()==FuncionarioFuncoes.SUPERVISOR) {
+					pps.setSupOsNew(false);
+					pps.setSupOsEdit(true);
+					pps.setSupOsList(true);
+					pps.setSupOsDelete(false);
+					
+					pps.setSupClienteNew(false);
+					pps.setSupClienteEdit(true);
+					pps.setSupClienteDelete(false);
+					pps.setSupClienteList(true);
+					
+					pps.setSupFinanceiroNew(false);
+					pps.setSupFinanceiroEdit(true);
+					pps.setSupFinanceiroDelete(false);
+					pps.setSupFinanceiroList(true);
+				} else {
+					pps.setTecOsNew(false); 
+					pps.setTecOsEdit(true); 
+					pps.setTecOsList(true);
+					pps.setTecOsDelete(false);
+				}
+			} else if(permissao[i].getTipoPermissao()==PermissoesTipos.ONLY_READ) {
+
+				pps.setTecOsNew(true);
+				pps.setTecOsEdit(false);
+				pps.setTecOsList(true);
+				pps.setTecOsDelete(false);
+			} 
 		
-		System.out.println("CONTROLE NOVO == " + novo);
-		
-//		if(controle == "novo") return novo;
-//		if(controle == "editar") return editar;
-//		if(controle == "excluir") return excluir;
-//		if(controle == "listar") return listar;
+		} // final do for
 		
 		manager.close();
-		
-//		return false;
+
 	}
 
 	public PermissoesPaginas getPps() {
@@ -229,12 +197,5 @@ public class PermissoesBean implements Serializable {
 	public void setPps(PermissoesPaginas pps) {
 		this.pps = pps;
 	}
-	
-	
-	
-//	public boolean render() {
-//		
-//	}
-	
-	
+
 }

@@ -14,11 +14,14 @@
 
 <h2>Lançamentos Financeiros (Ordens de Serviço)</h2>
 
- <p:toolbar>
- 	 <f:facet name="left">
-            <p:button type="button" value="Dar Baixa em OS" icon="fa fa-plus" outcome="/financeiro/newFinanceiro.xhtml" rendered="#{pBean.pps.adminFinanceiroNew}"/>
+<p:toolbar>
+ 	<f:facet name="left">
+        <p:button type="button" value="Dar Baixa em OS" icon="fa fa-plus" outcome="/financeiro/newFinanceiro.xhtml" rendered="#{pBean.pps.supFinanceiroNew}"/>
+        <p:button type="button" value="Dar Baixa em OS" icon="fa fa-plus" outcome="/financeiro/newFinanceiro.xhtml" rendered="#{pBean.pps.gerFinanceiroNew}"/>
+        <p:button type="button" value="Dar Baixa em OS" icon="fa fa-plus" outcome="/financeiro/newFinanceiro.xhtml" rendered="#{pBean.pps.tecFinanceiroNew}"/>
+        <p:button type="button" value="Dar Baixa em OS" icon="fa fa-plus" outcome="/financeiro/newFinanceiro.xhtml" rendered="#{pBean.pps.adminFinanceiroNew}"/>
     </f:facet>
- </p:toolbar>
+</p:toolbar>
 
 <h:form id="finForm">
 <p:growl id="growl" life="2000" />

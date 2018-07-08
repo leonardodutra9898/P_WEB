@@ -39,12 +39,10 @@ public class PermissoesRepository implements Serializable{
 		return query.getResultList();
 	}
 
-	public List<Permissoes> listPermissoesByPerfilEntidade(FuncionarioFuncoes perfil, EntidadeSistema entidade){
+	public List<Permissoes> listPermissoesByPerfilEntidade(FuncionarioFuncoes perfil){
 		
-		TypedQuery<Permissoes> query = manager.createQuery("SELECT p FROM Permissoes p WHERE perfil = :perf AND "
-				+ "entidade = :entidade", 
-				Permissoes.class).setParameter("perf", perfil).
-				setParameter("entidade", entidade);
+		TypedQuery<Permissoes> query = manager.createQuery("SELECT p FROM Permissoes p WHERE perfil = :perf", 
+				Permissoes.class).setParameter("perf", perfil);
 		return query.getResultList();
 	}
 	
