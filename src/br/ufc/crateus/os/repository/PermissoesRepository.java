@@ -87,13 +87,4 @@ public class PermissoesRepository implements Serializable{
 	public Permissoes permissaoByPerfil(FuncionarioFuncoes perfil) {
 		return manager.find(Permissoes.class, perfil);
 	}
-	
-/*	public static Cliente getClienteById(int id) {
-		return manager.find(Cliente.class, id);
-	}
-*/	
-/*	public void delete(Cliente cliente) {
-		manager.remove(manager.getReference(Cliente.class, cliente.getId()));
-	}*/
-	
 }

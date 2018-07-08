@@ -1,0 +1,17 @@
+<!DOCTYPE hibernate-configuration PUBLIC  
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+    <session-factory>  
+    
+    	<property name="connection.pool_size">100</property>  
+        <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>   
+        <property name="hibernate.c3p0.min_size">1</property>   
+        <property name="hibernate.c3p0.max_size">40</property>   
+        <property name="hibernate.c3p0.max_statements">0</property>   
+        <property name="hibernate.c3p0.idle_test_period">200</property>   
+        <property name="hibernate.c3p0.timeout">50</property>  
+    
+	</session-factory>
+</hibernate-configuration>

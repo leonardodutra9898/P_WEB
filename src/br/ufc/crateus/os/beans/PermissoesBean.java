@@ -47,12 +47,13 @@ public class PermissoesBean implements Serializable {
 			
 			Funcionario usuario = fRepo.getUsuarioLogado();
 			
-			permissoesRepo.carregaPermissoesIni();
-
-			
-			manager.getTransaction().commit();
-
-			msgUtils = new MessagesUtils("Permissões carregadas", "Carregado!", MessagesTypes.SUCCESS);
+			if(permissoesRepo.listPermissoes().size() == 0) {
+				
+				permissoesRepo.carregaPermissoesIni();
+				manager.getTransaction().commit();
+				msgUtils = new MessagesUtils("Permissões carregadas", "Carregado!", MessagesTypes.SUCCESS);
+				
+			}
 			
 			permissoes = permissoesRepo.listPermissoes();
 			permissoesPorPerfil = permissoesRepo.listPermissoesByPerfil(usuario.getFUNCAO());
