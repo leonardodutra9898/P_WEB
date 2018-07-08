@@ -8,6 +8,10 @@
 
 <ui:define name="conteudo">
 
+<f:metadata>
+	<f:event listener="#{pBean.init}" type="preRenderView" />
+</f:metadata>
+
 <h:form>
 <p:growl id="growl" life="2000" />
 </h:form>

@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import br.ufc.crateus.os.enums.Status;
-import br.ufc.crateus.os.model.Cliente;
 import br.ufc.crateus.os.model.OS;
 
 public class OSRepository implements Serializable{

@@ -9,19 +9,13 @@ import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import com.sun.media.sound.FFT;
-
-import br.ufc.crateus.os.enums.FinanceiroEnum;
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.enums.OSPrioridade;
 import br.ufc.crateus.os.enums.Status;
-import br.ufc.crateus.os.enums.TipoLancamento;
 import br.ufc.crateus.os.model.Cliente;
-import br.ufc.crateus.os.model.Financeiro;
 import br.ufc.crateus.os.model.Funcionario;
 import br.ufc.crateus.os.model.OS;
 import br.ufc.crateus.os.repository.ClienteRepository;
-import br.ufc.crateus.os.repository.FinanceiroRepository;
 import br.ufc.crateus.os.repository.FuncionarioRepository;
 import br.ufc.crateus.os.repository.OSRepository;
 import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;

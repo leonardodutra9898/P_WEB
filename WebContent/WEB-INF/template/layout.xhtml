@@ -12,6 +12,12 @@
 </h:head>
 
 <h:body>
+
+<f:metadata>
+	<f:event listener="#{pBean.init}" type="preRenderView" />
+	<f:event listener="#{pBean.setPermissoesPaginas(uBean.usuario.FUNCAO)}" type="preRenderView" />
+</f:metadata>
+
 <p:layout fullPage="true">
  
     <p:layoutUnit position="north" size="100" header="Sistema de Ordem de Serviços,   Olá #{uBean.usuario.nome}!  (#{uBean.usuario.FUNCAO})  " resizable="true" closable="false" collapsible="false">
@@ -21,41 +27,63 @@
  
     <p:toolbar>
         <f:facet name="left">
-            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml"/>
+        
+            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.adminOsNew}" />
+            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.tecOsNew}" />
+            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.gerOsNew}" />
+            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.supOsNew}" />
+
         </f:facet>
         
 		<f:facet name="left">
-            <p:button type="button" value="Listar OS" icon="fa fa-align-justify" outcome="/os/listOS.xhtml"/>
+            <p:button type="button" value="Listar OS" icon="fa fa-align-justify" outcome="/os/listOS.xhtml" rendered="#{pBean.pps.adminOsList}"/>
+            <p:button type="button" value="Listar OS" icon="fa fa-align-justify" outcome="/os/listOS.xhtml" rendered="#{pBean.pps.tecOsList}"/>
+            <p:button type="button" value="Listar OS" icon="fa fa-align-justify" outcome="/os/listOS.xhtml" rendered="#{pBean.pps.gerOsList}"/>
+            <p:button type="button" value="Listar OS" icon="fa fa-align-justify" outcome="/os/listOS.xhtml" rendered="#{pBean.pps.supOsList}"/>
         </f:facet>
  
           
 
 		<f:facet name="left">
-            <p:button type="button" value="Finanças (Lançamentos)" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml"/>
+            <p:button type="button" value="Finanças (Lançamentos)" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml" rendered="#{pBean.pps.adminFinanceiroList}"/>
+            <p:button type="button" value="Finanças (Lançamentos)" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml" rendered="#{pBean.pps.tecFinanceiroList}"/>
+            <p:button type="button" value="Finanças (Lançamentos)" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml" rendered="#{pBean.pps.gerFinanceiroList}"/>
+            <p:button type="button" value="Finanças (Lançamentos)" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml" rendered="#{pBean.pps.supFinanceiroList}"/>
         </f:facet>          
           
         <f:facet name="right">
-            <p:button type="button" value="Novo Cliente" icon="fa fa-plus" outcome="/cliente/newCliente.xhtml" />
+            <p:button type="button" value="Novo Cliente" icon="fa fa-plus" outcome="/cliente/newCliente.xhtml" rendered="#{pBean.pps.adminClienteNew}"/>
+			<p:button type="button" value="Novo Cliente" icon="fa fa-plus" outcome="/cliente/newCliente.xhtml" rendered="#{pBean.pps.tecClienteNew}"/>
+            <p:button type="button" value="Novo Cliente" icon="fa fa-plus" outcome="/cliente/newCliente.xhtml" rendered="#{pBean.pps.gerClienteNew}"/>
+            <p:button type="button" value="Novo Cliente" icon="fa fa-plus" outcome="/cliente/newCliente.xhtml" rendered="#{pBean.pps.supClienteNew}"/>
         </f:facet>
         
         
         
         <f:facet name="right">
-            <p:button type="button" value="Novo Funcionário" icon="fa fa-plus" outcome="/funcionario/newFuncionario.xhtml"/>
+            <p:button type="button" value="Novo Funcionário" icon="fa fa-plus" outcome="/funcionario/newFuncionario.xhtml" rendered="#{pBean.pps.adminFuncionarioNew}"/>
+            <p:button type="button" value="Novo Funcionário" icon="fa fa-plus" outcome="/funcionario/newFuncionario.xhtml" rendered="#{pBean.pps.tecFuncionarioNew}"/>
+            <p:button type="button" value="Novo Funcionário" icon="fa fa-plus" outcome="/funcionario/newFuncionario.xhtml" rendered="#{pBean.pps.gerFuncionarioNew}"/>
+            <p:button type="button" value="Novo Funcionário" icon="fa fa-plus" outcome="/funcionario/newFuncionario.xhtml" rendered="#{pBean.pps.supFuncionarioNew}"/>
         </f:facet> 
         
-         <f:facet name="right">
-			<p:menuButton value="Mais">
-                <p:menuitem value="Listar Clientes" update="messages" icon="fa fa-align-justify large" outcome="/cliente/listCliente.xhtml" />
-                <p:menuitem value="Listar Funcionários" update="messages" icon="fa fa-align-justify large" outcome="/funcionario/listFuncionario.xhtml"/>
+      <f:facet name="right">
+	    <p:menuButton value="Mais">
+          <p:menuitem value="Listar Clientes" update="messages" icon="fa fa-align-justify large" outcome="/cliente/listCliente.xhtml" rendered="#{pBean.pps.adminClienteList}"/>
+          <p:menuitem value="Listar Clientes" update="messages" icon="fa fa-align-justify large" outcome="/cliente/listCliente.xhtml" rendered="#{pBean.pps.tecClienteList}"/>
+          <p:menuitem value="Listar Clientes" update="messages" icon="fa fa-align-justify large" outcome="/cliente/listCliente.xhtml" rendered="#{pBean.pps.gerClienteList}"/>
+          <p:menuitem value="Listar Clientes" update="messages" icon="fa fa-align-justify large" outcome="/cliente/listCliente.xhtml" rendered="#{pBean.pps.supClienteList}"/>
 
-            </p:menuButton>
-         </f:facet>   
+          <p:menuitem value="Listar Funcionários" update="messages" icon="fa fa-align-justify large" outcome="/funcionario/listFuncionario.xhtml" rendered="#{pBean.pps.adminFuncionarioList}"/>
+          <p:menuitem value="Listar Funcionários" update="messages" icon="fa fa-align-justify large" outcome="/funcionario/listFuncionario.xhtml" rendered="#{pBean.pps.tecFuncionarioList}"/>
+          <p:menuitem value="Listar Funcionários" update="messages" icon="fa fa-align-justify large" outcome="/funcionario/listFuncionario.xhtml" rendered="#{pBean.pps.gerFuncionarioList}"/>
+          <p:menuitem value="Listar Funcionários" update="messages" icon="fa fa-align-justify large" outcome="/funcionario/listFuncionario.xhtml" rendered="#{pBean.pps.supFuncionarioList}"/>
+        </p:menuButton>
+      </f:facet>   
             
             <f:facet name="right">
 			<p:menuButton value="Opções">
-			    <p:menuitem value="Permissões" update="messages" icon="fa fa-gear large" outcome="/cliente/listCliente.xhtml" />
-                <p:menuitem value="Mudar Senha" update="messages" icon="fa fa-user-secret large" outcome="/funcionario/mudarSenha.xhtml"/>
+			    <p:menuitem value="Mudar Senha" update="messages" icon="fa fa-user-secret large" outcome="/funcionario/mudarSenha.xhtml"/>
                 <p:menuitem value="Logout" update="messages" icon="fa fa-eject large" action="#{uBean.logout}"/>
             </p:menuButton>
  		</f:facet>

@@ -1,7 +1,6 @@
 package br.ufc.crateus.os.model;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.CascadeType;

@@ -12,7 +12,6 @@ import br.ufc.crateus.os.enums.FuncionarioFuncoes;
 import br.ufc.crateus.os.enums.MessagesTypes;
 import br.ufc.crateus.os.model.Funcionario;
 import br.ufc.crateus.os.repository.FuncionarioRepository;
-import br.ufc.crateus.os.repository.OSRepository;
 import br.ufc.crateus.os.utils.dao.EntityManagerPersistence;
 import br.ufc.crateus.os.utils.messages.MessagesUtils;
 
@@ -53,7 +52,6 @@ public class FuncionarioBean implements Serializable {
 
 	public void sessaoCarrega() {
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
-//		FuncionarioRepository funcionarioRepo = new FuncionarioRepository(manager);
 		
 		funcionarioEdit = FuncionarioRepository.getUsuarioLogado();
 		
@@ -199,12 +197,7 @@ public class FuncionarioBean implements Serializable {
 
 			manager.getTransaction().begin();
 			FuncionarioRepository funcionarioRepo = new FuncionarioRepository(manager);
-//			Funcionario temp = funcionarioRepo.funcionarioById(idFuncionarioTemp);
-//			temp.setSenha(senha);
-//			funcionarioRepo.addFuncionario(funcionarioEdit);
-			
-			
-			
+
 			funcionarioEdit = new Funcionario();
 			msgUtils = new MessagesUtils("Atualização realizada com sucesso em funcionário...", "Atualização concluída",
 					MessagesTypes.SUCCESS);
@@ -279,8 +272,5 @@ public class FuncionarioBean implements Serializable {
 
 	public void setSenhaFuncionarioTemp(Funcionario senhaFuncionarioTemp) {
 		this.senhaFuncionarioTemp = senhaFuncionarioTemp;
-	}
-
-	
-	
+	}	
 }
