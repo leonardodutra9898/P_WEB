@@ -12,6 +12,12 @@
 </h:head>
 
 <h:body>
+
+<f:metadata>
+	<f:event listener="#{pBean.init}" type="preRenderView" />
+	<f:event listener="#{pBean.setPermissoesPaginas(uBean.usuario.FUNCAO,'OS')}" type="preRenderView" />
+</f:metadata>
+
 <p:layout fullPage="true">
  
     <p:layoutUnit position="north" size="100" header="Sistema de Ordem de Serviços,   Olá #{uBean.usuario.nome}!  (#{uBean.usuario.FUNCAO})  " resizable="true" closable="false" collapsible="false">
@@ -21,10 +27,10 @@
  
     <p:toolbar>
         <f:facet name="left">
-            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" 
-            rendered="#{pBean.isRender(uBean.usuario.FUNCAO,'OS','novo')}" id="a">
-            	<p:ajax update="a"/>
-            </p:button>
+            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.adminOsNew}"/>
+            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.gerOsNew}"/>
+            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.supOsNew}"/>
+            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.tecOsNew}"/>
         </f:facet>
         
 		<f:facet name="left">
