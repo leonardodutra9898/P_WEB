@@ -27,9 +27,8 @@ public class PermissoesBean implements Serializable {
 	private List<Permissoes> permissoes;
 
 	MessagesUtils msgUtils;
-	
-	public PermissoesBean() {
 
+	public void init() {
 		EntityManager manager = EntityManagerPersistence.getEntityManager();
 		
 		try {
@@ -52,6 +51,13 @@ public class PermissoesBean implements Serializable {
 		} finally {
 			manager.close();
 		}
+	}
+	
+	public PermissoesBean() {
+		EntityManager manager = EntityManagerPersistence.getEntityManager();
+		PermissoesRepository permissoesRepo = new PermissoesRepository(manager);
+		permissoes = permissoesRepo.listPermissoes();
+		manager.close();
 	}
 
 	public List<Permissoes> listPermissoes() {
