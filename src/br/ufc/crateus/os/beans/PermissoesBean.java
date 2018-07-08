@@ -147,7 +147,7 @@ public class PermissoesBean implements Serializable {
 					pps.setGerClienteList(true);
 					
 					pps.setGerFinanceiroNew(false);
-					pps.setGerFinanceiroEdit(true);
+					pps.setGerFinanceiroEdit(false);
 					pps.setGerFinanceiroDelete(false);
 					pps.setGerFinanceiroList(true);
 					
@@ -166,7 +166,7 @@ public class PermissoesBean implements Serializable {
 					pps.setSupClienteDelete(false);
 					pps.setSupClienteList(true);
 					
-					pps.setSupFinanceiroNew(false);
+					pps.setSupFinanceiroNew(true);
 					pps.setSupFinanceiroEdit(true);
 					pps.setSupFinanceiroDelete(false);
 					pps.setSupFinanceiroList(true);
@@ -182,6 +182,11 @@ public class PermissoesBean implements Serializable {
 				pps.setTecOsEdit(false);
 				pps.setTecOsList(true);
 				pps.setTecOsDelete(false);
+				
+				pps.setTecClienteNew(true);
+				pps.setTecClienteEdit(true);
+				pps.setTecClienteDelete(true);
+				pps.setTecClienteList(true);
 			} 
 		
 		} // final do for

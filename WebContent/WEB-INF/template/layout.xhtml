@@ -14,13 +14,13 @@
 <h:body>
 
 <f:metadata>
-<!-- 	<f:event listener="#{pBean.init}" type="preRenderView" /> -->
+	<f:event listener="#{pBean.init}" type="preRenderView" />
 	<f:event listener="#{pBean.setPermissoesPaginas(uBean.usuario.FUNCAO)}" type="preRenderView" />
 </f:metadata>
 
 <p:layout fullPage="true">
  
-    <p:layoutUnit position="north" size="100" header="Sistema de Ordem de Serviços,   Olá #{uBean.usuario.nome}!  (#{uBean.usuario.FUNCAO} --------- #{pBean.pps.adminOsNew} ++++++ )  " resizable="true" closable="false" collapsible="false">
+    <p:layoutUnit position="north" size="100" header="Sistema de Ordem de Serviços,   Olá #{uBean.usuario.nome}!  (#{uBean.usuario.FUNCAO})  " resizable="true" closable="false" collapsible="false">
         
 <h:form>     
     <p:growl id="messages" showDetail="true" />
@@ -36,19 +36,19 @@
         </f:facet>
         
 		<f:facet name="left">
-            <p:button type="button" value="Listar OS ADMIN" icon="fa fa-align-justify" outcome="/os/listOS.xhtml" rendered="#{pBean.pps.adminOsList}"/>
-            <p:button type="button" value="Listar OS TEC" icon="fa fa-align-justify" outcome="/os/listOS.xhtml" rendered="#{pBean.pps.tecOsList}"/>
-            <p:button type="button" value="Listar OS GER" icon="fa fa-align-justify" outcome="/os/listOS.xhtml" rendered="#{pBean.pps.gerOsList}"/>
-            <p:button type="button" value="Listar OS SUP" icon="fa fa-align-justify" outcome="/os/listOS.xhtml" rendered="#{pBean.pps.supOsList}"/>
+            <p:button type="button" value="Listar OS" icon="fa fa-align-justify" outcome="/os/listOS.xhtml" rendered="#{pBean.pps.adminOsList}"/>
+            <p:button type="button" value="Listar OS" icon="fa fa-align-justify" outcome="/os/listOS.xhtml" rendered="#{pBean.pps.tecOsList}"/>
+            <p:button type="button" value="Listar OS" icon="fa fa-align-justify" outcome="/os/listOS.xhtml" rendered="#{pBean.pps.gerOsList}"/>
+            <p:button type="button" value="Listar OS" icon="fa fa-align-justify" outcome="/os/listOS.xhtml" rendered="#{pBean.pps.supOsList}"/>
         </f:facet>
  
           
 
 		<f:facet name="left">
-            <p:button type="button" value="Finanças (Lançamentos) ADMIN" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml" rendered="#{pBean.pps.adminFinanceiroList}"/>
-            <p:button type="button" value="Finanças (Lançamentos) TEC" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml" rendered="#{pBean.pps.tecFinanceiroList}"/>
-            <p:button type="button" value="Finanças (Lançamentos) GER" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml" rendered="#{pBean.pps.gerFinanceiroList}"/>
-            <p:button type="button" value="Finanças (Lançamentos) SUP" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml" rendered="#{pBean.pps.supFinanceiroList}"/>
+            <p:button type="button" value="Finanças (Lançamentos)" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml" rendered="#{pBean.pps.adminFinanceiroList}"/>
+            <p:button type="button" value="Finanças (Lançamentos)" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml" rendered="#{pBean.pps.tecFinanceiroList}"/>
+            <p:button type="button" value="Finanças (Lançamentos)" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml" rendered="#{pBean.pps.gerFinanceiroList}"/>
+            <p:button type="button" value="Finanças (Lançamentos)" icon="fa fa-money" outcome="/financeiro/listFinanceiro.xhtml" rendered="#{pBean.pps.supFinanceiroList}"/>
         </f:facet>          
           
         <f:facet name="right">

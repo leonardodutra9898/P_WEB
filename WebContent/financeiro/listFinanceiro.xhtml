@@ -67,13 +67,45 @@
     
     <p:column>
 		
-        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{finBean.excluirLancamentoFinanceiro}">
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{finBean.excluirLancamentoFinanceiro}" rendered="#{pBean.pps.adminFinanceiroDelete}">
+         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{fin}" target="#{finBean.financeiro}" />
+        </p:commandButton>
+        
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{finBean.excluirLancamentoFinanceiro}" rendered="#{pBean.pps.tecFinanceiroDelete}">
+         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{fin}" target="#{finBean.financeiro}" />
+        </p:commandButton>
+        
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{finBean.excluirLancamentoFinanceiro}" rendered="#{pBean.pps.gerFinanceiroDelete}">
+        	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{fin}" target="#{finBean.financeiro}" />
+        </p:commandButton>
+       
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{finBean.excluirLancamentoFinanceiro}" rendered="#{pBean.pps.supFinanceiroDelete}">
         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
          	<f:setPropertyActionListener value="#{fin}" target="#{finBean.financeiro}" />
         </p:commandButton>
 
+
+
 		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/financeiro/editFinanceiro" style="text-align: center;" 
-			action="#{finBean.financeiroById(fin)}">
+			action="#{finBean.financeiroById(fin)}" rendered="#{pBean.pps.adminFinanceiroEdit}">
+			<f:param name="financeiro" value="#{fin.id}"/>
+		</p:commandButton>
+		
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/financeiro/editFinanceiro" style="text-align: center;" 
+			action="#{finBean.financeiroById(fin)}" rendered="#{pBean.pps.tecFinanceiroEdit}">
+			<f:param name="financeiro" value="#{fin.id}"/>
+		</p:commandButton>
+		
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/financeiro/editFinanceiro" style="text-align: center;" 
+			action="#{finBean.financeiroById(fin)}" rendered="#{pBean.pps.gerFinanceiroEdit}">
+			<f:param name="financeiro" value="#{fin.id}"/>
+		</p:commandButton>
+		
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/financeiro/editFinanceiro" style="text-align: center;" 
+			action="#{finBean.financeiroById(fin)}" rendered="#{pBean.pps.supFinanceiroEdit}">
 			<f:param name="financeiro" value="#{fin.id}"/>
 		</p:commandButton>
     </p:column>

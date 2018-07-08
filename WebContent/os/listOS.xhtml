@@ -53,16 +53,44 @@
     
     
     
-        <p:column>
-		
-        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{osBean.remove}">
+    <p:column>
+	    <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{osBean.remove}" rendered="#{pBean.pps.adminOsDelete}">
         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
          	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
         </p:commandButton>
 
-		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/os/editOS" style="text-align: center;" action="#{osBean.searchEdit(os)}" >
-		<!-- <f:param name="os" value="#{os.id}"/> -->
+	    <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{osBean.remove}" rendered="#{pBean.pps.tecOsDelete}">
+        	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
+        </p:commandButton>
+        
+	    <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{osBean.remove}" rendered="#{pBean.pps.gerOsDelete}">
+        	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
+        </p:commandButton>        
+        
+	    <p:commandButton icon="fa fa-fw fa-trash" title="Delete" process="@this" update="@form" action="#{osBean.remove}" rendered="#{pBean.pps.supOsDelete}">
+        	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{os}" target="#{osBean.os}" />
+        </p:commandButton>
+
+        
+
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/os/editOS" style="text-align: center;" action="#{osBean.searchEdit(os)}" rendered="#{pBean.pps.adminOsEdit}">
+			<!-- <f:param name="os" value="#{os.id}"/> -->
 		</p:commandButton>
+		
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/os/editOS" style="text-align: center;" action="#{osBean.searchEdit(os)}" rendered="#{pBean.pps.tecOsEdit}">
+			<!-- <f:param name="os" value="#{os.id}"/> -->
+		</p:commandButton>
+		
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/os/editOS" style="text-align: center;" action="#{osBean.searchEdit(os)}" rendered="#{pBean.pps.gerOsEdit}">
+			<!-- <f:param name="os" value="#{os.id}"/> -->
+		</p:commandButton>
+		
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/os/editOS" style="text-align: center;" action="#{osBean.searchEdit(os)}" rendered="#{pBean.pps.supOsEdit}">
+			<!-- <f:param name="os" value="#{os.id}"/> -->
+		</p:commandButton>		
 			
     </p:column>
 

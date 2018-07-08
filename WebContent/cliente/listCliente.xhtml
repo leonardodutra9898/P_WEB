@@ -34,15 +34,48 @@
     
     <p:column>
 		
-        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" action="#{cliBean.excluirCliente}" process="@this" update="@form">
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" action="#{cliBean.excluirCliente}" process="@this" update="@form" rendered="#{pBean.pps.adminClienteDelete}">
+        	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{cli}" target="#{cliBean.clienteSelecionado}" />
+        </p:commandButton>
+        
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" action="#{cliBean.excluirCliente}" process="@this" update="@form" rendered="#{pBean.pps.tecClienteDelete}">
+        	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{cli}" target="#{cliBean.clienteSelecionado}" />
+        </p:commandButton>
+        
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" action="#{cliBean.excluirCliente}" process="@this" update="@form" rendered="#{pBean.pps.gerClienteDelete}">
         	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
          	<f:setPropertyActionListener value="#{cli}" target="#{cliBean.clienteSelecionado}" />
         </p:commandButton>
 
+        <p:commandButton icon="fa fa-fw fa-trash" title="Delete" action="#{cliBean.excluirCliente}" process="@this" update="@form" rendered="#{pBean.pps.supClienteDelete}">
+        	<p:confirm header="Confirme exclusão" message="Certeza que quer excluir?" icon="fa fa-fw fa-trash"/>
+         	<f:setPropertyActionListener value="#{cli}" target="#{cliBean.clienteSelecionado}" />
+        </p:commandButton>    
+        
+        
+                    
+
 		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/cliente/editCliente" style="text-align: center;" 
-			action="#{cliBean.clientById(cli)}">
+			action="#{cliBean.clientById(cli)}" rendered="#{pBean.pps.adminClienteEdit}">
 			<!-- <f:param name="cliente" value="#{cli.id}"/> -->
 		</p:commandButton>
+		
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/cliente/editCliente" style="text-align: center;" 
+			action="#{cliBean.clientById(cli)}" rendered="#{pBean.pps.tecClienteEdit}">
+			<!-- <f:param name="cliente" value="#{cli.id}"/> -->
+		</p:commandButton>
+
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/cliente/editCliente" style="text-align: center;" 
+			action="#{cliBean.clientById(cli)}" rendered="#{pBean.pps.gerClienteEdit}">
+			<!-- <f:param name="cliente" value="#{cli.id}"/> -->
+		</p:commandButton>
+
+		<p:commandButton icon="fa fa-fw fa-edit" title="Editar" outcome="/cliente/editCliente" style="text-align: center;" 
+			action="#{cliBean.clientById(cli)}" rendered="#{pBean.pps.supClienteEdit}">
+			<!-- <f:param name="cliente" value="#{cli.id}"/> -->
+		</p:commandButton>				
     </p:column>
 
 </p:dataTable>
