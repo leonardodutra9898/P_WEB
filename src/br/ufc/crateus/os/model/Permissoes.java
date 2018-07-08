@@ -10,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import br.ufc.crateus.os.enums.EntidadeSistema;
 import br.ufc.crateus.os.enums.FuncionarioFuncoes;
@@ -35,17 +36,19 @@ public class Permissoes implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private PermissoesTipos tipoPermissao;
 	
-	private List<EntidadeSistema> entidades = new ArrayList<>();
+	@Column(length = 50, nullable = false)
+	@Enumerated(EnumType.STRING)
+	private EntidadeSistema entidade;
 
 	public Permissoes() {
 		
 	}
 	
-	public Permissoes(int id, FuncionarioFuncoes perfil, PermissoesTipos tipo, List<EntidadeSistema> entidades) {
+	public Permissoes(int id, FuncionarioFuncoes perfil, PermissoesTipos tipo, EntidadeSistema entidade) {
 		this.id = id;
 		this.perfil = perfil;
 		this.tipoPermissao = tipo;
-		this.entidades = entidades;
+		this.entidade = entidade;
 	}
 	
 	public int getId() {
@@ -72,12 +75,12 @@ public class Permissoes implements Serializable{
 		this.tipoPermissao = tipoPermissao;
 	}
 
-	public List<EntidadeSistema> getEntidades() {
-		return entidades;
+	public EntidadeSistema getEntidade() {
+		return entidade;
 	}
 
-	public void setEntidades(List<EntidadeSistema> entidades) {
-		this.entidades = entidades;
+	public void setEntidade(EntidadeSistema entidade) {
+		this.entidade = entidade;
 	}
 	
 }

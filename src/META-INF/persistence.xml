@@ -14,7 +14,7 @@
 		<class>br.ufc.crateus.os.model.Funcionario</class>
 		<class>br.ufc.crateus.os.model.Financeiro</class>
 		<class>br.ufc.crateus.os.model.Permissoes</class>
-
+		
 		<properties>
 			<!-- dados da conexao -->
 			<property name="javax.persistence.jdbc.driver"

@@ -40,45 +40,42 @@ public class PermissoesRepository implements Serializable{
 	}
 	
 	public void carregaPermissoesIni() {
-		List<EntidadeSistema> listP1 = new ArrayList<>();
+//		List<EntidadeSistema> listP1 = new ArrayList<>();
 		
-		listP1.add(EntidadeSistema.CLIENTE);
-		listP1.add(EntidadeSistema.FINANCEIRO);
-		listP1.add(EntidadeSistema.FUNCIONARIO);
-		listP1.add(EntidadeSistema.OS);
+//		listP1.add();
+//		listP1.add();
+//		listP1.add();
+//		listP1.add();
 		
-		Permissoes p1 = new Permissoes(1, FuncionarioFuncoes.ADMINISTRADOR, PermissoesTipos.FULL, listP1);
+		Permissoes p1 = new Permissoes(1, FuncionarioFuncoes.ADMINISTRADOR, PermissoesTipos.FULL, EntidadeSistema.CLIENTE);
+		Permissoes p2 = new Permissoes(2, FuncionarioFuncoes.ADMINISTRADOR, PermissoesTipos.FULL, EntidadeSistema.FINANCEIRO);
+		Permissoes p3 = new Permissoes(3, FuncionarioFuncoes.ADMINISTRADOR, PermissoesTipos.FULL, EntidadeSistema.FUNCIONARIO);
+		Permissoes p4 = new Permissoes(4, FuncionarioFuncoes.ADMINISTRADOR, PermissoesTipos.FULL, EntidadeSistema.OS);
 		addPermissao(p1);
-		
-		
-		List<EntidadeSistema> listP2 = new ArrayList<>();
-		
-		listP2.add(EntidadeSistema.CLIENTE);
-		listP2.add(EntidadeSistema.FINANCEIRO);
-		listP2.add(EntidadeSistema.FUNCIONARIO);
-		listP2.add(EntidadeSistema.OS);
-		
-		Permissoes p2 = new Permissoes(2, FuncionarioFuncoes.GERENTE, PermissoesTipos.ONLY_WRITE, listP2);
-		addPermissao(p2);		
-
-		
-		List<EntidadeSistema> listP3 = new ArrayList<>();
-		
-		listP3.add(EntidadeSistema.CLIENTE);
-		listP3.add(EntidadeSistema.FINANCEIRO);
-		listP3.add(EntidadeSistema.OS);
-		
-		Permissoes p3 = new Permissoes(3, FuncionarioFuncoes.SUPERVISOR, PermissoesTipos.ONLY_WRITE, listP3);
+		addPermissao(p2);
 		addPermissao(p3);
-		
-		
-		List<EntidadeSistema> listP4 = new ArrayList<>();
-		
-		listP4.add(EntidadeSistema.CLIENTE);
-		listP4.add(EntidadeSistema.OS);
-		
-		Permissoes p4 = new Permissoes(4, FuncionarioFuncoes.TECNICO, PermissoesTipos.ONLY_WRITE, listP4);
 		addPermissao(p4);
+		
+		Permissoes p5 = new Permissoes(5, FuncionarioFuncoes.GERENTE, PermissoesTipos.ONLY_WRITE, EntidadeSistema.CLIENTE);
+		Permissoes p6 = new Permissoes(6, FuncionarioFuncoes.GERENTE, PermissoesTipos.ONLY_WRITE, EntidadeSistema.FINANCEIRO);
+		Permissoes p7 = new Permissoes(7, FuncionarioFuncoes.GERENTE, PermissoesTipos.ONLY_WRITE, EntidadeSistema.FUNCIONARIO);
+		Permissoes p8 = new Permissoes(8, FuncionarioFuncoes.GERENTE, PermissoesTipos.ONLY_WRITE, EntidadeSistema.OS);
+		addPermissao(p5);		
+		addPermissao(p6);
+		addPermissao(p7);
+		addPermissao(p8);
+		
+		Permissoes p9 = new Permissoes(9, FuncionarioFuncoes.SUPERVISOR, PermissoesTipos.ONLY_WRITE, EntidadeSistema.CLIENTE);
+		Permissoes p10 = new Permissoes(10, FuncionarioFuncoes.SUPERVISOR, PermissoesTipos.ONLY_WRITE, EntidadeSistema.FINANCEIRO);
+		Permissoes p11 = new Permissoes(11, FuncionarioFuncoes.SUPERVISOR, PermissoesTipos.ONLY_WRITE, EntidadeSistema.OS);
+		addPermissao(p9);
+		addPermissao(p10);
+		addPermissao(p11);
+		
+		Permissoes p12 = new Permissoes(12, FuncionarioFuncoes.TECNICO, PermissoesTipos.ONLY_WRITE, EntidadeSistema.CLIENTE);
+		Permissoes p13 = new Permissoes(13, FuncionarioFuncoes.TECNICO, PermissoesTipos.ONLY_WRITE, EntidadeSistema.OS);
+		addPermissao(p12);
+		addPermissao(p13);
 		
 	}
 	
