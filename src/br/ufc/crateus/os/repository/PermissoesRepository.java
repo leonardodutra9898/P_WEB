@@ -38,6 +38,15 @@ public class PermissoesRepository implements Serializable{
 				Permissoes.class).setParameter("perf", perfil);
 		return query.getResultList();
 	}
+
+	public List<Permissoes> listPermissoesByPerfilEntidade(FuncionarioFuncoes perfil, EntidadeSistema entidade){
+		
+		TypedQuery<Permissoes> query = manager.createQuery("SELECT p FROM Permissoes p WHERE perfil = :perf AND "
+				+ "entidade = :entidade", 
+				Permissoes.class).setParameter("perf", perfil).
+				setParameter("entidade", entidade);
+		return query.getResultList();
+	}
 	
 	public void carregaPermissoesIni() {
 		
@@ -67,7 +76,7 @@ public class PermissoesRepository implements Serializable{
 		addPermissao(p11);
 		
 		Permissoes p12 = new Permissoes(13, FuncionarioFuncoes.TECNICO, PermissoesTipos.ONLY_WRITE, EntidadeSistema.CLIENTE);
-		Permissoes p13 = new Permissoes(14, FuncionarioFuncoes.TECNICO, PermissoesTipos.ONLY_WRITE, EntidadeSistema.OS);
+		Permissoes p13 = new Permissoes(14, FuncionarioFuncoes.TECNICO, PermissoesTipos.ONLY_READ, EntidadeSistema.OS);
 		addPermissao(p12);
 		addPermissao(p13);
 		
