@@ -20,17 +20,16 @@
 
 <p:layout fullPage="true">
  
-    <p:layoutUnit position="north" size="100" header="Sistema de Ordem de Serviços,   Olá #{uBean.usuario.nome}!  (#{uBean.usuario.FUNCAO})  " resizable="true" closable="false" collapsible="false">
+    <p:layoutUnit position="north" size="100" header="Sistema de Ordem de Serviços,   Olá #{uBean.usuario.nome}!  (#{uBean.usuario.FUNCAO} --------- #{pBean.pps.adminOsNew})  " resizable="true" closable="false" collapsible="false">
         
 <h:form>     
     <p:growl id="messages" showDetail="true" />
  
     <p:toolbar>
         <f:facet name="left">
-            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.adminOsNew}"/>
-            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.gerOsNew}"/>
-            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.supOsNew}"/>
-            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.tecOsNew}"/>
+        
+            <p:button type="button" value="Novo OS" icon="fa fa-plus" outcome="/os/newOS.xhtml" rendered="#{pBean.pps.adminOsNew}" />
+
         </f:facet>
         
 		<f:facet name="left">

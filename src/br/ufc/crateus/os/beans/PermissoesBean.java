@@ -227,6 +227,12 @@ public class PermissoesBean implements Serializable {
 	public PermissoesPaginas getPps() {
 		return pps;
 	}
+
+	public void setPps(PermissoesPaginas pps) {
+		this.pps = pps;
+	}
+	
+	
 	
 //	public boolean render() {
 //		

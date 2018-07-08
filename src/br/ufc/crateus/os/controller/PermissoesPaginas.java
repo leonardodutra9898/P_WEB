@@ -106,8 +106,17 @@ public class PermissoesPaginas implements Serializable{
 	private  boolean supClienteEdit;
 	private  boolean supClienteDelete;
 	private  boolean supClienteList;
+	
+	private boolean leo = true;
 
 	
+	
+	public boolean isLeo() {
+		return leo;
+	}
+	public void setLeo(boolean leo) {
+		this.leo = leo;
+	}
 	public boolean isAdminOsNew() {
 		return adminOsNew;
 	}
@@ -492,10 +501,6 @@ public class PermissoesPaginas implements Serializable{
 	public void setSupClienteList(boolean supClienteList) {
 		this.supClienteList = supClienteList;
 	}
-	public long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-	
-	
+
 
 }
