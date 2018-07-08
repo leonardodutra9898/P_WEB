@@ -115,8 +115,6 @@ public class PermissoesBean implements Serializable {
 		
 		boolean novo = false, editar = false, excluir = false, listar = false;
 		
-		PermissoesPaginas pps = null;		
-		
 		pps = new PermissoesPaginas();
 		
 		switch(permissao.getTipoPermissao()) {

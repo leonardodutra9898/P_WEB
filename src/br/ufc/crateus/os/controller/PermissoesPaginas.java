@@ -2,10 +2,8 @@ package br.ufc.crateus.os.controller;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-@ManagedBean(name="controlesBean")
 @SessionScoped
 public class PermissoesPaginas implements Serializable{
 

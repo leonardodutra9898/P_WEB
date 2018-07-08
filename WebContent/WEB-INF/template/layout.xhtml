@@ -20,7 +20,7 @@
 
 <p:layout fullPage="true">
  
-    <p:layoutUnit position="north" size="100" header="Sistema de Ordem de Serviços,   Olá #{uBean.usuario.nome}!  (#{uBean.usuario.FUNCAO} --------- #{pBean.pps.adminOsNew})  " resizable="true" closable="false" collapsible="false">
+    <p:layoutUnit position="north" size="100" header="Sistema de Ordem de Serviços,   Olá #{uBean.usuario.nome}!  (#{uBean.usuario.FUNCAO} --------- #{pBean.pps.adminOsNew} ++++++ )  " resizable="true" closable="false" collapsible="false">
         
 <h:form>     
     <p:growl id="messages" showDetail="true" />
@@ -43,13 +43,13 @@
         </f:facet>          
           
         <f:facet name="right">
-            <p:button type="button" value="Novo Cliente" icon="fa fa-plus" outcome="/cliente/newCliente.xhtml" />
+            <p:button type="button" value="Novo Cliente" icon="fa fa-plus" outcome="/cliente/newCliente.xhtml"  rendered="#{pBean.pps.adminClienteNew}"/>
         </f:facet>
         
         
         
         <f:facet name="right">
-            <p:button type="button" value="Novo Funcionário" icon="fa fa-plus" outcome="/funcionario/newFuncionario.xhtml"/>
+            <p:button type="button" value="Novo Funcionário" icon="fa fa-plus" outcome="/funcionario/newFuncionario.xhtml" rendered="#{pBean.pps.adminFuncionarioNew}"/>
         </f:facet> 
         
          <f:facet name="right">
