@@ -30,9 +30,6 @@ public class LoginFilter implements Filter {
 			throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest) req).getSession();
 		
-		System.out.println("Testando sessão ==========");
-		System.out.println("ID sessão = " + session.getId());
-		
 		LoginBean loginBean = (LoginBean) session.getAttribute("uBean");
 
 		if (loginBean != null && loginBean.getUsuario() != null) {

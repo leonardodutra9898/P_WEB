@@ -33,7 +33,11 @@
 
 			<!-- atualiza o banco, gera as tabelas se for preciso -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-
+			
+			<property name="hibernate.connection.pool_size" value="100" />
+			<property name="hibernate.transaction.auto_close_session" value="false"/>
+			
+			
 		</properties>
 
 	</persistence-unit>

@@ -53,8 +53,7 @@ public class LoginBean implements Serializable{
 	
 	public String logar() {
 
-		EntityManager manager = EntityManagerPersistence.getEntityManager();
-		
+		EntityManager manager = EntityManagerPersistence.getEntityManager();		
 		
 		try {
 			
@@ -92,8 +91,6 @@ public class LoginBean implements Serializable{
 		
 		FuncionarioRepository.setUsuarioLogado(null);
 		setUsuario(null);
-//		setLogin("");
-//		setSenha("");
 		return "/index.xhtml?faces-redirect=true";
 	}
 	
